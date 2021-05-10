@@ -11,6 +11,9 @@
 # production
 /build
 
+# pre compiled stylsheets
+/src/dist
+
 # misc
 .DS_Store
 .env.local

@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Nav.css';
 
-function Navigaion(props) {
+function Navigation(props) {
     return (
         <nav className="navigation">
             <ul>
@@ -14,4 +13,4 @@ function Navigaion(props) {
     )
 }
 
-export default Navigaion;
+export default Navigation;

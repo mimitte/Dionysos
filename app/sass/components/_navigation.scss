@@ -1,0 +1,16 @@
+.navigation {
+    background-color: $primary-color;
+
+    ul {
+
+        li {
+            padding: 0.5em;
+
+            a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+        }
+    }
+}

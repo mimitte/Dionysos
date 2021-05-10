@@ -11,9 +11,21 @@ C'est donc une application pour gérer son vin.
  
 5- Ellet'oriente quel vin qui peut se marier avec ton plat 
  
- ### features suplémentaires: possibilté de partager avec des amis, conseils de consommations, partages des photos, mise en relation par des vendeurs professionels etc...     
+### features suplémentaires: possibilté de partager avec des amis, conseils de consommations, partages des photos, mise en relation par des vendeurs professionels etc...
 
- # Getting Started with Create React App
+# Normalisation du code
+
+## Javascript
+
+Fonctions : camelCase
+Variables : camelCase
+Constantes : UPPER_SNAKE_CASE
+
+## SCSS
+
+classes : dashed-case
+
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -7,6 +7,9 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      {/* TODO 
+          Create a header component
+      */}
       <header className="App-header">
         <h1>Dionysos</h1>
       </header>
