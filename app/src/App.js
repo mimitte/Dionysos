@@ -1,3 +1,7 @@
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './router/Routes';
+import Navigation from './router/Nav';
 import './App.css';
 
 function App() {
@@ -7,7 +11,10 @@ function App() {
         <h1>Dionysos</h1>
       </header>
       <main>
-        <p>Contenu de l'application</p>
+        <BrowserRouter>
+          <Navigation />
+          <Routes />
+          </BrowserRouter>
       </main>
     </div>
   );
