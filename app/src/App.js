@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/Routes';
 import Navigation from './router/Nav';
 import './App.css';
+import MenuHumberger from './components/MenuHumberger';
+
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
       </header>
       <main>
         <BrowserRouter>
+          <MenuHumberger/>
           <Navigation />
           <Routes />
           </BrowserRouter>
