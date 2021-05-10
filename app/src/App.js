@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/Routes';
 import Navigation from './router/Nav';
 import './App.css';
+import SearchBar from './components/SearchBar/SearchBar';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <main>
         <BrowserRouter>
           <Navigation />
+          <SearchBar />
           <Routes />
           </BrowserRouter>
       </main>
