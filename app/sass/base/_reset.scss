@@ -10,3 +10,8 @@
 html {
     box-sizing: border-box;
 }
+
+#root > div {
+  display: flex;
+  height: 100vh;
+}
