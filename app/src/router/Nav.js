@@ -8,6 +8,9 @@ function Navigation(props) {
                 <li>
                     <NavLink exact to='/'>Accueil</NavLink>
                 </li>
+                <li>
+                    <NavLink exact to='/new_bottle'>Ajouter</NavLink>
+                </li>
             </ul>
         </nav>
     )
