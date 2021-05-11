@@ -1,0 +1,10 @@
+@import '../abstracts/color';
+
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+.red-color{
+  color:$vin-rouge-couleur;
+}

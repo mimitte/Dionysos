@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/Routes';
-import MenuHamberger from './components/MenuHamberger';
-
+import BurgerMenu from './components/BurgerMenu/BurgerMenu';
 
 function App() {
   return (
     <div className="App">
       <main>
+      
         <BrowserRouter>
-          <MenuHamberger/>
+          <BurgerMenu/>
           <Routes />
         </BrowserRouter>
       </main>
