@@ -1,0 +1,26 @@
+#responsive-navbar-nav a {
+    list-style: none;
+    margin-right: 2rem;
+    text-decoration: none;
+    color:whitesmoke;
+    background-color: $primary-color;
+    font-size: medium;
+    
+  }
+  #responsive-navbar-nav a:hover{
+    background: whitesmoke ;
+    color: $primary-color;
+  }
+  .navbar-brand{
+      color: whitesmoke !important;
+      font-weight: 600;
+  }
+
+  .navbar-light{
+    background-color: $primary-color;
+  }
+  button.navbar-toggler{
+     background-color: whitesmoke;
+  }
+
+ 
