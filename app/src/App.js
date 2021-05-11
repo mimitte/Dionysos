@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/Routes';
 import Navigation from './router/Nav';
 import './App.css';
-import MenuHumberger from './components/MenuHumberger';
+import MenuHamberger from './components/MenuHamberger';
 
 
 function App() {
@@ -13,11 +13,11 @@ function App() {
           Create a header component
       */}
       <header className="App-header">
-        <h1>Dionysos</h1>
+        <h1>Dionysos2</h1>
       </header>
       <main>
         <BrowserRouter>
-          <MenuHumberger/>
+          <MenuHamberger/>
           <Navigation />
           <Routes />
           </BrowserRouter>

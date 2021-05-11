@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+
 import '../src/dist/main.css';
-// import '../node_modules/popper.js/dist/popper'
-// import '../node_modules/jquery/dist/jquery'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 
-
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/react-bootstrap/dist/react-bootstrap'
+import '../node_modules/bootstrap/dist/js/bootstrap';
 
 
 
