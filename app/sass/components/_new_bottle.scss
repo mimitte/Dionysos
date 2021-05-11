@@ -1,26 +1,56 @@
 .new-bottle-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 
+    h2 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    h3 {
+        margin-top: 1em;
+    }
+
+    a {
+        button {
+            background-color: whitesmoke;
+            color: green;
+            font-weight: bold;
+            font-size: 1.5em;
+            padding: 0.5em;
+            border: solid 1px black;
+            border-radius: 5px;
+        }
+    }
+
     form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        ul {
+        label {
+            font-size: 1.5em;
+        }
 
-            li {
-                list-style: none;
-                display: flex;
-                justify-content: space-between;
-                margin-top: 1em;
+        input, select {
+            border: solid 1px black;
+            border-radius: 2px;
+            width: 12em;
+            height: 2em;
+        }
 
-                label {
-                    font-weight: bold;
-                    font-size: 1.1em;
-                }
-
-                input {
-                    border: solid 1px black;
-                    border-radius: 2px;
-                }
-            }
+        input[type = submit] {
+            background-color: whitesmoke;
+            color: green;
+            font-weight: bold;
+            font-size: 1.5em;
+            padding: 0.5em;
+            border: solid 1px black;
+            border-radius: 5px;
         }
     }
 }
