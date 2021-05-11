@@ -15,7 +15,11 @@
 @import 'components/buttons';
 @import 'components/navigation';
 @import 'components/header';
+<<<<<<< HEAD
 @import 'components/new_bottle';
+=======
+@import 'components/menu_hamberger';
+>>>>>>> c438f28530f1be8c9a147c15bbc49fa06afcc3cc
 
 /*layout */
 
@@ -34,3 +38,4 @@
 
 @import 'vendors/bootstrap';
 
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
