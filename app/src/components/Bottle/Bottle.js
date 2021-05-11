@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Bootle extends Component {
+class Bottle extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
@@ -10,4 +10,4 @@ class Bootle extends Component {
     }
 }
  
-export default Bootle;
+export default Bottle;
