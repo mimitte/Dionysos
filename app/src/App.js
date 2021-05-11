@@ -1,18 +1,17 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/Routes';
-import Navigation from './router/Nav';
-import Header from './components/Header/Header';
+import MenuHamberger from './components/MenuHamberger';
+
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <main>
         <BrowserRouter>
-          <Navigation />
+          <MenuHamberger/>
           <Routes />
-          </BrowserRouter>
+        </BrowserRouter>
       </main>
     </div>
   );
