@@ -1,0 +1,31 @@
+# ReactJS
+
+# dependencies
+app/node_modules
+app/.pnp
+app/.pnp.js
+
+# testing
+app/coverage
+
+# production
+app/build
+
+# pre compiled stylsheets
+app/src/dist
+
+# misc
+app/.DS_Store
+app/.env.local
+app/.env.development.local
+app/.env.test.local
+app/.env.production.local
+
+app/npm-debug.log*
+app/yarn-debug.log*
+app/yarn-error.log*
+
+# NodeJS
+
+api/api_conf.json
+api/node_modules
