@@ -1,18 +1,17 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/Routes';
-import Navigation from './router/Nav';
-import Header from './components/Header/Header';
+import BurgerMenu from './components/BurgerMenu/BurgerMenu';
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <main>
+      
         <BrowserRouter>
-          <Navigation />
+          <BurgerMenu/>
           <Routes />
-          </BrowserRouter>
+        </BrowserRouter>
       </main>
     </div>
   );

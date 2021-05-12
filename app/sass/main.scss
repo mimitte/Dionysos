@@ -13,9 +13,9 @@
 /*components */
 
 @import 'components/buttons';
-@import 'components/navigation';
-@import 'components/header';
 @import 'components/cellar';
+@import 'components/burger_menu';
+@import 'components/new_bottle';
 
 /*layout */
 
@@ -34,3 +34,4 @@
 
 @import 'vendors/bootstrap';
 
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
