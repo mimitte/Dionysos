@@ -1,5 +1,6 @@
 import React from 'react';
 import Dashboard from '../Dashboard/Dashboard';
+import DashboardMenu from '../DashboardMenu/DashboardMenu';
 
 function Landing(props) {
     return (
@@ -8,6 +9,7 @@ function Landing(props) {
             <h2>Bienvenue sur Dionysos !</h2>
 
             <Dashboard/>
+            <DashboardMenu/>
 
         </React.Fragment>
     );
