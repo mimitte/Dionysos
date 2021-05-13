@@ -168,19 +168,22 @@ export default class WineCellar extends Component {
 
     dispatchBottle(elements, color){
         this.totalBottlecellar(parseInt(elements.bottles.length,10));
+
         let loc  = elements.bottles.map((bottle) => {
-                let rowBottle = bottle.location[0];
-                let columnBottle = bottle.location[1];
-                let element = document.querySelector("[data-area='" + color + "'] [data-linebottle='" + rowBottle + "'] [data-bottle='" + columnBottle + "']");
-                if(!element)return;
-                let drag = document.createElement("div");
-                drag.classList.add("draggable");
-                drag.setAttribute("draggable","true");
-                drag.setAttribute("id","draggable-" + bottle.uid);
-                drag.addEventListener('dragstart',this.dragStart)
-                element.append(drag);
-                element.classList.remove("drop-zone");
+            let rowBottle = bottle.location[0];
+            let columnBottle = bottle.location[1];
+            let element = document.querySelector("[data-area='" + color + "'] [data-linebottle='" + rowBottle + "'] [data-bottle='" + columnBottle + "']");
+            if(!element)return;
+            let drag = document.createElement("div");
+            drag.classList.add("draggable");
+            drag.setAttribute("draggable","true");
+            drag.setAttribute("id","draggable-" + bottle.uid);
+            drag.setAttribute("data-area",color);
+            drag.addEventListener('dragstart',this.dragStart)
+            element.append(drag);
+            element.classList.remove("drop-area");
         });
+
         if(loc){
             let containers = document.querySelectorAll('.column');
             for (const container of containers) {
@@ -195,12 +198,6 @@ export default class WineCellar extends Component {
 
     dragOver(e){
         e.preventDefault();
-        if(e.target != undefined ){
-            if(e.target.classList.contains("contentBottle") && e.target.hasChildNodes()){
-                    e.target.classList.add("drop-zone");
-                    console.log(e);
-            }
-        }
     }
 
 
@@ -210,21 +207,30 @@ export default class WineCellar extends Component {
 
     dragLeave(e){
         e.preventDefault();
+        let reInitAeraDrop = document.querySelectorAll('.contentBottle');
+        for(let content of reInitAeraDrop)
+        {
+            if(!content.classList.contains("drop-area") && content.hasChildNodes()){
+                content.classList.toggle("drop-area");
+            }
+        }
     }
 
     dragStart(e){
         e.dataTransfer.setData("text",e.target.id);
     }
+
     dragDrop(e){
         e.preventDefault();
-            if(e.target.classList.contains("drop-zone")){
-                const data = e.dataTransfer.getData('text');
-                e.target.append(document.getElementById(data));
-                e.target.classList.remove("drop-zone");
+        if(e.target.classList.contains("drop-area")){
+            let areaColor =  e.target.getAttribute("data-area");
+            const id = e.dataTransfer.getData('text');
+            let bottle = document.getElementById(id);
+            if(bottle.getAttribute("data-area") === areaColor){
+                e.target.append(document.getElementById(id));
+                e.target.classList.toggle("drop-area");
             }
-        // e.preventDefault();
-        // const bottle_id = e.dataTransfer.getData('id');
-        // console.log(bottle_id);
+        }
     }
 
     totalBottlecellar(b){
@@ -244,12 +250,6 @@ export default class WineCellar extends Component {
             </React.Fragment>
         );
     }
-
-    areaCellars = (Zone,x,y = 1) => {
-
-        return <ShowCellar/>;
-    }
-
 
     render() {
         let area = this.state.cellar[0].areaCellar;

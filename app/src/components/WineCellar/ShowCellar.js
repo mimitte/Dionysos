@@ -9,7 +9,7 @@ function ShowCellar({area, columns, rows}) {
         htmlColumns.push(
             <div className="column">
                 <span className="index-X">{i + 1}</span>
-                <div className="contentBottle drop-zone" data-bottle={i + 1}>
+                <div className="contentBottle drop-area" data-bottle={i + 1} data-area={area}>
                 </div>
             </div>);
     }
@@ -18,7 +18,7 @@ function ShowCellar({area, columns, rows}) {
             <div className="lineBottle" data-lineBottle={j+1} key={j}>
                 <div className="row">{j+1}</div>
                     {htmlColumns}
-                </div>);
+            </div>);
     }
     return (
        <>
