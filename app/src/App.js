@@ -12,6 +12,7 @@ function App() {
           <BurgerMenu/>
           <Routes />
         </BrowserRouter>
+        
       </main>
     </div>
   );
