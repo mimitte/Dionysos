@@ -185,7 +185,7 @@ export default class WineCellar extends Component {
         });
 
         if(loc){
-            let containers = document.querySelectorAll('.column');
+            let containers = document.querySelectorAll('.column-area');
             for (const container of containers) {
                 container.addEventListener('dragover',this.dragOver);
                 container.addEventListener('dragenter',this.dragEnter);

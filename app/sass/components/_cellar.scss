@@ -8,12 +8,12 @@
     width: 300px;
 }
 
-.column {
+.column-area {
     display: flex;
     flex-direction: column;
 }
 
-.column span {
+.column-area span {
   text-align: center;
 }
 
@@ -30,7 +30,7 @@
     width: 20px;
     border:1px solid red
 }
-.row {
+.row-area {
     display: table-cell;
     vertical-align: middle;
     padding: 10px;
