@@ -1,0 +1,30 @@
+.bottlecard {
+    margin-top: 5rem;
+    min-width: 18rem !important;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.btn {
+    min-width: 4rem !important;
+    margin: 0.5rem !important;
+}
+
+.background-red {
+    background-color: $vin-rouge-couleur;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    text-shadow: darkgray;
+    width :100% ;
+}
+
+.background-white {
+    background-color: $vin-blanc-couleur;
+}
+
+.background-pink {
+    background-color: $vin-rose-couleur;
+}
+

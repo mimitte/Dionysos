@@ -38,12 +38,12 @@ class Dashboard extends React.Component {
         container.layout = "horizontal";
         container.events.on("maxsizechanged", function () {
             chart1.zIndex = 0;
-            separatorLine.zIndex = 1;
-            dragText.zIndex = 2;
+            // separatorLine.zIndex = 1;
+            // dragText.zIndex = 2;
         })
         
         let chart1 = container.createChild(am4charts.PieChart);
-        chart1 .fontSize = 11;
+        chart1.fontSize = 11;
         chart1.hiddenState.properties.opacity = 0; // this makes initial fade in effect
         chart1.data = data;
         chart1.radius = am4core.percent(70);
@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
         
         let sliceTemplate1 = series1.slices.template;
         sliceTemplate1.cornerRadius = 5;
-        sliceTemplate1.draggable = true;
+        sliceTemplate1.draggable = false;
         sliceTemplate1.inert = true;
         sliceTemplate1.propertyFields.fill = "color";
         sliceTemplate1.propertyFields.fillOpacity = "opacity";
@@ -83,22 +83,22 @@ class Dashboard extends React.Component {
         
         sliceTemplate1.states.getKey("active").properties.shiftRadius = 0;
         
-        // separator line and text
-        let separatorLine = container.createChild(am4core.Line);
-        separatorLine.x1 = 0;
-        separatorLine.y2 = 300;
-        separatorLine.strokeWidth = 3;
-        separatorLine.stroke = am4core.color("#dadada");
-        separatorLine.valign = "middle";
-        separatorLine.strokeDasharray = "5,5";
+        // // separator line and text
+        // let separatorLine = container.createChild(am4core.Line);
+        // separatorLine.x1 = 0;
+        // separatorLine.y2 = 300;
+        // separatorLine.strokeWidth = 3;
+        // separatorLine.stroke = am4core.color("#dadada");
+        // separatorLine.valign = "middle";
+        // separatorLine.strokeDasharray = "5,5";
         
         
-        let dragText = container.createChild(am4core.Label);
-        dragText.text = "Drag slices over the line";
-        dragText.rotation = 90;
-        dragText.valign = "middle";
-        dragText.align = "center";
-        dragText.paddingBottom = 5;
+        // let dragText = container.createChild(am4core.Label);
+        // dragText.text = "Drag slices over the line";
+        // dragText.rotation = 90;
+        // dragText.valign = "middle";
+        // dragText.align = "center";
+        // dragText.paddingBottom = 5;
         
     }
     
