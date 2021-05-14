@@ -1,4 +1,5 @@
 import React from 'react';
+import CardFiltredBottle from '../CardFiltredBottle/CardFiltredBottle';
 
 class TabForAddedBottle extends React.Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class TabForAddedBottle extends React.Component {
           return (
             <React.Fragment>
             {
-                <div>
+                <div className="mb-3">
                     <h2>Voici la liste des vins dans votre cave</h2>
                     <table className=" table table-responsive mt-3 ml-auto">
                         <thead className="table-dark">
@@ -73,6 +74,8 @@ class TabForAddedBottle extends React.Component {
                             }
                         </tbody>
                     </table>
+
+                    <CardFiltredBottle/>
                 </div>
                    
                }
