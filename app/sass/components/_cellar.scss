@@ -1,0 +1,50 @@
+.area {
+    display: flex;
+    flex-direction: column;
+}
+
+.lineBottle {
+    display: flex;
+    width: 300px;
+}
+
+.column-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-area span {
+  text-align: center;
+}
+
+.contentBottle {
+    display: flex;
+    justify-content:center ;
+}
+
+.draggable {
+    margin: auto;
+    background-color: red;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    border:1px solid red
+}
+.row-area {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+}
+.contentBottle {
+    display: inline-block;
+    width: 40px;
+    height: 25px;
+    border: 0px;
+    border-top: 0;
+    border-bottom: 10px solid gold;
+    border-right: 2px solid gold;
+    border-left: 2px solid gold;
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+  }
+  
