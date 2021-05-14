@@ -1,5 +1,8 @@
 # ReactJS
 
+# environment
+app/.env
+
 # dependencies
 app/node_modules
 app/.pnp
@@ -26,6 +29,9 @@ app/yarn-debug.log*
 app/yarn-error.log*
 
 # NodeJS
+
+# environment
+api/.env
 
 api/api_conf.json
 api/node_modules
