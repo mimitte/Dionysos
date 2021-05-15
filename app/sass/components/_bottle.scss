@@ -1,11 +1,29 @@
 .bottlecard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-top: 5rem;
-    min-width: 18rem !important;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 16rem !important;
+    max-width: 96% !important;
     background-color: rgba(245, 236, 236, 0.6) !important;
+    word-wrap: break-word;
+    border-radius: 0.25rem;
+    object-position: center;
 }
 
-.card-body {
+.bottlecard-body {
+    flex: 1 1 auto;
     text-align: center;
+}
+
+.bottlecard-footer {
+    display: flex;
+    border-top: 0.1rem rgba(179, 173, 173, 0.3) solid !important;
+    justify-content: center;
+    padding: 0 !important;
 }
 
 .btn {
@@ -22,15 +40,9 @@
     color: white;
     font-weight: bold;
     font-size: 1em;
-    // padding: $card-cap-padding-y $card-cap-padding-x;
-    margin-bottom: 0; // Removes the default margin-bottom of <hN>
-    // color: $card-cap-color;
-    // background-color: $card-cap-bg;
-    // border-bottom: $card-border-width solid $card-border-color;
 
-    // &:first-child {
-    //     @include border-radius($card-inner-border-radius $card-inner-border-radius 0 0);
-    // }
+    margin-bottom: 0; 
+
 }
 
 .background-white {
@@ -42,7 +54,6 @@
     color: black;
     font-weight: bold;
     font-size: 1em;
-    // padding: $card-cap-padding-y $card-cap-padding-x;
     margin-bottom: 0;
 }
 
@@ -55,7 +66,6 @@
     color: black;
     font-weight: bold;
     font-size: 1em;
-    // padding: $card-cap-padding-y $card-cap-padding-x;
     margin-bottom: 0;
 }
 
@@ -70,4 +80,3 @@
     font-size: 1.1em;
     font-weight:400;
 }
-
