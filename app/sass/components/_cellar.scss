@@ -1,6 +1,18 @@
+
+ #areaCellars {
+    display: flex;
+    flex-direction: column;
+}
+
 .area {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    border-radius: 2vh;
+    border: 2mm ridge  #c0c0c0;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    
 }
 
 .lineBottle {
@@ -14,7 +26,7 @@
 }
 
 .column-area span {
-  text-align: center;
+    text-align: center;
 }
 
 .contentBottle {
@@ -47,4 +59,14 @@
     border-bottom-right-radius:50px;
     border-bottom-left-radius:50px;
   }
-  
+@media  (min-width: 1068px) {
+    #areaCellars {
+        padding-top: 10VH;
+        flex-direction: row;
+    }
+    .wine-are {
+        margin-right: 10vh;
+    }
+    
+
+}
