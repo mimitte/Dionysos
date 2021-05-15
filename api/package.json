@@ -4,14 +4,19 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node -r dotenv/config server",
+    "start-watch": "nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Clément Legouest",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
-    "mongoose": "^5.12.8"
+    "mongoose": "^5.12.8",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
+    "swagger-ui-express": "^4.1.6"
   }
 }
