@@ -26,6 +26,10 @@ let BottleController = {
     deleteAll: async (req, res) => {
         await BottleModel.deleteMany();
         res.json({ "message": "Deleted all" });
+    },
+    edit: async (req, res) => {
+        await BottleModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
+        res.status(200).json({ "message": "Bottle modified" });
     }
 }
 

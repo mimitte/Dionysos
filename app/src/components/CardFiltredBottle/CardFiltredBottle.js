@@ -2,15 +2,15 @@ import React from 'react';
 
 function CardForEachWineColor(props) {
     // Destructuration d'objet ==>
-    // c'est comme si on écrit: const username = props.username
-    // il faut que les props soit les mêmes nom que les props dans <Utilisateur/>
+    // c'est comme si on écrit: const color = props.color
+    // il faut que les props soit les mêmes nom que les props dans <CardForEachWineColor/>
 
-    const {color,quantity,imgVin} = props
+    const {color,quantity,imgVin, imgAlt} = props
     
     return (
     <React.Fragment>
-        <div  className="card col-lg-3 offset-1 mt-5 d-flex" style={{width: "18rem"}}>
-            <img className="card-img-top" src={imgVin}   style={{width: "18rem", height:"6rem"}} />
+        <div  className="card col-lg-3 offset-1 mt-5 d-flex" style={{width: "16rem"}}>
+            <img className="card-img-top" src={imgVin}   style={{width: "16rem", height:"6rem"}}  alt={imgAlt}/>
             <div className="card-body">
                 <h4 className="card-title">Vin {color}</h4>
                 <p className="card-text">Il y a {quantity} bouteilles de vin {color} dans votre cave</p>
@@ -30,7 +30,6 @@ class CardFiltredBottle extends React.Component {
             bouteilles: [],
             };
     }
-
     componentDidMount() {
         fetch("http://localhost:5000/api/bottle")
           .then(res => res.json())
@@ -69,28 +68,27 @@ class CardFiltredBottle extends React.Component {
         } else {
           return (
               <div className="d-flex flex-column">
-                  <h4 className="mt-3">En total vous avez {quantityRedBottles + quantityWhiteBottles + quantityPinkBottles } bouteilles de vin dans votre cave</h4>
+                  <h5 className="mt-3">En total, vous avez {quantityRedBottles + quantityWhiteBottles + quantityPinkBottles } bouteilles de vin dans votre cave</h5>
+                  <br />
                   <CardForEachWineColor
                         quantity={quantityRedBottles}
                         color={`rouge`}
                         imgVin ={imgRedWine}
+                        imgAlt={'verres de vin rouge'}
                         />
                   <CardForEachWineColor
                         quantity={quantityWhiteBottles}
                         color={`blanc`}
-                        imgVin ={imgWhiteWine}/>
+                        imgVin ={imgWhiteWine}
+                        imgAlt={'verres de vin blanc'}/>
                   <CardForEachWineColor
                         quantity={quantityPinkBottles}
                         color={`rosé`}
-                        imgVin ={imgPinkWine}/>
-
-
-
+                        imgVin ={imgPinkWine}
+                        imgAlt={'verres de vin rosé'}/>
               </div>
           )
         }
-    }
-           
-             
+    }            
 }
 export default CardFiltredBottle;
