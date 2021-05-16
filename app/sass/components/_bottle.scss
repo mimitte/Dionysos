@@ -1,0 +1,82 @@
+.bottlecard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 16rem !important;
+    max-width: 96% !important;
+    background-color: rgba(245, 236, 236, 0.6) !important;
+    word-wrap: break-word;
+    border-radius: 0.25rem;
+    object-position: center;
+}
+
+.bottlecard-body {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.bottlecard-footer {
+    display: flex;
+    border-top: 0.1rem rgba(179, 173, 173, 0.3) solid !important;
+    justify-content: center;
+    padding: 0 !important;
+}
+
+.btn {
+    min-width: 4rem !important;
+    margin: 0.5rem !important;
+}
+
+.background-red {
+    background-color: $vin-rouge-couleur;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    text-shadow: darkgray;
+    width :100% ;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+
+    margin-bottom: 0; 
+
+}
+
+.background-white {
+    background-color: $vin-blanc-couleur;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    text-shadow: darkgray;
+    width :100% ;
+    color: black;
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 0;
+}
+
+.background-pink {
+    background-color: $vin-rose-couleur;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    text-shadow: darkgray;
+    width :100% ;
+    color: black;
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 0;
+}
+
+.card-title {
+    font-weight: bolder;
+    padding: 0;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.card-text {
+    font-size: 1.1em;
+    font-weight:400;
+}

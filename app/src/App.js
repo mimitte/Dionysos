@@ -6,14 +6,10 @@ import BurgerMenu from './components/BurgerMenu/BurgerMenu';
 function App() {
   return (
     <div className="App">
-      <main>
-      
-        <BrowserRouter>
+          <BrowserRouter>
           <BurgerMenu/>
           <Routes />
         </BrowserRouter>
-        
-      </main>
     </div>
   );
 }
