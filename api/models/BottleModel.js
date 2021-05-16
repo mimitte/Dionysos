@@ -6,10 +6,11 @@ const BottleSchema = mongoose.Schema({
   name: { type: String, required: true },
   year: { type: Number, required: true },
   color: { type: String, required: true },
-  // note: { type: String, required: false },
-  // vaultUid: { type: String, required: true },
-  // horizontalPosition: { type: Number, required: true },
-  // verticalPosition: { type: Number, required: true }
+  zone: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Zone",
+    required: true
+  }
 });
 
 module.exports = mongoose.model('Bottle', BottleSchema);

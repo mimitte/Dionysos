@@ -13,9 +13,9 @@ html {
 
 #root > div {
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  background-image: linear-gradient(217deg, rgba(240, 240, 240, .4), rgba(240, 240, 240, 0.8)),
+  height: auto;
+  width: 100%;
+  background-image: linear-gradient(217deg, #f0f0f066, rgba(240, 240, 240, 0.8)),
   url("../../src/images/apollo-dionysus-greek-god.jpg");
   background-repeat: no-repeat;
   background-position: center;

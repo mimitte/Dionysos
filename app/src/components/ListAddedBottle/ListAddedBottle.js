@@ -21,7 +21,7 @@ class TabForAddedBottle extends React.Component {
         message: 'êtes-vous sûrs de supprimer cet élément?',
         buttons: [
           {
-            label: 'Yes',
+            label: 'Oui',
             onClick: () => {
             // Ici la logique de suppression
             const bouteilles = [...this.state.bouteilles];
@@ -34,18 +34,13 @@ class TabForAddedBottle extends React.Component {
           },
             
           {
-              label: 'No',
+              label: 'Non',
               onClick: () => {return}
           }
-            
-            
-          
-        
         ]
       })
     }
-        
-
+  
     createWineTableRow = (bouteille, index) => {
         const element = (
             <tr key={bouteille.id} className="cursor-pointer">
@@ -96,7 +91,7 @@ class TabForAddedBottle extends React.Component {
             {
                 <div className="mb-3">
                     <h2>Voici la liste des vins dans votre cave</h2>
-                    <table className="table table-hover mt-3 tableauVins">
+                    <table className="table table-hover mt-3">
                         <thead className="table-dark">
                             <tr>
                                 <th scope="col">#</th>
@@ -111,12 +106,11 @@ class TabForAddedBottle extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                this.state.bouteilles.map(this.createWineTableRow)
+                                bouteilles.map(this.createWineTableRow)
                             }
                         </tbody>
                     </table>
-
-                    <CardFiltredBottle/>
+                    <CardFiltredBottle/>               
                 </div>
                    
                }
