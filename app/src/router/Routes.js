@@ -12,18 +12,10 @@ function Routes(props) {
         // on passe a la route suivante.
         <Switch>
             {/* Sans l'attribut Exact, si l'url correspond a deux ..<Route>...</Route>, les deux composants seront chargés */}
-<<<<<<< HEAD
             <Route exact path="/" component={Landing}/>
             <Route exact path="/cave" component={WineCellar}/>
             <Route exact path="/new_bottle" component={ NewBottle }/>
             <Route exact path="/liste" component={ListAddedBottle}/>
-=======
-            <Route exact path="/" component={ Landing } />
-            <Route exact path="/new_bottle" component={ NewBottle } />
-            <Route exact path="/bottle" component={ Bottle } />
-            <Route exact path="/cave" component={ WineCellar } />
-            <Route exact path="/liste" component={ ListAddedBottle } />
->>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
         </Switch>
     )
 }
