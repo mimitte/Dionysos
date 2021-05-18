@@ -22,7 +22,6 @@ function ShowCellar({area, columns, rows}) {
     let styleJsx={};
     for (let j = 0; j < rows; j++){
         styleJsx = j === 0 ?{paddingBottom:'2.4vh'}:{};
-        console.log(styleJsx);
         htmlRow.push(
             <div className="lineBottle" data-lineBottle={j+1} key={j}  style={styleJsx} >
                 <div className="row-area">{j+1}</div>

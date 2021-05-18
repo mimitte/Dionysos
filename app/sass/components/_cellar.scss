@@ -2,17 +2,19 @@
  #areaCellars {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
+.wine-are {
+    text-align: center;
+}
 .area {
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 2vh;
-    border: 2mm ridge  #c0c0c0;
     padding-left: 2vh;
     padding-right: 2vh;
-    
 }
 
 .lineBottle {
@@ -34,13 +36,28 @@
     justify-content:center ;
 }
 
-.draggable {
-    margin: auto;
-    background-color: red;
+.draggable-red, .draggable-rose, .draggable-white {
+    background-size: 28px 28px;
+    background-repeat: no-repeat;
     border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    border:1px solid red
+    height: 28px;
+    width: 28px;
+}
+
+.draggable-white {
+    margin: auto;
+    background-image: url("../images/vinblanc.png");
+    
+}
+.draggable-rose {
+    margin: auto;
+    background-image: url("../images/vinrose.png");
+    
+}
+.draggable-red {
+    margin: auto;
+    background-image: url("../images/vinrouge.png");
+    
 }
 .row-area {
     display: table-cell;
@@ -50,12 +67,13 @@
 .contentBottle {
     display: inline-block;
     width: 40px;
-    height: 25px;
-    border: 0px;
-    border-top: 0;
-    border-bottom: 10px solid gold;
-    border-right: 2px solid gold;
-    border-left: 2px solid gold;
+    height: 30px;
+   
+    border-bottom: 10px solid #3c3c3c;
+    border-right: 2px solid #3c3c3c;
+    border-left: 2px solid #3c3c3c;
+    // background-image: url('../../src/images/test.jpg');
+    // background-repeat: no-repeat;
     border-bottom-right-radius:50px;
     border-bottom-left-radius:50px;
   }
@@ -66,6 +84,7 @@
     }
     .wine-are {
         margin-right: 10vh;
+        width: 100%;
     }
     
 

@@ -112,13 +112,13 @@ const cellarObjet = {
     name:"Cave1",
     description:"super cave de bordeaux",
     areaCellar :[
-        { // table liste bouteilles  avec id
-            area:"blanc",
+        {
             id:1,
-            columns:7,//x  type d'oragisation de la zone des bouteilles
-            rows:5,//y
+            area:"rouge",
+            columns:7,
+            rows:5,
             cellar:1,
-            bottles:bottlesWhite //liste bouteille blanc
+            bottles:bottlesWRed//liste bouteille blanc
         },
         {
             id:2,
@@ -128,14 +128,14 @@ const cellarObjet = {
             cellar:1,
             bottles:bottlesPink//liste bouteille blanc
         },
-        {
+        { // table liste bouteilles  avec id
+            area:"blanc",
             id:3,
-            area:"rouge",
-            columns:7,
-            rows:5,
+            columns:7,//x  type d'oragisation de la zone des bouteilles
+            rows:5,//y
             cellar:1,
-            bottles:bottlesWRed//liste bouteille blanc
-        }
+            bottles:bottlesWhite //liste bouteille blanc
+        },
     ]
 };
 
@@ -143,7 +143,6 @@ export default class WineCellar extends Component {
     constructor(props) {
         super(props)
         let {uid, name, description} = cellarObjet;
-        
         let areaWine = cellarObjet.areaCellar;
         let areaWhite=[];
         let areaRed=[];
@@ -161,7 +160,9 @@ export default class WineCellar extends Component {
             return null;
         });
         this.state = {
-            [{uid, name, description}] : cellarObjet,
+            uid:uid,
+            name:name,
+            description,
             areaWhite: areaWine,
             areaRed: areaRed,
             areaRose: areaRose,
@@ -176,13 +177,13 @@ export default class WineCellar extends Component {
         let area = this.state.cellar[0].areaCellar;
         area.map((elements) => {
             let color = elements.area;
-            if(color === "blanc" && elements.length !== 0){
-                this.dispatchBottle(elements, color);
-            }
             if(color === "rouge" && elements.length !== 0){
                 this.dispatchBottle(elements, color);
             }
             if(color === "rose" && elements.length !== 0){
+                this.dispatchBottle(elements, color);
+            }
+            if(color === "blanc" && elements.length !== 0){
                 this.dispatchBottle(elements, color);
             }
             return null;
@@ -191,13 +192,13 @@ export default class WineCellar extends Component {
 
     dispatchBottle(elements, color){
         this.totalBottlecellar(parseInt(elements.bottles.length,10));
-
+        let sufixColor = color === "blanc" ? "white": color === "rouge" ? "red": "rose";
         let loc  = elements.bottles.map((bottle) => {
             let rowBottle = bottle.location[0];
             let columnBottle = bottle.location[1];
             let element = document.querySelector("[data-area='" + color + "'] [data-linebottle='" + rowBottle + "'] [data-bottle='" + columnBottle + "']");
             let drag = document.createElement("div");
-            drag.classList.add("draggable");
+            drag.classList.add("draggable-" + sufixColor);
             drag.setAttribute("draggable","true");
             drag.setAttribute("id","draggable-" + bottle.uid);
             drag.setAttribute("data-area",color);
@@ -278,11 +279,9 @@ export default class WineCellar extends Component {
 
     render() {
         let area = this.state.cellar[0].areaCellar;
-        console.log(this.state.areaRed);
-        console.log(this.state);
         return (
             <>
-                <h2>Cave {this.state.cellar.name}</h2>
+                <h2>Cave {this.state.name}</h2>
                 <h3>Nombre de bouteilles total : {this.state.totalBottle }</h3>
                 <section id="areaCellars">
                         {area.map((elements, index) =><this.creatAreaCellars areaElements={elements}  index={index} key={index}/>)}
