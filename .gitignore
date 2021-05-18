@@ -32,12 +32,17 @@ app/yarn-error.log*
 # NodeJS API
 api/.env
 =======
+<<<<<<< HEAD
+# NodeJS API
+api/.env
+=======
 # NodeJS
 
 # environment
 api/.env
 
 >>>>>>> listAddedBottle
+>>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
 api/api_conf.json
 api/node_modules
 api/swagger

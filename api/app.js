@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const fetch = require("node-fetch");
 
 // Swagger
 const swaggerUi = require('swagger-ui-express');
@@ -8,10 +9,22 @@ const swaggerDocument = require('./swagger/swagger.json');
 
 const api_conf = require('./api_conf.json');
 
+<<<<<<< HEAD
+const Bottle = require('./models/BottleModel');
+const Cellar = require('./models/CellarModel');
+const Zone = require('./models/ZoneModel');
+
+const { json } = require('body-parser');
+
+const CellarController = require('./controllers/CellarController');
+const ZoneController = require('./controllers/ZoneController');
+const BottleController = require('./controllers/BottleController');
+=======
 const CellarController = require('./controllers/CellarController');
 const ZoneController = require('./controllers/ZoneController');
 const BottleController = require('./controllers/BottleController');
 const CellarModel = require('./models/CellarModel');
+>>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
 
 const app = express();
 
@@ -35,6 +48,18 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 /**
  * Callar routes
  */
+<<<<<<< HEAD
+ app.route('/api/cellar')
+ .get(CellarController.all)
+ .post(CellarController.create)
+ .delete(CellarController.deleteAll);
+
+app.route('/api/cellar/:id')
+ .get(CellarController.find)
+ .delete(CellarController.delete);
+
+app.get('/api/cellar/:id/zones', (req, res) => CellarController.findAllZones);
+=======
 app.route('/api/cellar')
   .get(CellarController.all)
   .post(CellarController.create)
@@ -46,6 +71,7 @@ app.route('/api/cellar/:id')
   .delete(CellarController.delete);
 
 app.get('/api/cellar/:id/zones', () => CellarController.findAllZones);
+>>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
 
 /**
  * Zone routes
@@ -57,7 +83,10 @@ app.route('/api/zone')
 
 app.route('/api/zone/:id')
   .get(ZoneController.find)
+<<<<<<< HEAD
+=======
   .patch(ZoneController.edit)
+>>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
   .delete(ZoneController.delete)
 
 app.get('/api/zone/:id/bottle', ZoneController.findAllBottles);
@@ -72,7 +101,10 @@ app.route('/api/bottle')
 
 app.route('/api/bottle/:id')
   .get(BottleController.find)
+<<<<<<< HEAD
+=======
   .patch(BottleController.edit)
+>>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
   .delete(BottleController.delete);
 
 module.exports = app;
