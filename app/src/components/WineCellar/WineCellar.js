@@ -227,17 +227,17 @@ export default class WineCellar extends Component {
 
     dragEnter(e){
         e.preventDefault();
+        let reInitAeraDrop = document.querySelectorAll('.contentBottle');
+        for(let content of reInitAeraDrop)
+        {
+            if(!content.classList.contains("drop-area") && !content.hasChildNodes()){
+                content.classList.toggle("drop-area");
+            }
+        }
     }
 
     dragLeave(e){
         e.preventDefault();
-        let reInitAeraDrop = document.querySelectorAll('.contentBottle');
-        for(let content of reInitAeraDrop)
-        {
-            if(!content.classList.contains("drop-area") && content.hasChildNodes()){
-                content.classList.toggle("drop-area");
-            }
-        }
     }
 
     dragStart(e){
@@ -281,7 +281,7 @@ export default class WineCellar extends Component {
         let area = this.state.cellar[0].areaCellar;
         return (
             <>
-                <h2>Cave {this.state.name}</h2>
+                <h2>Cave: {this.state.name}</h2>
                 <h3>Nombre de bouteilles total : {this.state.totalBottle }</h3>
                 <section id="areaCellars">
                         {area.map((elements, index) =><this.creatAreaCellars areaElements={elements}  index={index} key={index}/>)}
