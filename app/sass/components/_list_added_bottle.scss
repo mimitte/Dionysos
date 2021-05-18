@@ -1,0 +1,9 @@
+.tableauVins tr:hover{
+
+    cursor:pointer; //set the cursor to pointer (hand)
+    background-color: blue; //sets hovered row's background color to blue
+    box-shadow: 5px 10px #888888;
+}
+.table-hover-bg{
+    box-shadow: 5px 10px;
+}

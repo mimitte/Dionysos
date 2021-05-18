@@ -1,5 +1,8 @@
 # ReactJS
 
+# environment
+app/.env
+
 # dependencies
 app/node_modules
 app/.pnp
@@ -25,8 +28,16 @@ app/npm-debug.log*
 app/yarn-debug.log*
 app/yarn-error.log*
 
+<<<<<<< HEAD
+# NodeJS API
+api/.env
+=======
 # NodeJS
 
+# environment
+api/.env
+
+>>>>>>> listAddedBottle
 api/api_conf.json
 api/node_modules
 api/swagger

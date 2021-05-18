@@ -82,17 +82,7 @@ class Dashboard extends React.Component {
         series1.ticks.template.disabled = true;
         
         sliceTemplate1.states.getKey("active").properties.shiftRadius = 0;
-        
-        // separator line and text
-        let separatorLine = container.createChild(am4core.Line);
-        separatorLine.x1 = 0;
-        separatorLine.y2 = 300;
-        separatorLine.strokeWidth = 3;
-        separatorLine.stroke = am4core.color("#dadada");
-        separatorLine.valign = "middle";
-        separatorLine.strokeDasharray = "5,5";
-        
-        
+      
         let dragText = container.createChild(am4core.Label);
         // dragText.text = "Drag slices over the line";
         dragText.rotation = 90;
