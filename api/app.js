@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fetch = require("node-fetch");
 
+// Routes
+const userRoutes = require('./routes/User');
+
 // Swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
@@ -44,6 +47,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use('/api/auth', userRoutes);
 
 /**
  * Callar routes
