@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cellarCtrl = require('../controllers/CellarController');
+const auth = require('../middleware/auth');
 
 /**
  * Routes prefix "/api/cellar"
@@ -9,11 +10,11 @@ const cellarCtrl = require('../controllers/CellarController');
 router.route('/')
     .get(cellarCtrl.all)
     .post(cellarCtrl.create)
-    .delete(cellarCtrl.deleteAll);
+    .delete(auth, cellarCtrl.deleteAll);
 
 router.route('/:id')
     .get(cellarCtrl.find)
-    .delete(cellarCtrl.delete);
+    .delete(auth, cellarCtrl.delete);
 
 router.get('/:id/zones', (req, res) => cellarCtrl.findAllZones);
 
