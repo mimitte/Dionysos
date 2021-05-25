@@ -26,13 +26,10 @@ let ZoneController = {
     deleteAll: async (req, res) => {
         await ZoneModel.deleteMany();
         res.json({ "message": "Deleted all" });
-<<<<<<< HEAD
-=======
     },
     edit: async (req, res) => {
         await ZoneModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
         res.status(200).json({ "message": "Zone modified"})
->>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
     }
 }
 
