@@ -29,21 +29,9 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-/**
- * Cellar routes
- */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/cellar', cellarRoutes);
-
-/**
- * Zone routes
- */
 app.use('/api/zone', zoneRoutes);
-
-/**
- * Bottle routes
- */
 app.use('/api/bottle', bottleRoutes);
 
 module.exports = app;
