@@ -3,16 +3,13 @@ import CardFiltredBottle from '../CardFiltredBottle/CardFiltredBottle';
 import { FaTrashAlt } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
+// redux
+import { connect } from "react-redux";
+import { getAllBottles } from "../../redux/listbottles/listBottle.action";
 
 class TabForAddedBottle extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            bouteilles: [],
-          };
     }
 
     suppression (id) {
@@ -42,6 +39,7 @@ class TabForAddedBottle extends React.Component {
     }
   
     createWineTableRow = (bouteille, index) => {
+      console.log(bouteille);
         const element = (
             <tr key={bouteille.id} className="cursor-pointer">
                 <td>{index + 1}</td>
@@ -57,37 +55,41 @@ class TabForAddedBottle extends React.Component {
         );
         return element;
     }
-    componentDidMount() {
-        fetch("http://localhost:5000/api/bottle")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                bouteilles: result
-              });
-            },
-            // Remarque : il est important de traiter les erreurs ici
-            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
-            // des exceptions provenant de réels bugs du composant.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-      }
-
+    // componentDidMount() {
+    //     fetch("http://localhost:5000/api/bottle")
+    //       .then(res => res.json())
+    //       .then(
+    //         (result) => {
+    //           this.setState({
+    //             isLoaded: true,
+    //             bouteilles: result
+    //           });
+    //         },
+    //         // Remarque : il est important de traiter les erreurs ici
+    //         // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
+    //         // des exceptions provenant de réels bugs du composant.
+    //         (error) => {
+    //           this.setState({
+    //             isLoaded: true,
+    //             error
+    //           });
+    //         }
+    //       )
+    //   }
+    
     render() {
-        const { error, isLoaded, bouteilles } = this.state;
+     
+        const { error, isLoaded, listBottles } = this.props.stateAll;
+        console.log(listBottles);
         if (error) {
           return <div>Erreur : {error.message}</div>;
         } else if (!isLoaded) {
+          
           return <div>Chargement…</div>;
         } else {
           return (
             <React.Fragment>
+        
             {
                 <div className="mb-3">
                     <h2>Voici la liste des vins dans votre cave</h2>
@@ -106,7 +108,7 @@ class TabForAddedBottle extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                bouteilles.map(this.createWineTableRow)
+                                listBottles.map(this.createWineTableRow)
                             }
                         </tbody>
                     </table>
@@ -118,9 +120,17 @@ class TabForAddedBottle extends React.Component {
           );
         }
       }
-}
 
-export default TabForAddedBottle;
+}
+// ça nous retourne l'état du state qui se trouve dans le store
+const mapStateToProps = (state)=>{
+  return {
+     stateAll : state.listBottles
+  }
+}
+// ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant
+export default connect(mapStateToProps)(TabForAddedBottle);
+
 
 
 
