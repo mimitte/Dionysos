@@ -55,32 +55,11 @@ class TabForAddedBottle extends React.Component {
         );
         return element;
     }
-    // componentDidMount() {
-    //     fetch("http://localhost:5000/api/bottle")
-    //       .then(res => res.json())
-    //       .then(
-    //         (result) => {
-    //           this.setState({
-    //             isLoaded: true,
-    //             bouteilles: result
-    //           });
-    //         },
-    //         // Remarque : il est important de traiter les erreurs ici
-    //         // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
-    //         // des exceptions provenant de réels bugs du composant.
-    //         (error) => {
-    //           this.setState({
-    //             isLoaded: true,
-    //             error
-    //           });
-    //         }
-    //       )
-    //   }
-    
+ 
     render() {
      
         const { error, isLoaded, bouteilles } = this.props;
-        console.log(this.props);
+        console.log("ici les props du store",this.props);
         if (error) {
           return <div>Erreur : {error.message}</div>;
         } else if (!isLoaded) {

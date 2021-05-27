@@ -1,8 +1,12 @@
 import React from 'react';
+ // redux
+ import { connect } from "react-redux";
+
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
  am4core.useTheme(am4themes_animated);
+
 
 class Dashboard extends React.Component {
     
@@ -10,22 +14,26 @@ class Dashboard extends React.Component {
         const colorRouge ="#ac1e44";
         const colorRose = "#ffe6ff";
         const colorBlanc = "#fff0b3";
+        const { bouteilles } = this.props;
+        const quantityRedBottles = bouteilles.filter( redBottle => redBottle.color ==="rouge" ||  redBottle.color ==="red" ).length ;
+        const quantityWhiteBottles =bouteilles.filter( whiteBottle => whiteBottle.color ==="blanc" ).length ;
+        const quantityPinkBottles = bouteilles.filter( pinkBottle => pinkBottle.color ==="rose"  || pinkBottle.color ==="rosé").length;
         let data = [{
             "country": "Vin rouge",
             "disabled": true,
-            "litres": 1000,
+            "litres": quantityRedBottles,
             "color": am4core.color(colorRouge),
             "opacity": 1,
             "strokeDasharray": "4,4"
         }, {
             "country": "Rosé",
-            "litres": 501.9,
+            "litres": quantityPinkBottles,
             "color": am4core.color(colorRose),
             "opacity": 1,
             "strokeDasharray": "4,4"
         }, {
             "country": "Vin blanc",
-            "litres": 301.9,
+            "litres":  quantityWhiteBottles,
             "color": am4core.color(colorBlanc),
             "opacity": 1,
             "strokeDasharray": "4,4"
@@ -106,4 +114,13 @@ class Dashboard extends React.Component {
 }
     
 
-export default Dashboard;
+// export default Dashboard;
+// ça nous retourne l'état du state qui se trouve dans le store
+const mapStateToProps = (state)=>{
+  console.log("state via mapStatoToProps de Dashboard", state);
+  return {
+     ...state.listBottles
+  }
+}
+// ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant
+export default connect(mapStateToProps)(Dashboard);
