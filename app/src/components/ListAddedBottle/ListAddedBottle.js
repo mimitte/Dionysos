@@ -5,7 +5,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // redux
 import { connect } from "react-redux";
-import { getAllBottles } from "../../redux/listbottles/listBottle.action";
+import { getAllBottles } from "../../redux/ListBottlesCellar/listBottleCellar.action";
 
 class TabForAddedBottle extends React.Component {
     constructor(props) {
@@ -79,8 +79,8 @@ class TabForAddedBottle extends React.Component {
     
     render() {
      
-        const { error, isLoaded, listBottles } = this.props.stateAll;
-        console.log(listBottles);
+        const { error, isLoaded, bouteilles } = this.props;
+        console.log(this.props);
         if (error) {
           return <div>Erreur : {error.message}</div>;
         } else if (!isLoaded) {
@@ -108,11 +108,11 @@ class TabForAddedBottle extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                listBottles.map(this.createWineTableRow)
+                                bouteilles.map(this.createWineTableRow)
                             }
                         </tbody>
                     </table>
-                    <CardFiltredBottle/>               
+                    <CardFiltredBottle bouteilles={bouteilles}/>               
                 </div>
                    
                }
@@ -124,8 +124,9 @@ class TabForAddedBottle extends React.Component {
 }
 // ça nous retourne l'état du state qui se trouve dans le store
 const mapStateToProps = (state)=>{
+  console.log("state via mapStatoToProps", state);
   return {
-     stateAll : state.listBottles
+     ...state.listBottles
   }
 }
 // ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant

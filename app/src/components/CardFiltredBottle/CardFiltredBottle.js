@@ -24,48 +24,22 @@ function CardForEachWineColor(props) {
 class CardFiltredBottle extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            bouteilles: [],
-            };
+        // this.state = {
+        //     error: null,
+        //     isLoaded: false,
+        //     bouteilles: [],
+        //     };
     }
-    componentDidMount() {
-        fetch("http://localhost:5000/api/bottle")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                bouteilles: result,
-              });
-            },
-            // Remarque : il est important de traiter les erreurs ici
-            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
-            // des exceptions provenant de réels bugs du composant.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-      }
     
       render() {
-        const { error, isLoaded, bouteilles } = this.state;
-        const quantityRedBottles = bouteilles.filter( redBottle => redBottle.color ==="rouge" ).length ;
+        const { bouteilles } = this.props;
+        const quantityRedBottles = bouteilles.filter( redBottle => redBottle.color ==="rouge" ||  redBottle.color ==="red" ).length ;
         const quantityWhiteBottles =bouteilles.filter( whiteBottle => whiteBottle.color ==="blanc" ).length ;
-        const quantityPinkBottles = bouteilles.filter( pinkBottle => pinkBottle.color ==="rose" ).length;
+        const quantityPinkBottles = bouteilles.filter( pinkBottle => pinkBottle.color ==="rose"  || pinkBottle.color ==="rosé").length;
         const imgRedWine= "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"; 
         const imgWhiteWine = "https://images.unsplash.com/photo-1498429152472-9a433d9ddf3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80";
         const imgPinkWine = "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
 
-        if (error) {
-          return <div>Erreur : {error.message}</div>;
-        } else if (!isLoaded) {
-          return <div>Chargement…</div>;
-        } else {
           return (
               <React.Fragment>
                 <h5 className=" mb-1">
@@ -93,7 +67,7 @@ class CardFiltredBottle extends React.Component {
               </div>
               </React.Fragment>
           )
-        }
+        
     }            
 }
 export default CardFiltredBottle;

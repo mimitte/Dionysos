@@ -1,4 +1,4 @@
-import { listBottles } from "./listbottles/listBottle.reducer";
+import { listBottles } from "./ListBottlesCellar/listBottleCellar.reducer";
 import { createStore,combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from "redux-thunk";

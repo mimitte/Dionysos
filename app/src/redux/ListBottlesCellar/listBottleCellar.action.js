@@ -11,6 +11,7 @@ export const getAllBottles =()=>{
            .then(
             (result) => {
               dispatch({
+                
                 type: LIST_BOTTLES,
                 payload: result,
                 isLoaded:true,

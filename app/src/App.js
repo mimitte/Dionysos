@@ -5,7 +5,7 @@ import BurgerMenu from './components/BurgerMenu/BurgerMenu';
 // redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { getAllBottles } from "./redux/listbottles/listBottle.action";
+import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
 
 function App() {
   store.dispatch(getAllBottles());

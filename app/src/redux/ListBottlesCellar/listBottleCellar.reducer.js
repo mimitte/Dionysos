@@ -8,9 +8,11 @@ const initListBottle = {
 export const listBottles =(state=initListBottle, action)=> {
     switch (action.type) {
         case LIST_BOTTLES:
+            const bouteilles = action.payload;
+            // console.log("bouteilles via reducer", bouteilles);
             return {
-            ...state,
-            listBottles : action.payload, 
+            ...state, 
+            bouteilles,
             error: action.error,
             isLoaded: action.isLoaded
         }
