@@ -1,4 +1,6 @@
 import React from 'react';
+import filterColorbottles from '../../utils/filterColorBottles';
+
 
 function CardForEachWineColor(props) {
     // Destructuration d'objet ==>
@@ -33,9 +35,10 @@ class CardFiltredBottle extends React.Component {
     
       render() {
         const { bouteilles } = this.props;
-        const quantityRedBottles = bouteilles.filter( redBottle => redBottle.color ==="rouge" ||  redBottle.color ==="red" ).length ;
-        const quantityWhiteBottles =bouteilles.filter( whiteBottle => whiteBottle.color ==="blanc" ).length ;
-        const quantityPinkBottles = bouteilles.filter( pinkBottle => pinkBottle.color ==="rose"  || pinkBottle.color ==="rosé").length;
+        const {red, white,pink} = filterColorbottles(bouteilles);
+        // const quantityRedBottles = bouteilles.filter( redBottle => redBottle.color ==="rouge" ||  redBottle.color ==="red" ).length ;
+        // const quantityWhiteBottles =bouteilles.filter( whiteBottle => whiteBottle.color ==="blanc" ).length ;
+        // const quantityPinkBottles = bouteilles.filter( pinkBottle => pinkBottle.color ==="rose"  || pinkBottle.color ==="rosé").length;
         const imgRedWine= "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"; 
         const imgWhiteWine = "https://images.unsplash.com/photo-1498429152472-9a433d9ddf3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80";
         const imgPinkWine = "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
@@ -43,24 +46,24 @@ class CardFiltredBottle extends React.Component {
           return (
               <React.Fragment>
                 <h5 className=" mb-1">
-                  En total, vous avez {quantityRedBottles + quantityWhiteBottles + quantityPinkBottles } bouteilles de vin dans votre cave
+                  En total, vous avez {red+ white + pink } bouteilles de vin dans votre cave
                 </h5>
                 <br />
               <div className="troisCartesDeVins d-flex justify-content-between">
                  
                   <CardForEachWineColor
-                        quantity={quantityRedBottles}
+                        quantity={red}
                         color={`rouge`}
                         imgVin ={imgRedWine}
                         imgAlt={'verres de vin rouge'}
                         />
                   <CardForEachWineColor
-                        quantity={quantityWhiteBottles}
+                        quantity={white}
                         color={`blanc`}
                         imgVin ={imgWhiteWine}
                         imgAlt={'verres de vin blanc'}/>
                   <CardForEachWineColor
-                        quantity={quantityPinkBottles}
+                        quantity={pink}
                         color={`rosé`}
                         imgVin ={imgPinkWine}
                         imgAlt={'verres de vin rosé'}/>

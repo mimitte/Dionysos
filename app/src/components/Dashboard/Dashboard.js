@@ -5,6 +5,7 @@ import React from 'react';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import filterColorbottles from '../../utils/filterColorBottles';
  am4core.useTheme(am4themes_animated);
 
 
@@ -14,26 +15,27 @@ class Dashboard extends React.Component {
         const colorRouge ="#ac1e44";
         const colorRose = "#ffe6ff";
         const colorBlanc = "#fff0b3";
+        // ici je récupère les props du Parent 
         const { bouteilles } = this.props;
-        const quantityRedBottles = bouteilles.filter( redBottle => redBottle.color ==="rouge" ||  redBottle.color ==="red" ).length ;
-        const quantityWhiteBottles =bouteilles.filter( whiteBottle => whiteBottle.color ==="blanc" ).length ;
-        const quantityPinkBottles = bouteilles.filter( pinkBottle => pinkBottle.color ==="rose"  || pinkBottle.color ==="rosé").length;
+        // appel à la fonction filterColorbottles qui contient les méthodes pour filtrer les bouteilles par couleurs les bouteilles 
+        const {red, white,pink} = filterColorbottles(bouteilles);
+       
         let data = [{
             "country": "Vin rouge",
             "disabled": true,
-            "litres": quantityRedBottles,
+            "litres": red,
             "color": am4core.color(colorRouge),
             "opacity": 1,
             "strokeDasharray": "4,4"
         }, {
             "country": "Rosé",
-            "litres": quantityPinkBottles,
+            "litres": pink,
             "color": am4core.color(colorRose),
             "opacity": 1,
             "strokeDasharray": "4,4"
         }, {
             "country": "Vin blanc",
-            "litres":  quantityWhiteBottles,
+            "litres":  white,
             "color": am4core.color(colorBlanc),
             "opacity": 1,
             "strokeDasharray": "4,4"

@@ -5,7 +5,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // redux
 import { connect } from "react-redux";
-import { getAllBottles } from "../../redux/ListBottlesCellar/listBottleCellar.action";
+
 
 class TabForAddedBottle extends React.Component {
     constructor(props) {
