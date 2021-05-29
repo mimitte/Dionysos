@@ -8,8 +8,11 @@ const BottleSchema = mongoose.Schema({
   color: { type: String, required: true },
   zone: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Zone",
-    required: true
+    ref: "Zone"
+  },
+  location: {
+    column: { type: Number, required: true },
+    row: { type: Number, required: true }
   }
 });
 
