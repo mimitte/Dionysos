@@ -2,11 +2,13 @@ let ZoneModel = require('../models/ZoneModel');
 
 let ZoneController = {
     find: async (req, res) => {
-        let found = await ZoneModel.find({ _id: req.params.id });
+        let found = await ZoneModel.find({ _id: req.params.id })
+            .populate('bottles');
         res.json(found);
     },
     all: async (req, res) => {
-        let allZones = await ZoneModel.find();
+        let allZones = await ZoneModel.find()
+            .populate('bottles');
         res.json(allZones);
     },
     create: async (req, res) => {

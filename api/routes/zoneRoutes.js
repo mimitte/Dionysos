@@ -3,16 +3,16 @@ const router = express.Router();
 
 const zoneCtrl = require('../controllers/ZoneController');
 
-router.route('/api/zone')
+router.route('/')
   .get(zoneCtrl.all)
   .post(zoneCtrl.create)
   .delete(zoneCtrl.deleteAll);
 
-router.route('/api/zone/:id')
+router.route('/:id')
   .get(zoneCtrl.find)
   .patch(zoneCtrl.edit)
   .delete(zoneCtrl.delete);
 
-router.get('/api/zone/:id/bottle', zoneCtrl.findAllBottles);
+router.get('/:id/bottle', zoneCtrl.findAllBottles);
 
 module.exports = router;
