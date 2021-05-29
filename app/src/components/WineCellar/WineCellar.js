@@ -138,12 +138,14 @@ const cellarObjet = {
         },
     ]
 };
+console.log(cellarObjet);
 
 export default class WineCellar extends Component {
     constructor(props) {
         super(props)
         let {uid, name, description} = cellarObjet;
         let areaWine = cellarObjet.areaCellar;
+        let update = false;
         let areaWhite=[];
         let areaRed=[];
         let areaRose=[];
@@ -227,17 +229,17 @@ export default class WineCellar extends Component {
 
     dragEnter(e){
         e.preventDefault();
+        let reInitAeraDrop = document.querySelectorAll('.contentBottle');
+        for(let content of reInitAeraDrop)
+        {
+            if(!content.classList.contains("drop-area") && !content.hasChildNodes()){
+                content.classList.toggle("drop-area");
+            }
+        }
     }
 
     dragLeave(e){
         e.preventDefault();
-        let reInitAeraDrop = document.querySelectorAll('.contentBottle');
-        for(let content of reInitAeraDrop)
-        {
-            if(!content.classList.contains("drop-area") && content.hasChildNodes()){
-                content.classList.toggle("drop-area");
-            }
-        }
     }
 
     dragStart(e){
@@ -265,10 +267,11 @@ export default class WineCellar extends Component {
 
     creatAreaCellars = ({areaElements, index}) =>{
         let color = areaElements.area;
+        let titleColor = color === "blanc" ? "Blanc" : color === "rose" ? "Rosé" : "Rouge"
         return(
             <React.Fragment>
                 <div className="wine-are">
-                    <h3>Emplacement vin {color} </h3>
+                    <h3>Emplacement vin {titleColor} </h3>
                     <div className="area" data-area={areaElements.area} >
                         <ShowCellar area={color} columns={areaElements.columns} rows={areaElements.rows} key={index}/>
                     </div>
@@ -281,7 +284,8 @@ export default class WineCellar extends Component {
         let area = this.state.cellar[0].areaCellar;
         return (
             <>
-                <h2>Cave {this.state.name}</h2>
+           
+                <h2>Cave: {this.state.name}</h2>
                 <h3>Nombre de bouteilles total : {this.state.totalBottle }</h3>
                 <section id="areaCellars">
                         {area.map((elements, index) =><this.creatAreaCellars areaElements={elements}  index={index} key={index}/>)}
