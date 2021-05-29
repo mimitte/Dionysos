@@ -1,9 +1,11 @@
 // importer le nom de l'action qui est dans type.js
+import { DELETE_BOTTLE } from "../deleteBottleCellar/type";
 import { LIST_BOTTLES } from "./types";
 
 const initListBottle = {}; // initial state 
 
-export const listBottles =(state=initListBottle, action)=> {
+ const bottlesCellarReducer =(state=initListBottle, action)=> {
+    console.log("voici l'action",action);
     switch (action.type) {
 
         // si tu reçois une action de type LIST_BOTTLES retourne nous {...}
@@ -17,9 +19,20 @@ export const listBottles =(state=initListBottle, action)=> {
             error: action.error,
             isLoaded: action.isLoaded
         }
+
+        // si tu reçois une action de type LIST_BOTTLES retourne nous {...}
+        case DELETE_BOTTLE :
+
+        return {
+            ...state ,
+            bouteilles: state.bouteilles.filter(bouteille => bouteille.id !== action.payload)
+        }
+    
     
         default:
             return state;
          
     }
 }
+
+export default bottlesCellarReducer;

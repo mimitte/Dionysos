@@ -7,9 +7,9 @@ import { LIST_BOTTLES } from "./types";
 */
 export const getAllBottles =()=>{
 
-    return(dispatch)=>{
+    return async (dispatch)=>{
         return (
-            fetch("http://localhost:5000/api/bottle")
+            await fetch("http://localhost:5000/api/bottle")
            .then(response => response.json())
            .then(
             (result) => {

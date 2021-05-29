@@ -2,7 +2,7 @@
  * car c'est lui qui emporte toutes les bouteilles ajoutées via notre api
  * et met à jour le store qui est au départ une liste vide d'objet state={} */ 
 
-import { listBottles } from "./ListBottlesCellar/listBottleCellar.reducer";
+import { listBottles } from "./reducer/listBottleCellar.reducer";
 
 import { createStore,combineReducers, applyMiddleware } from "redux";
 
