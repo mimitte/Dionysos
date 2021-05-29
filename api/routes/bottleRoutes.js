@@ -4,7 +4,7 @@ const router = express.Router();
 const bottleCtrl = require('../controllers/BottleController');
 
 router.route('/')
-  .get(bottleCtrl.all)
+  .get(bottleCtrl.findAll)
   .post(bottleCtrl.create)
   .delete(bottleCtrl.deleteAll);
 

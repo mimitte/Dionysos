@@ -4,7 +4,7 @@ const router = express.Router();
 const zoneCtrl = require('../controllers/ZoneController');
 
 router.route('/')
-  .get(zoneCtrl.all)
+  .get(zoneCtrl.findAll)
   .post(zoneCtrl.create)
   .delete(zoneCtrl.deleteAll);
 
@@ -13,6 +13,6 @@ router.route('/:id')
   .patch(zoneCtrl.edit)
   .delete(zoneCtrl.delete);
 
-router.get('/:id/bottle', zoneCtrl.findAllBottles);
+router.get('/:id/bottle', zoneCtrl.findAllBottlesByZoneId);
 
 module.exports = router;
