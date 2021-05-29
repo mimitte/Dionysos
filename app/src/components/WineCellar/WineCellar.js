@@ -172,7 +172,7 @@ export default class WineCellar extends Component {
                 cellarObjet,
             ],
             totalBottle : 0,
-
+            move:false
         }
     }
     componentDidMount = () => {
@@ -234,6 +234,10 @@ export default class WineCellar extends Component {
         {
             if(!content.classList.contains("drop-area") && !content.hasChildNodes()){
                 content.classList.toggle("drop-area");
+                let moveBottle = true;
+                // this.setState({
+                //     move : moveBottle
+                // })
             }
         }
     }
@@ -267,7 +271,8 @@ export default class WineCellar extends Component {
 
     creatAreaCellars = ({areaElements, index}) =>{
         let color = areaElements.area;
-        let titleColor = color === "blanc" ? "Blanc" : color === "rose" ? "Rosé" : "Rouge"
+        let titleColor = color === "blanc" ? "Blanc" : color === "rose" ? "Rosé" : "Rouge";
+        let btnValidate = this.state.move === true ? (<button>Validez la déplacement</button>) : <div></div>;
         return(
             <React.Fragment>
                 <div className="wine-are">
@@ -275,6 +280,7 @@ export default class WineCellar extends Component {
                     <div className="area" data-area={areaElements.area} >
                         <ShowCellar area={color} columns={areaElements.columns} rows={areaElements.rows} key={index}/>
                     </div>
+
                 </div>
             </React.Fragment>
         );
