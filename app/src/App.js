@@ -16,7 +16,7 @@ function App() {
   // la liste des bouteilles sont accessibles c pour ça qu'on a mis  store.dispatch(getAllBottles());  ici
 // il va mettre à jour le state du store et tous les composants qui sont abonnés à ce store
   store.dispatch(getAllBottles());
-
+   
   return (
     <Provider store={store}>
 

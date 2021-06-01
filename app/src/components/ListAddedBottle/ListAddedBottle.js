@@ -5,14 +5,18 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // redux
 import { connect } from "react-redux";
+import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
+import { getAllBottles } from '../../redux/ListBottlesCellar/listBottleCellar.action';
 
 
 class TabForAddedBottle extends React.Component {
     constructor(props) {
         super(props);
+
     }
 
-    suppression (id) {
+    suppression=(id) => {
+      // console.log(id);
       confirmAlert({
         // title: 'Confirmation avant suppression',
         message: 'êtes-vous sûrs de supprimer cet élément?',
@@ -20,13 +24,9 @@ class TabForAddedBottle extends React.Component {
           {
             label: 'Oui',
             onClick: () => {
-            // Ici la logique de suppression
-            const bouteilles = [...this.state.bouteilles];
-            const index = bouteilles.findIndex(bouteille => bouteille.id === id);
-            bouteilles.splice(index, 1);
-            this.setState({
-                bouteilles: bouteilles
-              })
+              
+              this.props.deleteBottle(id);
+ 
             }  
           },
             
@@ -39,7 +39,7 @@ class TabForAddedBottle extends React.Component {
     }
   
     createWineTableRow = (bouteille, index) => {
-      console.log(bouteille);
+      // console.log(bouteille._id);
         const element = (
             <tr key={bouteille.id} className="cursor-pointer">
                 <td>{index + 1}</td>
@@ -49,17 +49,23 @@ class TabForAddedBottle extends React.Component {
                 <td>{bouteille.country}</td>
                 <td>{bouteille.year}</td>
                 <td className="text-center">
-                  <FaTrashAlt onClick={() => this.suppression(bouteille.id)}/>
+                  <FaTrashAlt onClick={() => this.suppression(bouteille._id)}/>
+
                 </td>
             </tr>
         );
         return element;
     }
- 
+    componentDidUpdate(prevProps, prevState) {
+      if (prevProps.bouteilles !== this.props.bouteilles) {
+        console.log('bottle state has changed.')
+        
+      }
+    }
     render() {
-     
+       
         const { error, isLoaded, bouteilles } = this.props;
-        console.log("ici les props du store",this.props);
+        // console.log("ici les props du store",this.props);
         if (error) {
           return <div>Erreur : {error.message}</div>;
         } else if (!isLoaded) {
@@ -103,13 +109,19 @@ class TabForAddedBottle extends React.Component {
 }
 // ça nous retourne l'état du state qui se trouve dans le store
 const mapStateToProps = (state)=>{
-  console.log("state via mapStatoToProps", state);
+  // console.log("state via mapStatoToProps", state);
   return {
      ...state.listBottles
   }
 }
+// ici on va faire une action delete qui mettra à jour le store
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    deleteBottle:(id)=>dispatch(deleteBottle(id)),
+  }
+}
 // ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant
-export default connect(mapStateToProps)(TabForAddedBottle);
+export default connect(mapStateToProps, mapDispatchToProps)(TabForAddedBottle);
 
 
 
