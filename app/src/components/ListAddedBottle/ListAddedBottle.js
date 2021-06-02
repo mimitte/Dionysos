@@ -6,14 +6,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // redux
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
-import { getAllBottles } from '../../redux/ListBottlesCellar/listBottleCellar.action';
 
 
 class TabForAddedBottle extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     suppression=(id) => {
       // console.log(id);

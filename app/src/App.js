@@ -21,7 +21,7 @@ function App() {
     <Provider store={store}>
 
       <div className="App">
-          <BrowserRouter>
+        <BrowserRouter>
           <BurgerMenu/>
           <Routes />
         </BrowserRouter>
