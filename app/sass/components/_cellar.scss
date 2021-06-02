@@ -47,33 +47,27 @@
 .draggable-white {
     margin: auto;
     background-image: url("../images/vinblanc.png");
-    
 }
 .draggable-rose {
     margin: auto;
     background-image: url("../images/vinrose.png");
-    
 }
 .draggable-red {
     margin: auto;
     background-image: url("../images/vinrouge.png");
-    
 }
 .row-area {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 10px;
+    display: flex;
+    align-items: flex-end;
+    padding-right: 1vh;
 }
 .contentBottle {
     display: inline-block;
     width: 40px;
     height: 30px;
-   
     border-bottom: 10px solid #3c3c3c;
     border-right: 2px solid #3c3c3c;
     border-left: 2px solid #3c3c3c;
-    // background-image: url('../../src/images/test.jpg');
-    // background-repeat: no-repeat;
     border-bottom-right-radius:50px;
     border-bottom-left-radius:50px;
   }
@@ -86,6 +80,5 @@
         margin-right: 10vh;
         width: 100%;
     }
-    
 
 }
