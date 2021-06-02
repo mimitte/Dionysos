@@ -1,13 +1,16 @@
 let ZoneModel = require('../models/ZoneModel');
+let BottleModel = require('../models/BottleModel');
 
 let ZoneController = {
-    find: async (req, res) => {
-        let found = await ZoneModel.find({ _id: req.params.id });
-        res.json(found);
-    },
-    all: async (req, res) => {
+    findAll: async (req, res) => {
         let allZones = await ZoneModel.find();
         res.json(allZones);
+    },
+    find: async (req, res) => {
+        let bottles = await BottleModel.find({ zone: req.params.id });
+        let foundZone = await ZoneModel.findOne({ _id: req.params.id });
+        foundZone.bottles = bottles;
+        res.json(foundZone);
     },
     create: async (req, res) => {
         delete req.body._id;
@@ -15,18 +18,23 @@ let ZoneController = {
         let savedZone = await newZone.save();
         res.json(savedZone);
     },
-    findAllBottles: async (req, res) => {
-        let foundZone = await ZoneModel.find({ _id: req.params.id }).populate("bottles");
-        res.json(foundZone);
+    edit: async (req, res) => {
+        await ZoneModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
+        res.status(200).json({ "message": "Zone modified"})
+    },
+    deleteAll: async (req, res) => {
+        await ZoneModel.deleteMany();
+        res.json({ "message": "Deleted all" });
     },
     delete: async (req, res) => {
         await ZoneModel.remove({ _id: req.params.id });
         res.json({ "message": "Zone supprimée" });
     },
-    deleteAll: async (req, res) => {
-        await ZoneModel.deleteMany();
-        res.json({ "message": "Deleted all" });
+    findAllBottlesByZoneId: async (req, res) => {
+        let found = await BottleModel.find({ zone: req.params.id });
+        res.json(found);
     }
+
 }
 
 module.exports = ZoneController;

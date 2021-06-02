@@ -5,9 +5,10 @@ function ShowCellar({area, columns, rows}) {
     let htmlColumnsWithNum = [];
     let htmlColumnsLessNum = [];
     for (let i = 0; i < columns; i++){
+
         htmlColumnsWithNum.push(
             <div className="column-area">
-                <span className="index-X">{ i + 1 }</span>
+                <span className="index-X" >{ i + 1 }</span>
                 <div className="contentBottle drop-area" data-bottle={i + 1} data-area={area}>
                 </div>
             </div>);
@@ -19,9 +20,9 @@ function ShowCellar({area, columns, rows}) {
         </div>);
 
     }
-    let styleJsx={};
+
     for (let j = 0; j < rows; j++){
-        styleJsx = j === 0 ?{paddingBottom:'2.4vh'}:{};
+        let styleJsx = j > 0 ?{marginTop:'2.4vh'}:{};
         htmlRow.push(
             <div className="lineBottle" data-lineBottle={j+1} key={j}  style={styleJsx} >
                 <div className="row-area">{j+1}</div>
