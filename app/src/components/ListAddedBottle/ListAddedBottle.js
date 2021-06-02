@@ -41,7 +41,7 @@ class TabForAddedBottle extends React.Component {
     createWineTableRow = (bouteille, index) => {
       // console.log(bouteille._id);
         const element = (
-            <tr key={bouteille.id} className="cursor-pointer">
+            <tr key={bouteille._id} className="cursor-pointer">
                 <td>{index + 1}</td>
                 <td>{bouteille.name}</td>
                 <td>{bouteille.color}</td>
@@ -59,7 +59,7 @@ class TabForAddedBottle extends React.Component {
     componentDidUpdate(prevProps, prevState) {
       if (prevProps.bouteilles !== this.props.bouteilles) {
         console.log('bottle state has changed.')
-        
+
       }
     }
     render() {

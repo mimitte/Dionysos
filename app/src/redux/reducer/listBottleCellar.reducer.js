@@ -24,7 +24,7 @@ export const listBottles =(state=initListBottle, action)=> {
 
         // si tu reçois une action de type LIST_BOTTLES retourne nous {...}
         case DELETE_BOTTLE :
-        console.log("delete bouteille");
+        // console.log("delete bouteille");
         return {
             ...state,
             bouteilles: state.bouteilles.filter(bouteille => bouteille._id !== action.payload)

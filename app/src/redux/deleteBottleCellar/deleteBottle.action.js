@@ -10,19 +10,32 @@ export const deleteBottle =(id)=>{
     //  console.log("dans l'action delete", id);
     return (dispatch)=>{
         fetch(
-            `http://localhost:5000/api/bottle/${id}.json`,
+            `http://localhost:5000/api/bottle/${id}`,
             {
                 method: "DELETE"
             }
-        ).catch(function() {
-            console.log("error");
-        });
+            
+        ).then((result)=>{
+            if (result) {
+                dispatch({ 
+                    type: DELETE_BOTTLE,
+                    payload: id,
+                    isLoaded:true,
+                    });
+                
+            }
+            console.log(result);
+            
+        })
+
+        // catch(function(err) {
+
+        //     console.log(err);
+        //     return null;
+        // });
+       
         //il va dispatcher l'action comme quoi on a suppr une bouteille
-        dispatch({ 
-        type: DELETE_BOTTLE,
-        payload: id,
-        isLoaded:true,
-        });
+        
     }          
 }    
 
