@@ -1,8 +1,13 @@
 import React from 'react';
+ // redux
+ import { connect } from "react-redux";
+
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import filterColorbottles from '../../utils/filterColorBottles';
  am4core.useTheme(am4themes_animated);
+
 
 class Dashboard extends React.Component {
     
@@ -10,22 +15,27 @@ class Dashboard extends React.Component {
         const colorRouge ="#ac1e44";
         const colorRose = "#ffe6ff";
         const colorBlanc = "#fff0b3";
+        // ici je récupère les props du Parent 
+        const { bouteilles } = this.props;
+        // appel à la fonction filterColorbottles qui contient les méthodes pour filtrer les bouteilles par couleurs les bouteilles 
+        const {red, white,pink} = filterColorbottles(bouteilles);
+       
         let data = [{
             "country": "Vin rouge",
             "disabled": true,
-            "litres": 1000,
+            "litres": red,
             "color": am4core.color(colorRouge),
             "opacity": 1,
             "strokeDasharray": "4,4"
         }, {
             "country": "Rosé",
-            "litres": 501.9,
+            "litres": pink,
             "color": am4core.color(colorRose),
             "opacity": 1,
             "strokeDasharray": "4,4"
         }, {
             "country": "Vin blanc",
-            "litres": 301.9,
+            "litres":  white,
             "color": am4core.color(colorBlanc),
             "opacity": 1,
             "strokeDasharray": "4,4"
@@ -106,4 +116,13 @@ class Dashboard extends React.Component {
 }
     
 
-export default Dashboard;
+// export default Dashboard;
+// ça nous retourne l'état du state qui se trouve dans le store
+const mapStateToProps = (state)=>{
+  console.log("state via mapStatoToProps de Dashboard", state);
+  return {
+     ...state.listBottles
+  }
+}
+// ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant
+export default connect(mapStateToProps)(Dashboard);
