@@ -138,7 +138,6 @@ const cellarObjet = {
         },
     ]
 };
-console.log(cellarObjet);
 
 export default class WineCellar extends Component {
     constructor(props) {
@@ -192,73 +191,78 @@ export default class WineCellar extends Component {
         });
     }
 
+    componentDidUpdate (prevProps, prevState){
+        console.log(`Etape ${this.state} : je suis dans le componentDidUpdate()`);
+        console.log(prevState);
+        console.log(this.state);
+
+    }
     dispatchBottle(elements, color){
         this.totalBottlecellar(parseInt(elements.bottles.length,10));
         let sufixColor = color === "blanc" ? "white": color === "rouge" ? "red": "rose";
-        let loc  = elements.bottles.map((bottle) => {
+        elements.bottles.map((bottle) => {
             let rowBottle = bottle.location[0];
             let columnBottle = bottle.location[1];
-            let element = document.querySelector("[data-area='" + color + "'] [data-linebottle='" + rowBottle + "'] [data-bottle='" + columnBottle + "']");
+            let element = document.querySelector("[dataarea='" + color + "'] [datalinebottle='" + rowBottle + "']  [databottle='" + columnBottle + "']");
             let drag = document.createElement("div");
             drag.classList.add("draggable-" + sufixColor);
             drag.setAttribute("draggable","true");
             drag.setAttribute("id","draggable-" + bottle.uid);
-            drag.setAttribute("data-area",color);
+            drag.setAttribute("dataarea",color);
             drag.addEventListener('dragstart',this.dragStart)
             element.append(drag);
             element.classList.remove("drop-area");
             return null;
         });
 
-        if(loc){
-            let containers = document.querySelectorAll('.column-area');
-            for (const container of containers) {
-                container.addEventListener('dragover',this.dragOver);
-                container.addEventListener('dragenter',this.dragEnter);
-                container.addEventListener('dragleave',this.dragLeave);
-                container.addEventListener('drop',this.dragDrop);
-            }
-        }
     }
 
 
-    dragOver(e){
-        e.preventDefault();
+    dragOver =(event) =>{
+        event.preventDefault();
+        event.stopPropagation();
     }
 
 
-    dragEnter(e){
-        e.preventDefault();
+    dragEnter =(event) =>{
+        event.preventDefault();
+        event.stopPropagation();
         let reInitAeraDrop = document.querySelectorAll('.contentBottle');
         for(let content of reInitAeraDrop)
         {
             if(!content.classList.contains("drop-area") && !content.hasChildNodes()){
                 content.classList.toggle("drop-area");
-                let moveBottle = true;
-                // this.setState({
-                //     move : moveBottle
-                // })
+                console.log("j'y suis");
             }
         }
+        let moveBottle = true;
+        console.log(this.state);
+        console.log("ici");
+        this.setState({
+            move: moveBottle
+        })
     }
 
-    dragLeave(e){
-        e.preventDefault();
+    dragLeave=(event) =>{
+        event.preventDefault();
+        event.stopPropagation();
     }
 
-    dragStart(e){
-        e.dataTransfer.setData("text",e.target.id);
+    dragStart=(event) =>{
+        event.stopPropagation();
+        event.dataTransfer.setData("text",event.target.id);
     }
 
-    dragDrop(e){
-        e.preventDefault();
-        if(e.target.classList.contains("drop-area")){
-            let areaColor =  e.target.getAttribute("data-area");
-            const id = e.dataTransfer.getData('text');
+    dragDrop=(event) =>{
+        event.preventDefault();
+        event.stopPropagation();
+        if(event.target.classList.contains("drop-area")){
+            let areaColor =  event.target.getAttribute("dataarea");
+            const id = event.dataTransfer.getData('text');
             let bottle = document.getElementById(id);
-            if(bottle.getAttribute("data-area") === areaColor){
-                e.target.append(document.getElementById(id));
-                e.target.classList.toggle("drop-area");
+            if(bottle.getAttribute("dataarea") === areaColor){
+                event.target.append(document.getElementById(id));
+                event.target.classList.toggle("drop-area");
             }
         }
     }
@@ -272,15 +276,21 @@ export default class WineCellar extends Component {
     creatAreaCellars = ({areaElements, index}) =>{
         let color = areaElements.area;
         let titleColor = color === "blanc" ? "Blanc" : color === "rose" ? "Rosé" : "Rouge";
-        let btnValidate = this.state.move === true ? (<button>Validez la déplacement</button>) : <div></div>;
         return(
             <React.Fragment>
                 <div className="wine-are">
                     <h3>Emplacement vin {titleColor} </h3>
-                    <div className="area" data-area={areaElements.area} >
-                        <ShowCellar area={color} columns={areaElements.columns} rows={areaElements.rows} key={index}/>
+                    <div className="area" dataarea={areaElements.area} >
+                        <ShowCellar
+                        area={color}
+                        columns={areaElements.columns}
+                        rows={areaElements.rows}
+                        key={index +3}
+                        onDragEnter={this.dragEnter}
+                        onDragOver={this.dragOver}
+                        onDrop={this.dragDrop}
+                        />
                     </div>
-
                 </div>
             </React.Fragment>
         );
@@ -288,14 +298,16 @@ export default class WineCellar extends Component {
 
     render() {
         let area = this.state.cellar[0].areaCellar;
+        let btnValidate = this.state.move === true ? [<button id="update-bottle">Validez le déplacement</button> ]: [<div></div>];
         return (
             <>
-           
                 <h2>Cave: {this.state.name}</h2>
                 <h3>Nombre de bouteilles total : {this.state.totalBottle }</h3>
                 <section id="areaCellars">
                         {area.map((elements, index) =><this.creatAreaCellars areaElements={elements}  index={index} key={index}/>)}
+                        
                 </section>
+                {btnValidate}
             </>
         )
     }
