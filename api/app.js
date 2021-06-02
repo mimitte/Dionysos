@@ -9,22 +9,10 @@ const swaggerDocument = require('./swagger/swagger.json');
 
 const api_conf = require('./api_conf.json');
 
-<<<<<<< HEAD
-const Bottle = require('./models/BottleModel');
-const Cellar = require('./models/CellarModel');
-const Zone = require('./models/ZoneModel');
-
-const { json } = require('body-parser');
-
-const CellarController = require('./controllers/CellarController');
-const ZoneController = require('./controllers/ZoneController');
-const BottleController = require('./controllers/BottleController');
-=======
 const CellarController = require('./controllers/CellarController');
 const ZoneController = require('./controllers/ZoneController');
 const BottleController = require('./controllers/BottleController');
 const CellarModel = require('./models/CellarModel');
->>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
 
 const app = express();
 
@@ -101,10 +89,7 @@ app.route('/api/bottle')
 
 app.route('/api/bottle/:id')
   .get(BottleController.find)
-<<<<<<< HEAD
-=======
   .patch(BottleController.edit)
->>>>>>> cf4849242f01d31a688b72d32a0f6d29a4cd8053
   .delete(BottleController.delete);
 
 module.exports = app;
