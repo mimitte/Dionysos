@@ -13,7 +13,7 @@ let BottleController = {
         delete req.body._id;
         let newBottle = new BottleModel(req.body);
         let savedBottle = await newBottle.save();
-        res.json(savedBottle);
+        res.status(201).json(savedBottle);
     },
     edit: async (req, res) => {
         await BottleModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
