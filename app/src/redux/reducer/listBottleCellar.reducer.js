@@ -1,6 +1,7 @@
 // importer le nom de l'action qui est dans type.js
 import { LIST_BOTTLES } from "../ListBottlesCellar/types";
 import { DELETE_BOTTLE } from "../deleteBottleCellar/type";
+import { ADD_BOTTLE } from "../addBottleCellar/type";
 const initListBottle = {
     bouteilles: {},
     error:false,
@@ -19,7 +20,8 @@ export const listBottles =(state=initListBottle, action)=> {
             ...state, 
             bouteilles,
             error: action.error,
-            isLoaded: action.isLoaded
+            isLoaded: true
+            // isLoaded: action.isLoaded
         }
 
         // si tu reçois une action de type LIST_BOTTLES retourne nous {...}
@@ -29,7 +31,19 @@ export const listBottles =(state=initListBottle, action)=> {
             ...state,
             bouteilles: state.bouteilles.filter(bouteille => bouteille._id !== action.payload)
         };
-    
+
+        case ADD_BOTTLE :
+            return {
+                ...state,
+                bouteilles: {...state.bouteilles, ...action.payload}
+            }
+            // ou avec la méthode concat
+            // const newListBottles = state.bouteilles.concat(action.payload)
+            // console.log(newListBottles);
+            // return{
+            //     ...state,
+            //     newListBottles
+            // }
         default:
             return state;
          

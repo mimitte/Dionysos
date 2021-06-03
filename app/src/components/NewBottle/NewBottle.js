@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addBottle } from '../../redux/addBottleCellar/addBottle.action'
 
 class NewBottle extends React.Component {
   constructor(props) {
@@ -8,24 +10,34 @@ class NewBottle extends React.Component {
       region: "",
       name: "",
       year: 0,
-      color: ""
+      color: "",
+      // zone: "",
+      user: "",
+      location: {
+        column: 4,
+        row: 5,
+      }
     };
+    
   }
 
   onSubmitHandler = (event) => {
     event.preventDefault();
+    console.log("saisie user", this.state);
+    const formState = this.state;
+    this.props.addBottle(formState);
+    console.log("props NEW BOTTLE",this.props);
 
-    const bottle = { ...this.state };
+   
 
-    fetch('http://localhost:5000/api/bottle', {
-      method: "POST",
-      body: JSON.stringify(bottle),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
-    })
-      .then(data => console.log(`success : ${data}`))
-      .catch(error => console.log(`error: ${error}`));
+    // vider le champ après la saisie
+    this.setState = {
+      country: "",
+      region: "",
+      name: "",
+      year: 0,
+      color: ""
+    };
   }
 
   render() {
@@ -88,4 +100,13 @@ class NewBottle extends React.Component {
     );
   }
 }
-export default NewBottle;
+// export default NewBottle;
+// const mapDispatchToProps = (dispatch)=>{
+//   return {
+//     addBottle:(obj)=>dispatch(addBottle(obj)),
+//   }
+// }
+
+// export default connect(mapDispatchToProps)(NewBottle);
+
+export default connect(null, { addBottle })(NewBottle);

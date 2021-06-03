@@ -24,7 +24,7 @@ export const deleteBottle =(id)=>{
                     });
                 
             }
-            console.log(result);
+            // console.log(result);
             
         })
 

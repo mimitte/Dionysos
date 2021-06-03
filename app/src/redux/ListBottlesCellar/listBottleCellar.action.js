@@ -27,7 +27,7 @@ export const getAllBottles =()=>{
             (error) => {
               dispatch({
                 error,
-                isLoaded:true
+                isLoaded:false
              });
             }
           )
