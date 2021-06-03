@@ -62,7 +62,9 @@ class TabForAddedBottle extends React.Component {
 
       }
     }
+
     render() {
+      console.log(" props depuis ListaddedBottle",this.props);
        
         const { error, isLoaded, bouteilles } = this.props;
         // console.log("ici les props du store",this.props);
