@@ -13,7 +13,7 @@ let BottleController = {
         delete req.body._id;
         let newBottle = new BottleModel(req.body);
         let savedBottle = await newBottle.save();
-        res.json(savedBottle);
+        res.status(201).json(savedBottle);
     },
     findAllBottles: async (req, res) => {
         let foundBottle = await BottleModel.find({ _id: req.params.id }).populate('bottles');
