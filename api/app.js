@@ -11,7 +11,9 @@ const swaggerDocument = require('./swagger/swagger.json');
 
 const api_conf = require('./api_conf.json');
 
-const BottleController = require('./controllers/BottleController');
+const cellarRoutes = require('./routes/cellarRoutes');
+const zoneRoutes = require('./routes/zoneRoutes');
+const bottleRoutes = require('./routes/bottleRoutes');
 
 const app = express();
 
@@ -29,10 +31,6 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
-
-const cellarRoutes = require('./routes/Cellar');
-const zoneRoutes = require('./routes/Zone');
-const bottleRoutes = require('./routes/Bottle');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/auth', userRoutes);
