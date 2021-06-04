@@ -18,6 +18,7 @@
 @import 'components/new_bottle';
 @import 'components/bottle';
 @import 'components/dashboard_menu';
+@import 'components/dashboard';
 @import 'components/list_added_bottle';
 
 /*layout */
@@ -37,3 +38,5 @@
 @import 'vendors/bootstrap';
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+@import '../node_modules/react-toastify/scss/main.scss';

@@ -1,0 +1,2 @@
+export const LIST_BOTTLES = "LIST_ZONES";
+//export const LIST_BOTTLES_CELLAR = "LIST_BOTTLES_CELLAR";

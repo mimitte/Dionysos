@@ -6,9 +6,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // redux
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
+import {bottlesCellarReducer} from "../../redux/reducer/bottlesCellar.reducer";
 
 
 class TabForAddedBottle extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -41,32 +43,31 @@ class TabForAddedBottle extends React.Component {
       buttons: [
         {
           label: 'Oui',
-          onClick: () => {
-            this.props.deleteBottle(id);
-          }
-          },
+          onClick: () => this.props.deleteBottle(id)
+        },
         {
           label: 'Non',
           onClick: () => {return}
         }]
     })
   }
-  
+
   createWineTableRow = (bouteille, index) => {
-    const element = (
-      <tr key={bouteille._id} className="cursor-pointer">
-        <td>{index + 1}</td>
-        <td>{bouteille.name}</td>
-        <td>{bouteille.color}</td>
-        <td>{bouteille.region}</td>
-        <td>{bouteille.country}</td>
-        <td>{bouteille.year}</td>
-        <td className="text-center">
-          <FaTrashAlt onClick={() => this.suppression(bouteille._id)}/>
-        </td>
-      </tr>
-    );
-    return element;
+      const element = (
+          <tr key={bouteille._id} className="cursor-pointer">
+              <td>{index + 1}</td>
+              <td>{bouteille.name}</td>
+              <td>{bouteille.color}</td>
+              <td>{bouteille.region}</td>
+              <td>{bouteille.country}</td>
+              <td>{bouteille.year}</td>
+              <td className="text-center">
+                <FaTrashAlt onClick={() => this.suppression(bouteille._id)}/>
+
+              </td>
+          </tr>
+      );
+      return element;
   }
 
   componentDidMount=()=>{
@@ -99,9 +100,6 @@ class TabForAddedBottle extends React.Component {
     this.setState({minYear});
     this.setState({maxYear});
     this.setState({filteredBottles: bottles});
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
   }
 
   filterCountries(event) {
@@ -255,19 +253,16 @@ class TabForAddedBottle extends React.Component {
   }
 }
 
-// ça nous retourne l'état du state qui se trouve dans le store
 const mapStateToProps = (state)=>{
   return {
-    ...state.listBottles
+    ...state.bottlesCellarReducer
   }
 }
 
-// ici on va faire une action delete qui mettra à jour le store
 const mapDispatchToProps = (dispatch)=>{
   return {
     deleteBottle:(id)=>dispatch(deleteBottle(id)),
   }
 }
 
-// ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant
 export default connect(mapStateToProps, mapDispatchToProps)(TabForAddedBottle);

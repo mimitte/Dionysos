@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Bottle from '../components/Bottle/Bottle';
 import WineCellar from '../components/WineCellar/WineCellar';
 import NewBottle from '../components/NewBottle/NewBottle';
 import ListAddedBottle from '../components/ListAddedBottle/ListAddedBottle';
 import Dashboard from '../components/Dashboard/Dashboard';
+
 function Routes(props) {
     return (
         // Switch: les Routes sont testés une par une, si et seulement si, l'url ne correspond pas
