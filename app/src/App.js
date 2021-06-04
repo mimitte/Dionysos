@@ -9,6 +9,12 @@ import store from './redux/store';
 import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
 // import de Toastify
 import { ToastContainer } from "react-toastify";
+import { signupNewUser } from "./redux/signup/signup.action";
+
+const user_data = {
+    "email": "oki@blaze.petitpoulet",
+    "password": "blaze"
+};
 
 function App() {
  
@@ -18,6 +24,7 @@ function App() {
   // la liste des bouteilles sont accessibles c pour ça qu'on a mis  store.dispatch(getAllBottles());  ici
 // il va mettre à jour le state du store et tous les composants qui sont abonnés à ce store
   store.dispatch(getAllBottles());
+  store.dispatch(signupNewUser(user_data));
    
   return (
     <Provider store={store}>
