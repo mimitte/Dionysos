@@ -248,12 +248,6 @@ export default class WineCellar extends Component {
                 content.classList.toggle("drop-zone");
             }
         }
-        let moveBottle = true;
-        console.log(this.state);
-        console.log("ici");
-        this.setState({
-            move: moveBottle
-        })
     }
 
     dragLeave=(event) =>{
