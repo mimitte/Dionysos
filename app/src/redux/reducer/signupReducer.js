@@ -2,7 +2,7 @@ import {
   CREATE_USER_ERROR,
   CREATE_USER_SUBMITTED,
   CREATE_USER_SUCCESS
-} from "./SignupTypes";
+} from "../signup/signupTypes";
 
 // define the initial state of the signup store
 const initialState = {
