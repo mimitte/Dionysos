@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+// Routes
+const userRoutes = require('./routes/User');
+
 // Swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
@@ -30,6 +33,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/auth', userRoutes);
 app.use('/api/cellar', cellarRoutes);
 app.use('/api/zone', zoneRoutes);
 app.use('/api/bottle', bottleRoutes);

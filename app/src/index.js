@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import '../src/dist/main.css';
-import '../node_modules/react-bootstrap/dist/react-bootstrap'
+import '../node_modules/react-bootstrap/dist/react-bootstrap';
 import '../node_modules/bootstrap/dist/js/bootstrap';
-// redux
 
 ReactDOM.render(
     <React.StrictMode>

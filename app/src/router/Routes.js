@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Bottle from '../components/Bottle/Bottle';
 import WineCellar from '../components/WineCellar/WineCellar';
 import NewBottle from '../components/NewBottle/NewBottle';
 import ListAddedBottle from '../components/ListAddedBottle/ListAddedBottle';
@@ -16,6 +15,7 @@ function Routes(props) {
             <Route exact path="/cave" component={WineCellar}/>
             <Route exact path="/new_bottle" component={ NewBottle }/>
             <Route exact path="/liste" component={ListAddedBottle}/>
+            
         </Switch>
     )
 }

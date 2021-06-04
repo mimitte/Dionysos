@@ -4,18 +4,18 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import filterColorbottles from '../../utils/filterColorBottles';
 import DashboardMenu from '../DashboardMenu/DashboardMenu';
- am4core.useTheme(am4themes_animated);
 
+am4core.useTheme(am4themes_animated);
 
 class Dashboard extends React.Component {
-constructor(props) {
-  super(props)
 
-  this.state = {
-    spinner:null
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      spinner:null
+    }
   }
-  
-}
 
   componentDidMount(){
     const spinner = document.getElementById("spinner");
@@ -50,7 +50,6 @@ constructor(props) {
               "opacity": 1,
               "strokeDasharray": "4,4"
           }]
-
           // cointainer to hold both charts
           let container = am4core.create("chartdiv", am4core.Container);
           container.width = am4core.percent(100);
@@ -61,7 +60,6 @@ constructor(props) {
               // separatorLine.zIndex = 1;
               // dragText.zIndex = 2;
           })
-
           let chart1 = container.createChild(am4charts.PieChart);
           chart1.fontSize = 11;
           chart1.hiddenState.properties.opacity = 0; // this makes initial fade in effect

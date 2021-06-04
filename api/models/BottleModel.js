@@ -6,13 +6,15 @@ const BottleSchema = mongoose.Schema({
   name: { type: String, required: true },
   year: { type: Number, required: true },
   color: { type: String, required: true },
+  note: { type: String, required: false },
   zone: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Zone"
+    ref: "Zone",
+    required: false
   },
   location: {
-    column: { type: Number, required: true },
-    row: { type: Number, required: true }
+    column: { type: Number, required: false },
+    row: { type: Number, required: false }
   }
 });
 

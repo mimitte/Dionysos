@@ -22,18 +22,8 @@ export const deleteBottle =(id)=>{
                     payload: id,
                     isLoaded:true,
                     });
-
             }
-            console.log(result);
-
         })
-
-        // catch(function(err) {
-
-        //     console.log(err);
-        //     return null;
-        // });
-        //il va dispatcher l'action comme quoi on a suppr une bouteille
     }
 }
 
