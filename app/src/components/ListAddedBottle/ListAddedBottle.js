@@ -6,7 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // redux
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
-import { getAllBottles } from '../../redux/ListBottlesCellar/listBottleCellar.action';
+// import { getAllBottles } from '../../redux/ListBottlesCellar/listBottleCellar.action';
 
 
 class TabForAddedBottle extends React.Component {
@@ -56,11 +56,14 @@ class TabForAddedBottle extends React.Component {
         );
         return element;
     }
-    componentDidUpdate(prevProps, prevState) {
-      if (prevProps.bouteilles !== this.props.bouteilles) {
-        console.log('bottle state has changed.')
+    // componentDidUpdate(prevProps, prevState) {
+    //   if (prevProps.bouteilles !== this.props.bouteilles) {
+    //     console.log('bottle state has changed.')
 
-      }
+    //   }
+    // }
+    componentDidMount=()=>{
+      
     }
 
     render() {
@@ -72,13 +75,13 @@ class TabForAddedBottle extends React.Component {
           return <div>Erreur : {error.message}</div>;
         } else if (!isLoaded) {
           
-          return <div>Chargement…</div>;
+          return <div className="divForLoadign">Chargement…</div>;
         } else {
           return (
             <React.Fragment>
         
             {
-                <div className="mb-3">
+                <div className="mb-3 listeBottleTab">
                     <h2>Voici la liste des vins dans votre cave</h2>
                     <table className="table table-hover mt-3">
                         <thead className="table-dark">
