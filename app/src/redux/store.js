@@ -8,13 +8,16 @@ import { createStore,combineReducers, applyMiddleware } from "redux";
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import { signupReducer } from './reducer/signupReducer';
+
 import thunk from "redux-thunk";
 
 // rootReducer c'est la combinaison de tous les reducers, via la méthode combineReducers
 
 const rootReducer = combineReducers({ 
 
-    listBottles  // le reducer qui est dans listBottleCellar.reducer.js
+    listBottles,  // le reducer qui est dans listBottleCellar.reducer.js
+    signupReducer
 })
 const store = createStore(
     rootReducer,
