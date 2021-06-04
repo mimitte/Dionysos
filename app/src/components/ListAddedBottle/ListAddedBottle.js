@@ -3,19 +3,14 @@ import CardFiltredBottle from '../CardFiltredBottle/CardFiltredBottle';
 import { FaTrashAlt } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+// redux
+import { connect } from "react-redux";
+import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
 
 
 class TabForAddedBottle extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            error: null,
-            isLoaded: false,
-            bouteilles: [],
-          };
-    }
 
-    suppression (id) {
+    suppression=(id) => {
       confirmAlert({
         // title: 'Confirmation avant suppression',
         message: 'êtes-vous sûrs de supprimer cet élément?',
@@ -23,16 +18,9 @@ class TabForAddedBottle extends React.Component {
           {
             label: 'Oui',
             onClick: () => {
-            // Ici la logique de suppression
-            const bouteilles = [...this.state.bouteilles];
-            const index = bouteilles.findIndex(bouteille => bouteille.id === id);
-            bouteilles.splice(index, 1);
-            this.setState({
-                bouteilles: bouteilles
-              })
-            }  
+              this.props.deleteBottle(id);
+            }
           },
-            
           {
               label: 'Non',
               onClick: () => {return}
@@ -40,10 +28,10 @@ class TabForAddedBottle extends React.Component {
         ]
       })
     }
-  
+
     createWineTableRow = (bouteille, index) => {
         const element = (
-            <tr key={bouteille.id} className="cursor-pointer">
+            <tr key={bouteille._id} className="cursor-pointer">
                 <td>{index + 1}</td>
                 <td>{bouteille.name}</td>
                 <td>{bouteille.color}</td>
@@ -51,36 +39,21 @@ class TabForAddedBottle extends React.Component {
                 <td>{bouteille.country}</td>
                 <td>{bouteille.year}</td>
                 <td className="text-center">
-                  <FaTrashAlt onClick={() => this.suppression(bouteille.id)}/>
+                  <FaTrashAlt onClick={() => this.suppression(bouteille._id)}/>
+
                 </td>
             </tr>
         );
         return element;
     }
-    componentDidMount() {
-        fetch("http://localhost:5000/api/bottle")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                bouteilles: result
-              });
-            },
-            // Remarque : il est important de traiter les erreurs ici
-            // au lieu d'utiliser un bloc catch(), pour ne pas passer à la trappe
-            // des exceptions provenant de réels bugs du composant.
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-      }
+    componentDidUpdate(prevProps, prevState) {
+      if (prevProps.bouteilles !== this.props.bouteilles) {
+       //TODO
 
+      }
+    }
     render() {
-        const { error, isLoaded, bouteilles } = this.state;
+        const { error, isLoaded, bouteilles } = this.props;
         if (error) {
           return <div>Erreur : {error.message}</div>;
         } else if (!isLoaded) {
@@ -110,17 +83,27 @@ class TabForAddedBottle extends React.Component {
                             }
                         </tbody>
                     </table>
-                    <CardFiltredBottle/>               
+                    <CardFiltredBottle bouteilles={bouteilles}/>
                 </div>
-                   
                }
            </React.Fragment>
           );
         }
       }
-}
 
-export default TabForAddedBottle;
+}
+const mapStateToProps = (state)=>{
+  return {
+     ...state.bottlesCellarReducer
+  }
+}
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    deleteBottle:(id)=>dispatch(deleteBottle(id)),
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TabForAddedBottle);
+
 
 
 
