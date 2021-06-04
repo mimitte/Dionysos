@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 // on importe les actions qu'on souhaite déclencher dans le store
 import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
+// import de Toastify
+import { ToastContainer } from "react-toastify";
 
 function App() {
  
@@ -21,7 +23,7 @@ function App() {
     <Provider store={store}>
 
       <div className="App">
-        
+        <ToastContainer hideProgressBar={true} newestOnTop={true} />
         <BrowserRouter>
           <BurgerMenu/>
           <Routes />
