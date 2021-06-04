@@ -1,6 +1,6 @@
 // ici on importe la constante qui contient le nom du type de l'action
 
-import { DELETE_BOTTLE } from "./type";
+import  {DELETE_BOTTLE}  from "./types";
 
 /** fonction getAllBottles contient toute la logique de notre demande à la BD
  * Ici notre demande consiste à récupérer toutes les bouteilles ajoutées dans la cave
@@ -14,18 +14,18 @@ export const deleteBottle =(id)=>{
             {
                 method: "DELETE"
             }
-            
+
         ).then((result)=>{
             if (result) {
-                dispatch({ 
+                dispatch({
                     type: DELETE_BOTTLE,
                     payload: id,
                     isLoaded:true,
                     });
-                
+
             }
             console.log(result);
-            
+
         })
 
         // catch(function(err) {
@@ -33,9 +33,7 @@ export const deleteBottle =(id)=>{
         //     console.log(err);
         //     return null;
         // });
-       
         //il va dispatcher l'action comme quoi on a suppr une bouteille
-        
-    }          
-}    
+    }
+}
 

@@ -1,16 +1,16 @@
 # Dionysos
 ##  application qui intègre du e-commerce, c'est un gestionnaire de cave a vin avec un peu de social et marketplace
-C'est donc une application pour gérer son vin.  
+C'est donc une application pour gérer son vin.
 1- Elle permet d'enregistrer des bouteilles que tu peux mettre dans une ou plusieurs caves différentes
 
 2- Elle permet d'ajouter ou en retirer
 
 3- Elle permet d'enregistrer ton garde
- 
+
 4- Elle envoie des notification si le vin arrive bientôt à maturité
- 
-5- Ellet'oriente quel vin qui peut se marier avec ton plat 
- 
+
+5- Ellet'oriente quel vin qui peut se marier avec ton plat
+
 ### features suplémentaires: possibilté de partager avec des amis, conseils de consommations, partages des photos, mise en relation par des vendeurs professionels etc...
 
 # Normalisation du code
@@ -39,19 +39,19 @@ classes : dashed-case
         - git clone htttps://github.com/mimitte/Dionysos.git
     Après avoir récupérer le dépôt il faut installer les dépendances avec la commande :
     (info installer au préalable nodejs,npm)
-        - npm install // installe les dépendances se trouvant le le fichier package.json il faut ce mettre dans les réertoires 
-        ou ce trouve les fichiers package.json ex: app pour l'application react et api pour l'api 
+        - npm install // installe les dépendances se trouvant le le fichier package.json il faut ce mettre dans les réertoires
+        ou ce trouve les fichiers package.json ex: app pour l'application react et api pour l'api
 
 
-## deuxieme etape 
-    Lancement des differns applications 
+## deuxieme etape
+    Lancement des differns applications
         - l' API il faut ce positionner dans le dossier api et lancer la commande :
             node server
         - L'application Dionysos ce pôsitionner dans le dossier app et lancer la commande :
             npm start || npm run start
         - Le SASS il faut ce positionner dans le dossier app et lancer la commande:
             npm run build-sass
-        
+
 
 # Getting Started with Create React App
 

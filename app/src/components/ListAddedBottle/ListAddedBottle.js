@@ -11,7 +11,6 @@ import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action
 class TabForAddedBottle extends React.Component {
 
     suppression=(id) => {
-      // console.log(id);
       confirmAlert({
         // title: 'Confirmation avant suppression',
         message: 'êtes-vous sûrs de supprimer cet élément?',
@@ -19,12 +18,9 @@ class TabForAddedBottle extends React.Component {
           {
             label: 'Oui',
             onClick: () => {
-              
               this.props.deleteBottle(id);
- 
-            }  
+            }
           },
-            
           {
               label: 'Non',
               onClick: () => {return}
@@ -32,9 +28,8 @@ class TabForAddedBottle extends React.Component {
         ]
       })
     }
-  
+
     createWineTableRow = (bouteille, index) => {
-      // console.log(bouteille._id);
         const element = (
             <tr key={bouteille._id} className="cursor-pointer">
                 <td>{index + 1}</td>
@@ -53,23 +48,19 @@ class TabForAddedBottle extends React.Component {
     }
     componentDidUpdate(prevProps, prevState) {
       if (prevProps.bouteilles !== this.props.bouteilles) {
-        console.log('bottle state has changed.')
+       //TODO
 
       }
     }
     render() {
-       
         const { error, isLoaded, bouteilles } = this.props;
-        // console.log("ici les props du store",this.props);
         if (error) {
           return <div>Erreur : {error.message}</div>;
         } else if (!isLoaded) {
-          
           return <div>Chargement…</div>;
         } else {
           return (
             <React.Fragment>
-        
             {
                 <div className="mb-3">
                     <h2>Voici la liste des vins dans votre cave</h2>
@@ -92,9 +83,8 @@ class TabForAddedBottle extends React.Component {
                             }
                         </tbody>
                     </table>
-                    <CardFiltredBottle bouteilles={bouteilles}/>               
+                    <CardFiltredBottle bouteilles={bouteilles}/>
                 </div>
-                   
                }
            </React.Fragment>
           );
@@ -102,20 +92,16 @@ class TabForAddedBottle extends React.Component {
       }
 
 }
-// ça nous retourne l'état du state qui se trouve dans le store
 const mapStateToProps = (state)=>{
-  // console.log("state via mapStatoToProps", state);
   return {
-     ...state.listBottles
+     ...state.bottlesCellarReducer
   }
 }
-// ici on va faire une action delete qui mettra à jour le store
 const mapDispatchToProps = (dispatch)=>{
   return {
     deleteBottle:(id)=>dispatch(deleteBottle(id)),
   }
 }
-// ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant
 export default connect(mapStateToProps, mapDispatchToProps)(TabForAddedBottle);
 
 
