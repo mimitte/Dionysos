@@ -13,14 +13,14 @@ class TabForAddedBottle extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
+      bottles : this.props.bouteilles,
       filteredBottles: [],
-      countries: [],
-      regions: [],
-      years: [],
-      minYear: 0,
-      maxYear: 0,
+      countries: this.props.countries,
+      regions: this.props.regions,
+      years: this.props.years,
+      minYear: this.props.minYear,
+      maxYear: this.props.maxYear,
       colors: [
         "rouge",
         "blanc",
@@ -67,39 +67,24 @@ class TabForAddedBottle extends React.Component {
               </td>
           </tr>
       );
+      this.tabBoleen = false;
       return element;
   }
 
+ static getDerivedStateFromProps(props,state){
+   if(props.countries !== state.countries)
+     {
+        return {
+          countries: props.countries,
+          regions: props.regions,
+          minYear: props.minYear,
+          maxYear: props.maxYear,
+      }
+     }
+     return null;
+ }
   componentDidMount=()=>{
-    let bottles = this.props.bouteilles;
-    let countries = [];
-    let regions = [];
-    let years = [];
-    let minYear = 0;
-    let maxYear = 0;
-
-    for (let i = 0; i < bottles.length; i++) {
-      countries.push(bottles[i].country);
-      regions.push(bottles[i].region);
-      years.push(bottles[i].year);
-    }
-    countries = [...new Set(countries)];
-    regions = [...new Set(regions)];
-    minYear = Math.min.apply(Math, years);
-    maxYear = Math.max.apply(Math, years);
-
-    years = [];
-
-    for (let i = minYear; i <= maxYear; i++) {
-      years.push(i);
-    }
-
-    this.setState({countries});
-    this.setState({regions});
-    this.setState({years});
-    this.setState({minYear});
-    this.setState({maxYear});
-    this.setState({filteredBottles: bottles});
+   
   }
 
   filterCountries(event) {
@@ -139,6 +124,7 @@ class TabForAddedBottle extends React.Component {
 
   filterList() {
     let bottles = this.props.bouteilles;
+    console.log(bottles);
     let filters = this.state.filters;
 
     if (filters.country !== "" && filters.country !== undefined) {
@@ -160,7 +146,7 @@ class TabForAddedBottle extends React.Component {
     if (filters.maxYear !== 0 && filters.maxYear !== undefined) {
       bottles = bottles.filter( (bottle) => bottle.year <= filters.maxYear);
     }
-
+console.log("ici");
     this.setState({filteredBottles: bottles});
   }
 
@@ -179,7 +165,13 @@ class TabForAddedBottle extends React.Component {
 
   render() {
     const { error, isLoaded, bouteilles } = this.props;
-
+    let allListFilter = {};
+    console.log(this.state.maxYear);
+    if(this.state.filteredBottles.length > 0){
+       allListFilter = this.state.filteredBottles;
+    }else{
+       allListFilter = bouteilles;
+    }
     if (error) {
       return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
@@ -238,14 +230,12 @@ class TabForAddedBottle extends React.Component {
                 </thead>
                 <tbody>
                 {
-                  this.state.filteredBottles.map(this.createWineTableRow)
-                  // bouteilles.map(this.createWineTableRow)
+                  allListFilter.map(this.createWineTableRow)
                 }
                 </tbody>
               </table>
               <CardFiltredBottle bouteilles={bouteilles}/>
             </div>
-
           }
         </React.Fragment>
       );

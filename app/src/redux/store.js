@@ -5,7 +5,7 @@ import { signupReducer } from './reducer/signupReducer';
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({ 
-    bottlesCellarReducer,
+    bottlesCellarReducer:bottlesCellarReducer,
     signupReducer
 });
 
