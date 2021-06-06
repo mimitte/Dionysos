@@ -10,11 +10,8 @@ import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action
 // import de Toastify
 import { ToastContainer } from "react-toastify";
 import { signupNewUser } from "./redux/signup/signup.action";
+import  Signup from './components/Signup/Signup';
 
-const user_data = {
-    "email": "oki@blaze.petitpoulet",
-    "password": "blaze"
-};
 
 function App() {
  
@@ -24,20 +21,32 @@ function App() {
   // la liste des bouteilles sont accessibles c pour ça qu'on a mis  store.dispatch(getAllBottles());  ici
 // il va mettre à jour le state du store et tous les composants qui sont abonnés à ce store
   store.dispatch(getAllBottles());
-  store.dispatch(signupNewUser(user_data));
-   
-  return (
-    <Provider store={store}>
-
-      <div className="App">
-        <ToastContainer hideProgressBar={true} newestOnTop={true} />
-        <BrowserRouter>
-          <BurgerMenu/>
-          <Routes />
-        </BrowserRouter>
-      </div>
+  const login = false;
+  
+  if (login) {
+    console.log(login);
+    return (
+      <Provider store={store}>
+  
+        <div className="App">
+          <ToastContainer hideProgressBar={true} newestOnTop={true} />
+          <BrowserRouter>
+            <BurgerMenu/>
+            <Routes />
+          </BrowserRouter>
+        </div>
+      </Provider>
+    );
+  } else {
+    console.log(login);
+    return (
+    <Provider store={store}> 
+      <Signup />
     </Provider>
-  );
+
+    );
+  }
+ 
 }
 
 export default App;

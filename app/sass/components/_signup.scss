@@ -1,11 +1,11 @@
-.bottlecard {
+.signupcard {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 5rem;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 10%;
+    margin-right: 10%;
     min-width: 16rem !important;
     max-width: 80% !important;
     background-color: rgba(245, 236, 236, 0.6) !important;
@@ -14,21 +14,31 @@
     object-position: center;
 }
 
-.bottlecard-body {
+.signupcard-text {
+    text-align: center;
+    max-width: 90% !important;
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    
+}
+
+.signupcard-body {
     flex: 1 1 auto;
     text-align: center;
 }
 
-.bottlecard-footer {
+.signupcard-footer {
     display: flex;
     border-top: 0.1rem rgba(179, 173, 173, 0.3) solid !important;
     justify-content: center;
     padding: 0 !important;
 }
 
-.btn {
+.login-btn {
     min-width: 4rem !important;
     margin: 0.5rem !important;
+    background-color: $primary-color !important;
 }
 
 .background-red {
@@ -40,7 +50,7 @@
     color: white;
     font-weight: bold;
     font-size: 1em;
-
+    text-align: center;
     margin-bottom: 0; 
 
 }
