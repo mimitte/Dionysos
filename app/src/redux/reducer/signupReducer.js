@@ -3,12 +3,14 @@ import {
   CREATE_USER_SUBMITTED,
   CREATE_USER_SUCCESS
 } from "../signup/signupTypes";
+import { fowardMessages } from "../../utils/signupMessages";
 
 // define the initial state of the signup store
 const initialState = {
-  usernameError: "",
+  emailError: "",
   passwordError: "",
-  isSubimtted: false
+  isSubimtted: false,
+  message : ""
 };
 
 // define how action will change the state of the store
@@ -16,18 +18,20 @@ export const signupReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_USER_SUBMITTED:
       return {
-        usernameError: "",
+        emailError: "",
         passwordError: "",
-        isSubimtted: true
+        isSubimtted: true,
+        message : fowardMessages(state.isSubimtted, action.type)
       };
     case CREATE_USER_ERROR:
       const errorState = {
-        usernameError: "",
+        emailError: "",
         passwordError: "",
-        isSubimtted: false
+        isSubimtted: false,
+        message : fowardMessages(state.isSubimtted, action.type)
       };
-      if (action.errorData.hasOwnProperty("username")) {
-        errorState.usernameError = action.errorData["username"];
+      if (action.errorData.hasOwnProperty("email")) {
+        errorState.emailError = action.errorData["email"];
       }
       if (action.errorData.hasOwnProperty("password")) {
         errorState.passwordError = action.errorData["password"];
@@ -35,9 +39,10 @@ export const signupReducer = (state = initialState, action) => {
       return errorState;
     case CREATE_USER_SUCCESS:
       return {
-        usernameError: "",
+        emailError: "",
         passwordError: "",
-        isSubimtted: false
+        isSubimtted: false,
+        message : fowardMessages(state.isSubimtted, action.type)
       };
     default:
       return state;
