@@ -8,16 +8,15 @@ import {
 
 
 export const signupNewUser = (userData) => {
-  console.log(userData);
-
+  console.log("blah here");
   return (dispatch) => {
-    // dispatch({ type: CREATE_USER_SUBMITTED });
+    dispatch({ type: CREATE_USER_SUBMITTED });
     fetch(
       "http://localhost:5000/api/auth/signup",
       {
         method: 'POST',
         body: JSON.stringify(
-            userData
+          userData
         ),
         headers: {
           "Content-Type": "application/json"

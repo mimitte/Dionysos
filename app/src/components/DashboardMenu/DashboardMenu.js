@@ -5,12 +5,12 @@ import { FaPlusCircle, FaListAlt,FaMapMarkerAlt,FaWineBottle  } from "react-icon
 function DashboardMenu(props) {
     const styleIcon ={
         fill:"#333",
-        fontSize: '32px', 
+        fontSize: '32px',
         cursor: 'pointer',
         margin: '0.5em 1em',
         "&:hover": {
             fill:"#ac1e44",
-        } 
+        }
     }
 
     return (
@@ -28,9 +28,7 @@ function DashboardMenu(props) {
                 <NavLink to="/cave">
                     <FaWineBottle style={styleIcon}/>
                 </NavLink>
-                
             </div>
-            
         </React.Fragment>
     );
 }

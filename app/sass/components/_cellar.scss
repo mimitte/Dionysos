@@ -1,14 +1,14 @@
 
- #areaCellars {
+ #zoneCellars {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.wine-are {
+.wine-zone {
     text-align: center;
 }
-.area {
+.zone {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,12 +22,12 @@
     width: 300px;
 }
 
-.column-area {
+.column-zone {
     display: flex;
     flex-direction: column;
 }
 
-.column-area span {
+.column-zone span {
     text-align: center;
 }
 
@@ -36,7 +36,7 @@
     justify-content:center ;
 }
 
-.draggable-red, .draggable-rose, .draggable-white {
+.draggable-red, .draggable-pink, .draggable-white {
     background-size: 28px 28px;
     background-repeat: no-repeat;
     border-radius: 50%;
@@ -48,7 +48,7 @@
     margin: auto;
     background-image: url("../images/vinblanc.png");
 }
-.draggable-rose {
+.draggable-pink {
     margin: auto;
     background-image: url("../images/vinrose.png");
 }
@@ -56,7 +56,7 @@
     margin: auto;
     background-image: url("../images/vinrouge.png");
 }
-.row-area {
+.row-zone {
     display: flex;
     align-items: flex-end;
     padding-right: 1vh;
@@ -72,13 +72,15 @@
     border-bottom-left-radius:50px;
   }
 @media  (min-width: 1068px) {
-    #areaCellars {
+    #zoneCellars {
         padding-top: 10VH;
         flex-direction: row;
     }
-    .wine-are {
+    .wine-zone {
         margin-right: 10vh;
         width: 100%;
     }
+    #update-bottle {
 
+    }
 }

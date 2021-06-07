@@ -6,129 +6,251 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 // redux
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
-// import { getAllBottles } from '../../redux/ListBottlesCellar/listBottleCellar.action';
+import {bottlesCellarReducer} from "../../redux/reducer/bottlesCellar.reducer";
 
 
 class TabForAddedBottle extends React.Component {
-    constructor(props) {
-        super(props);
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      bottles : this.props.bouteilles,
+      filteredBottles: this.props.bouteilles,
+      countries: this.props.countries,
+      regions: this.props.regions,
+      years: this.props.years,
+      minYear: this.props.minYear,
+      maxYear: this.props.maxYear,
+      colors: [
+        "rouge",
+        "blanc",
+        "rosé"
+      ],
+      filters: [
+        { country: "" },
+        { region: "" },
+        { color: "" },
+        { minYear: 0 },
+        { maxYear: 0 }
+      ]
     }
+  }
 
-    suppression=(id) => {
-      // console.log(id);
-      confirmAlert({
-        // title: 'Confirmation avant suppression',
-        message: 'êtes-vous sûrs de supprimer cet élément?',
-        buttons: [
-          {
-            label: 'Oui',
-            onClick: () => {
-              
-              this.props.deleteBottle(id);
- 
-            }  
-          },
-            
-          {
-              label: 'Non',
-              onClick: () => {return}
-          }
-        ]
-      })
-    }
-  
-    createWineTableRow = (bouteille, index) => {
-      // console.log(bouteille._id);
-        const element = (
-            <tr key={bouteille._id} className="cursor-pointer">
-                <td>{index + 1}</td>
-                <td>{bouteille.name}</td>
-                <td>{bouteille.color}</td>
-                <td>{bouteille.region}</td>
-                <td>{bouteille.country}</td>
-                <td>{bouteille.year}</td>
-                <td className="text-center">
-                  <FaTrashAlt onClick={() => this.suppression(bouteille._id)}/>
+  suppression=(id) => {
+    confirmAlert({
+      // title: 'Confirmation avant suppression',
+      message: 'êtes-vous sûrs de supprimer cet élément?',
+      buttons: [
+        {
+          label: 'Oui',
+          onClick: () => this.props.deleteBottle(id)
+        },
+        {
+          label: 'Non',
+          onClick: () => {return}
+        }]
+    })
+  }
 
-                </td>
-            </tr>
-        );
-        return element;
-    }
-    // componentDidUpdate(prevProps, prevState) {
-    //   if (prevProps.bouteilles !== this.props.bouteilles) {
-    //     console.log('bottle state has changed.')
+  createWineTableRow = (bouteille, index) => {
+      const element = (
+          <tr key={bouteille._id} className="cursor-pointer">
+              <td>{index + 1}</td>
+              <td>{bouteille.name}</td>
+              <td>{bouteille.color}</td>
+              <td>{bouteille.region}</td>
+              <td>{bouteille.country}</td>
+              <td>{bouteille.year}</td>
+              <td className="text-center">
+                <FaTrashAlt onClick={() => this.suppression(bouteille._id)}/>
 
-    //   }
-    // }
-    componentDidMount=()=>{
-      
-    }
+              </td>
+          </tr>
+      );
+      this.tabBoleen = false;
+      return element;
+  }
 
-    render() {
-      console.log(" props depuis ListaddedBottle",this.props);
-       
-        const { error, isLoaded, bouteilles } = this.props;
-        // console.log("ici les props du store",this.props);
-        if (error) {
-          return <div>Erreur : {error.message}</div>;
-        } else if (!isLoaded) {
-          
-          return <div className="divForLoadign">Chargement…</div>;
-        } else {
-          return (
-            <React.Fragment>
-        
-            {
-                <div className="mb-3 listeBottleTab">
-                    <h2>Voici la liste des vins dans votre cave</h2>
-                    <table className="table table-hover mt-3">
-                        <thead className="table-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Couleur</th>
-                                <th scope="col">Région</th>
-                                <th scope="col">Pays</th>
-                                <th scope="col">Année</th>
-                                <th scope="">Supprimer</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                bouteilles.map(this.createWineTableRow)
-                            }
-                        </tbody>
-                    </table>
-                    <CardFiltredBottle bouteilles={bouteilles}/>               
-                </div>
-                   
-               }
-           </React.Fragment>
-          );
-        }
+ static getDerivedStateFromProps(props,state){
+   if(props.countries !== state.countries)
+     {
+        return {
+          countries: props.countries,
+          regions: props.regions,
+          minYear: props.minYear,
+          maxYear: props.maxYear,
+          filteredBottles: props.bouteilles
       }
+     }
+     return null;
+ }
+  componentDidMount=()=>{
+   
+  }
 
-}
-// ça nous retourne l'état du state qui se trouve dans le store
-const mapStateToProps = (state)=>{
-  // console.log("state via mapStatoToProps", state);
-  return {
-     ...state.listBottles
+  filterCountries(event) {
+    let filters = this.state.filters;
+    filters.country = event.target.value;
+    this.setState({ filters });
+    this.filterList();
+  }
+
+  filterRegions(event) {
+    let filters = this.state.filters;
+    filters.region = event.target.value;
+    this.setState({ filters });
+    this.filterList();
+  }
+
+  filterColors(event) {
+    let filters = this.state.filters;
+    filters.color = event.target.value;
+    this.setState({ filters });
+    this.filterList();
+  }
+
+  filterMinYear(event) {
+    let filters = this.state.filters;
+    filters.minYear = event.target.value;
+    this.setState({filters});
+    this.filterList();
+  }
+
+  filterMaxYear(event) {
+    let filters = this.state.filters;
+    filters.maxYear = event.target.value;
+    this.setState({ filters });
+    this.filterList();
+  }
+
+  filterList() {
+    let bottles = this.props.bouteilles;
+    let filters = this.state.filters;
+
+    if (filters.country) {
+      console.log("country : ", filters.country);
+      bottles = bottles.filter( (bottle) => bottle.country === filters.country);
+      console.log(bottles);
+    }
+
+    if (filters.region !== "" && filters.region !== undefined) {
+      console.log("region : ", filters.region);
+      bottles = bottles.filter( (bottle) => bottle.region === filters.region);
+      console.log(bottles);
+    }
+
+    if (filters.color !== "" && filters.color !== undefined) {
+      bottles = bottles.filter( (bottle) => bottle.color === filters.color);
+    }
+
+    if (filters.minYear !== 0 && filters.minYear !== undefined) {
+      bottles = bottles.filter( (bottle) => bottle.year >= filters.minYear);
+    }
+
+    if (filters.maxYear !== 0 && filters.maxYear !== undefined) {
+      bottles = bottles.filter( (bottle) => bottle.year <= filters.maxYear);
+    }
+    this.setState({filteredBottles: bottles});
+  }
+
+  resetFilters = (event) => {
+    event.preventDefault();
+    let filters = [
+      { country: "" },
+      { region: "" },
+      { color: "" },
+      { minYear: 0 },
+      { maxYear: 0 }
+    ];
+    this.setState({ filters });
+    this.setState({filteredBottles: this.props.bouteilles});
+    event.target.reset();
+  }
+
+  render() {
+    const { error, isLoaded } = this.props;
+
+    if (error) {
+      return <div>Erreur : {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div className="divForLoadign">Chargement…</div>;
+    } else {
+      return (
+        <React.Fragment>
+          {
+            <div className="mb-3 listeBottleTab">
+              <h2>Voici la liste des vins dans votre cave</h2>
+              <form onSubmit={this.resetFilters} id="filters">
+                <select name="countries" id="countries" onChange={ (event) => this.filterCountries(event)}>
+                  <option value="">Pays</option>
+                  {this.state.countries.map( (country, index) => {
+                    return <option key={ index } value={ country }>{ country }</option>
+                  })}
+                </select>
+                <select name="regions" id="regions" onChange={ (event) => this.filterRegions(event)}>
+                  <option value="">Région</option>
+                  {this.state.regions.map( (region, index) => {
+                    return <option key={ index } value={ region }>{ region }</option>
+                  })}
+                </select>
+                <select name="colors" id="colors" onChange={ (event) => this.filterColors(event)}>
+                  <option value="">Couleurs</option>
+                  {this.state.colors.map( (color, index) => {
+                    return <option key={ index } value={ color }>{ color }</option>
+                  })}
+                </select>
+                <select name="minYear" id="minYear" onChange={ (event) => this.filterMinYear(event)}>
+                  <option value="">Année Min</option>
+                  {this.state.years.map( (minYear, index) => {
+                    return <option key={ index } value={ minYear }>{ minYear }</option>
+                  })}
+                </select>
+                <select name="maxYear" id="maxYear" onChange={ (event) => this.filterMaxYear(event)}>
+                  <option value="">Année Max</option>
+                  {this.state.years.map( (maxYear, index) => {
+                    return <option key={ "max"+index } value={ maxYear }>{ maxYear }</option>
+                  })}
+                </select>
+                <button type="submit">Annuler</button>
+              </form>
+              <table className="table table-hover mt-3">
+                <thead className="table-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Couleur</th>
+                  <th scope="col">Région</th>
+                  <th scope="col">Pays</th>
+                  <th scope="col">Année</th>
+                  <th scope="">Supprimer</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                  this.state.filteredBottles.map(this.createWineTableRow)
+                }
+                </tbody>
+              </table>
+              <CardFiltredBottle bouteilles={this.props.bouteilles}/>
+            </div>
+          }
+        </React.Fragment>
+      );
+    }
   }
 }
-// ici on va faire une action delete qui mettra à jour le store
+
+const mapStateToProps = (state)=>{
+  return {
+    ...state.bottlesCellarReducer
+  }
+}
+
 const mapDispatchToProps = (dispatch)=>{
   return {
     deleteBottle:(id)=>dispatch(deleteBottle(id)),
   }
 }
-// ça va chercher le props qui est dans App.j et le mapper dans la variable bouteilles pour ce composant
+
 export default connect(mapStateToProps, mapDispatchToProps)(TabForAddedBottle);
-
-
-
-
-

@@ -2,16 +2,18 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './router/Routes';
 import BurgerMenu from './components/BurgerMenu/BurgerMenu';
-// redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-// on importe les actions qu'on souhaite déclencher dans le store
 import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
-// import de Toastify
 import { ToastContainer } from "react-toastify";
 import { signupNewUser } from "./redux/signup/signup.action";
-import  Signup from './components/Signup/Signup';
 
+const user_data = {
+  "email": "oki@blaze.petitpoulet",
+  "password": "blaze"
+};
+store.dispatch(getAllBottles());
+store.dispatch(signupNewUser(user_data));
 
 function App() {
  
@@ -43,10 +45,7 @@ function App() {
     <Provider store={store}> 
       <Signup />
     </Provider>
-
-    );
-  }
- 
+  );
 }
 
 export default App;

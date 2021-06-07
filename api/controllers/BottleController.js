@@ -2,8 +2,16 @@ let BottleModel = require('../models/BottleModel');
 
 let BottleController = {
     findAll: async (req, res) => {
-        let allZones = await BottleModel.find();
-        res.json(allZones);
+        let offset = parseInt(req.query.offset, 10);
+        let limit = parseInt(req.query.limit, 10);
+        let zones;
+        if (offset !== undefined && limit !== undefined) {
+            console.log(`offset : ${offset} - limit : ${limit}`);
+            zones = await BottleModel.find().skip(offset).limit(limit);
+        } else {
+            zones = await BottleModel.find();
+        }
+        res.status(200).json(zones);
     },
     find: async (req, res) => {
         let found = await BottleModel.find({ _id: req.params.id });
