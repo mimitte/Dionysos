@@ -7,6 +7,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
 import {bottlesCellarReducer} from "../../redux/reducer/bottlesCellar.reducer";
+import franceFlag from "../../images/flags/Flag_of_France.svg";
 
 
 class TabForAddedBottle extends React.Component {
@@ -178,7 +179,24 @@ class TabForAddedBottle extends React.Component {
       return (
         <React.Fragment>
           {
-            <div className="mb-3 listeBottleTab">
+            <>
+            <div className="mobile">
+              {this.state.filteredBottles.map( (bottle) => {
+                return (
+                  <div className="bottle-card">
+                    <div className="card-img">
+                      <img src="https://via.placeholder.com/150" alt="bottle image"/>
+                    </div>
+                    <div className="card-body">
+                      <h5>{ bottle.name }</h5>
+                      <p>{ bottle.region } - { bottle.year }</p>
+                      <img src={franceFlag} alt="My Happy SVG"/>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="mb-3 listeBottleTab browser">
               <h2>Voici la liste des vins dans votre cave</h2>
               <form onSubmit={this.resetFilters} id="filters">
                 <select name="countries" id="countries" onChange={ (event) => this.filterCountries(event)}>
@@ -234,6 +252,7 @@ class TabForAddedBottle extends React.Component {
               </table>
               <CardFiltredBottle bouteilles={this.props.bouteilles}/>
             </div>
+            </>
           }
         </React.Fragment>
       );
