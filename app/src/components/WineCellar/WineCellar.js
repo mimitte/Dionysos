@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import ShowCellar from './ShowCellar'
 
+
+const user = {
+    email:"",
+    idCellar: "609ea3b71fac1d1be0430703",
+    name:""
+}
 const  bottlesWhite = [
     {
         uid:1,
@@ -10,7 +16,7 @@ const  bottlesWhite = [
         region:"Sauternes",//Terroir
         note:"Sauternes",
         country:"France",
-        areaCellar:1, //listebottles
+        zone:1, //listebottles
         location:[2,3]// empalcement dans la cave
     },
     {
@@ -21,7 +27,7 @@ const  bottlesWhite = [
         region:"Barsac",
         note:"Barsac",
         country:"France",
-        areaCellar:1,
+        zone:1,
         location:[2,4]
     },
     {
@@ -32,11 +38,11 @@ const  bottlesWhite = [
         region:"Sauternes",
         note:"Chateau Doisy Daene, L Extravagant De Doisy Daene",
         country:"France",
-        areaCellar:1,
+        zone:1,
         location:[3,5]
     }
 ]
-const  bottlesWRed = [
+const  bottlesRed = [
     {
         uid:4,
         color:"red",
@@ -45,7 +51,7 @@ const  bottlesWRed = [
         region:"Pauillac",
         note:"Pauillac",
         country:"France",
-        areaCellar:3,
+        zone:3,
         location:[5,1]
     },
     {
@@ -56,7 +62,7 @@ const  bottlesWRed = [
         region:"Pomerol",
         note:"Pomerol",
         country:"France",
-        areaCellar:3,
+        zone:3,
         location:[5,3]
     },
     {
@@ -67,7 +73,7 @@ const  bottlesWRed = [
         region:"Pessac Leognan",
         note:"Pessac Leognan",
         country:"France",
-        areaCellar:3,
+        zone:3,
         location:[3,2]
     }
 ]
@@ -80,7 +86,7 @@ const  bottlesPink = [
         region:"Bordeaux",
         note:"Chateau De Sours, Rosé, ",
         country:"France",
-        areaCellar:2,
+        zone:2,
         location:[1,1]
     },
     {
@@ -91,7 +97,7 @@ const  bottlesPink = [
         region:"Bordeaux",
         note:" Bordeaux Rose",
         country:"France",
-        areaCellar:2,
+        zone:2,
         location:[1,2]
     },
     {
@@ -102,7 +108,7 @@ const  bottlesPink = [
         region:"Bordeaux",
         note:"Chateau De Fontenille, La Belle Rosee, Rosé, Bordeaux Rose",
         country:"France",
-        areaCellar:2,
+        zone:2,
         location:[1,3]
     }
 ]
@@ -111,25 +117,25 @@ const cellarObjet = {
     uid:1,
     name:"Cave1",
     description:"super cave de bordeaux",
-    areaCellar :[
+    zone :[
         {
             id:1,
-            area:"rouge",
+            zone:"red",
             columns:7,
             rows:5,
             cellar:1,
-            bottles:bottlesWRed//liste bouteille blanc
+            bottles:bottlesRed//liste bouteille blanc
         },
         {
             id:2,
-            area:"rose",
+            zone:"pink",
             columns:5,
             rows:4,
             cellar:1,
             bottles:bottlesPink//liste bouteille blanc
         },
         { // table liste bouteilles  avec id
-            area:"blanc",
+            zone:"white",
             id:3,
             columns:7,//x  type d'oragisation de la zone des bouteilles
             rows:5,//y
@@ -143,20 +149,20 @@ export default class WineCellar extends Component {
     constructor(props) {
         super(props)
         let {uid, name, description} = cellarObjet;
-        let areaWine = cellarObjet.areaCellar;
+        let zoneWine = cellarObjet.zone;
         let update = false;
-        let areaWhite=[];
-        let areaRed=[];
-        let areaRose=[];
-        areaWine.map( (elements, index) =>{
-            if(elements.area === "blanc"){
-                areaWhite.push(elements);
+        let zoneWhite=[];
+        let zoneRed=[];
+        let zonePink=[];
+        zoneWine.map( (elements, index) =>{
+            if(elements.zone === "white"){
+                zoneWhite.push(elements);
             }
-            if(elements.area === "rouge"){
-                areaRed.push(elements);
+            if(elements.zone === "red"){
+                zoneRed.push(elements);
             }
-            if(elements.area === "rose"){
-                areaRose.push(elements);
+            if(elements.zone === "pink"){
+                zonePink.push(elements);
             }
             return null;
         });
@@ -164,9 +170,9 @@ export default class WineCellar extends Component {
             uid:uid,
             name:name,
             description,
-            areaWhite: areaWine,
-            areaRed: areaRed,
-            areaRose: areaRose,
+            zoneWhite: zoneWhite,
+            zoneRed: zoneRed,
+            zonePink: zonePink,
             cellar: [
                 cellarObjet,
             ],
@@ -175,17 +181,17 @@ export default class WineCellar extends Component {
         }
     }
     componentDidMount = () => {
-        let area = this.state.cellar[0].areaCellar;
-        area.map((elements) => {
-            let color = elements.area;
-            if(color === "rouge" && elements.length !== 0){
+        let zone = this.state.cellar[0].zone;
+        zone.map((elements) => {
+            let color = elements.zone;
+            if(color === "red" && elements.length !== 0){
+                 this.dispatchBottle(elements, color);
+            }
+            if(color === "pink" && elements.length !== 0){
                 this.dispatchBottle(elements, color);
             }
-            if(color === "rose" && elements.length !== 0){
-                this.dispatchBottle(elements, color);
-            }
-            if(color === "blanc" && elements.length !== 0){
-                this.dispatchBottle(elements, color);
+            if(color === "white" && elements.length !== 0){
+                 this.dispatchBottle(elements, color);
             }
             return null;
         });
@@ -199,22 +205,31 @@ export default class WineCellar extends Component {
     }
     dispatchBottle(elements, color){
         this.totalBottlecellar(parseInt(elements.bottles.length,10));
-        let sufixColor = color === "blanc" ? "white": color === "rouge" ? "red": "rose";
-        elements.bottles.map((bottle) => {
-            let rowBottle = bottle.location[0];
-            let columnBottle = bottle.location[1];
-            let element = document.querySelector("[dataarea='" + color + "'] [datalinebottle='" + rowBottle + "']  [databottle='" + columnBottle + "']");
+        //let sufixColor = color === "white" ? "white": color === "red" ? "red": "pink";
+        let loc  = elements.bottles.map((bottle) => {
+            let rowBottle = bottle.location[1];
+            let columnBottle = bottle.location[0];
+            let element = document.querySelector("[datazone='" + color + "'] [datalinebottle='" + rowBottle + "'] [databottle='" + columnBottle + "']");
             let drag = document.createElement("div");
-            drag.classList.add("draggable-" + sufixColor);
+            drag.classList.add("draggable-" + color);
             drag.setAttribute("draggable","true");
             drag.setAttribute("id","draggable-" + bottle.uid);
-            drag.setAttribute("dataarea",color);
-            drag.addEventListener('dragstart',this.dragStart)
+            drag.setAttribute("datazone",color);
             element.append(drag);
-            element.classList.remove("drop-area");
+            drag.addEventListener('dragstart',this.dragStart)
+            element.classList.remove("drop-zone");
             return null;
         });
 
+        if(loc){
+            let containers = document.querySelectorAll('.column-zone');
+            for (const container of containers) {
+                container.addEventListener('dragover',this.dragOver);
+                container.addEventListener('dragenter',this.dragEnter);
+                container.addEventListener('dragleave',this.dragLeave);
+                container.addEventListener('drop',this.dragDrop);
+            }
+        }
     }
 
 
@@ -224,23 +239,15 @@ export default class WineCellar extends Component {
     }
 
 
-    dragEnter =(event) =>{
-        event.preventDefault();
-        event.stopPropagation();
-        let reInitAeraDrop = document.querySelectorAll('.contentBottle');
-        for(let content of reInitAeraDrop)
+    dragEnter(e){
+        e.preventDefault();
+        let reInitZoneDrop = document.querySelectorAll('.contentBottle');
+        for(let content of reInitZoneDrop)
         {
-            if(!content.classList.contains("drop-area") && !content.hasChildNodes()){
-                content.classList.toggle("drop-area");
-                console.log("j'y suis");
+            if(!content.classList.contains("drop-zone") && !content.hasChildNodes()){
+                content.classList.toggle("drop-zone");
             }
         }
-        let moveBottle = true;
-        console.log(this.state);
-        console.log("ici");
-        this.setState({
-            move: moveBottle
-        })
     }
 
     dragLeave=(event) =>{
@@ -253,16 +260,15 @@ export default class WineCellar extends Component {
         event.dataTransfer.setData("text",event.target.id);
     }
 
-    dragDrop=(event) =>{
-        event.preventDefault();
-        event.stopPropagation();
-        if(event.target.classList.contains("drop-area")){
-            let areaColor =  event.target.getAttribute("dataarea");
-            const id = event.dataTransfer.getData('text');
+    dragDrop(e){
+        e.preventDefault();
+        if(e.target.classList.contains("drop-zone")){
+            let zoneColor =  e.target.getAttribute("datazone");
+            const id = e.dataTransfer.getData('text');
             let bottle = document.getElementById(id);
-            if(bottle.getAttribute("dataarea") === areaColor){
-                event.target.append(document.getElementById(id));
-                event.target.classList.toggle("drop-area");
+            if(bottle.getAttribute("datazone") === zoneColor){
+                e.target.append(document.getElementById(id));
+                e.target.classList.toggle("drop-zone");
             }
         }
     }
@@ -273,39 +279,30 @@ export default class WineCellar extends Component {
          }));
     }
 
-    creatAreaCellars = ({areaElements, index}) =>{
-        let color = areaElements.area;
-        let titleColor = color === "blanc" ? "Blanc" : color === "rose" ? "Rosé" : "Rouge";
+    creatZoneCellars = ({zoneElements, index}) =>{
+        let color = zoneElements.zone;
+        let titleColor = color === "white" ? "Blanc" : color === "pink" ? "Rosé" : "Rouge"
         return(
-            <React.Fragment>
-                <div className="wine-are">
+            <>
+                <div className="wine-zone">
                     <h3>Emplacement vin {titleColor} </h3>
-                    <div className="area" dataarea={areaElements.area} >
-                        <ShowCellar
-                        area={color}
-                        columns={areaElements.columns}
-                        rows={areaElements.rows}
-                        key={index +3}
-                        onDragEnter={this.dragEnter}
-                        onDragOver={this.dragOver}
-                        onDrop={this.dragDrop}
-                        />
+                    <div className="zone" datazone={zoneElements.zone} >
+                        <ShowCellar zone={color} columns={zoneElements.columns} rows={zoneElements.rows} key={index+4}/>
                     </div>
                 </div>
-            </React.Fragment>
+            </>
         );
     }
 
     render() {
-        let area = this.state.cellar[0].areaCellar;
         let btnValidate = this.state.move === true ? [<button id="update-bottle">Validez le déplacement</button> ]: [<div></div>];
+        const zone = this.state.cellar[0].zone;
         return (
             <>
                 <h2>Cave: {this.state.name}</h2>
                 <h3>Nombre de bouteilles total : {this.state.totalBottle }</h3>
-                <section id="areaCellars">
-                        {area.map((elements, index) =><this.creatAreaCellars areaElements={elements}  index={index} key={index}/>)}
-                        
+                <section id="zoneCellars">
+                        {zone.map((elements, index) =><this.creatZoneCellars zoneElements={elements} index={index} key={index}/>)}
                 </section>
                 {btnValidate}
             </>

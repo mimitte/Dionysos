@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Bottle from '../components/Bottle/Bottle';
 import WineCellar from '../components/WineCellar/WineCellar';
 import NewBottle from '../components/NewBottle/NewBottle';
 import ListAddedBottle from '../components/ListAddedBottle/ListAddedBottle';
