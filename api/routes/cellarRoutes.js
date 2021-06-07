@@ -8,6 +8,9 @@ router.route('/')
  .post(cellarCtrl.create)
  .delete(cellarCtrl.deleteAll);
 
+router.route('/:id/zones')
+  .get(cellarCtrl.findAllZonesByCellarId);
+
 router.route('/:id')
   .get(cellarCtrl.find)
   .delete(cellarCtrl.delete)
