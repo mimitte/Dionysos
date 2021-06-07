@@ -16,22 +16,13 @@ import { signupNewUser } from "../../redux/signup/signup.action"; // new import
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        login: [{
-            email: "",
-            password: ""
-    }]
-    };
+   
   }
     formSubmit = e => {
-        e.preventDefault();
-        let login = [{email : e.target[0].value , password: e.target[1].value }];
-        this.setState({login: login});
-      console.log(this.state.login);
-      const userData = {
-        email: this.state.login[0].email,
-        password: this.state.login[0].password
-      };
+      e.preventDefault();
+      console.log(e.target[0].value);
+      console.log(e.target[1].value);
+        let userData = {email : e.target[0].value , password: e.target[1].value };
       console.log(this.props);
       this.props.signupNewUser(userData);
     };
