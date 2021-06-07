@@ -3,6 +3,7 @@
  * et met à jour le store qui est au départ une liste vide d'objet state={} */ 
 
 import { listBottles } from "./reducer/listBottleCellar.reducer";
+import { createCellar } from "./reducer/createCellar.reducer";
 
 import { createStore,combineReducers, applyMiddleware } from "redux";
 
@@ -14,7 +15,9 @@ import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({ 
 
-    listBottles  // le reducer qui est dans listBottleCellar.reducer.js
+    listBottles,// le reducer qui est dans listBottleCellar.reducer.js
+    createCellar
+      
 })
 const store = createStore(
     rootReducer,
