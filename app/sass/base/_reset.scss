@@ -11,15 +11,21 @@ html {
     box-sizing: border-box;
 }
 
-#root > div {
-  position:absolute;
-  display: flex;
-  height: auto;
-  width: 100%;
-  background-image: linear-gradient(217deg, #f0f0f066, rgba(240, 240, 240, 0.8)),
-  url("../../src/images/apollo-dionysus-greek-god.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
+#root {
+  
+    position:relative;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(217deg, #f0f0f066, rgba(240, 240, 240, 0.8)),
+    url("../../src/images/apollo-dionysus-greek-god.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+
+} 
+
+
+
 
