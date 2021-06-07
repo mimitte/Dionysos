@@ -99,7 +99,7 @@ class NewBottle extends React.Component {
                 <option value="rosé">Rosé</option>
             </select>
           </div>
-          <input type="submit" value="Créer" />
+          <input className="dio-btn dio-btn-success" type="submit" value="Créer" />
         </form>
       </div>
     );

@@ -24,12 +24,5 @@
                 @extend .form-control;
             }
         }
-
-        input[type = submit] {
-            @extend .btn;
-            @extend .btn-primary;
-            background-color: $primary-color !important;
-            border-color: $primary-color !important;
-        }
     }
 }
