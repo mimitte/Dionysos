@@ -3,6 +3,7 @@ import CardFiltredBottle from '../CardFiltredBottle/CardFiltredBottle';
 import { FaTrashAlt } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import translateEnglishToFrench from '../../../src/utils/translateEnglishToFrench'
 // redux
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
@@ -57,7 +58,8 @@ class TabForAddedBottle extends React.Component {
           <tr key={bouteille._id} className="cursor-pointer">
               <td>{index + 1}</td>
               <td>{bouteille.name}</td>
-              <td>{bouteille.color}</td>
+              {/* on a traduit en français car dans la BD les couleurs sont en anglais */}
+              <td>{translateEnglishToFrench(bouteille.color)}</td>
               <td>{bouteille.region}</td>
               <td>{bouteille.country}</td>
               <td>{bouteille.year}</td>
