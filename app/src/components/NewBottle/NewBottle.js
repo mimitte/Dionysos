@@ -46,54 +46,59 @@ class NewBottle extends React.Component {
         <h2>Nouvelle bouteille</h2>
 
         <form onSubmit={ this.onSubmitHandler } >
-          <label htmlFor="country">
-              Pays :
-          </label>
-          <input type="text" name="country" value={ this.state.country } required
-              onChange={ (event) => {
-                  this.setState({ country: event.target.value});
+          <div>
+            <label htmlFor="country">
+                Pays :
+            </label>
+            <input type="text" name="country" value={ this.state.country } required
+                onChange={ (event) => {
+                    this.setState({ country: event.target.value});
 
-              }} />
+                }} />
+          </div>
+          <div>
+            <label htmlFor="region">
+                Région :
+            </label>
+            <input type="text" name="region" value={ this.state.region } required
+                onChange={ (event) => {
+                    this.setState({ region: event.target.value});
 
-          <label htmlFor="region">
-              Région :
-          </label>
-          <input type="text" name="region" value={ this.state.region } required
-              onChange={ (event) => {
-                  this.setState({ region: event.target.value});
+                }} />
+          </div>
+          <div>
+            <label htmlFor="name">
+                Nom :
+            </label>
+            <input type="text" name="name" value={ this.state.name } required
+                onChange={ (event) => {
+                    this.setState({ name: event.target.value});
 
-              }} />
+                }} />
+          </div>
+          <div>
+            <label htmlFor="year">
+                Année :
+            </label>
+            <input type="number" name="year" value={ this.state.year } required
+                onChange={ (event) => {
+                    this.setState({ year: event.target.value});
 
-          <label htmlFor="name">
-              Nom :
-          </label>
-          <input type="text" name="name" value={ this.state.name } required
-              onChange={ (event) => {
-                  this.setState({ name: event.target.value});
+                }} />
+          </div>
+          <div>
+            <label htmlFor="color">Couleur</label>
+            <select name="color" id="color" value={ this.state.color } required
+                onChange={ (event) => {
+                    this.setState({ color: event.target.value});
 
-              }} />
-
-          <label htmlFor="year">
-              Année :
-          </label>
-          <input type="number" name="year" value={ this.state.year } required
-              onChange={ (event) => {
-                  this.setState({ year: event.target.value});
-
-              }} />
-
-          <label htmlFor="color">Couleur</label>
-          <select name="color" id="color" value={ this.state.color } required
-              onChange={ (event) => {
-                  this.setState({ color: event.target.value});
-
-              }} >
-              <option value=""></option>
-              <option value="rouge">Rouge</option>
-              <option value="blanc">Blanc</option>
-              <option value="rosé">Rosé</option>
-          </select>
-
+                }} >
+                <option value=""></option>
+                <option value="rouge">Rouge</option>
+                <option value="blanc">Blanc</option>
+                <option value="rosé">Rosé</option>
+            </select>
+          </div>
           <input type="submit" value="Créer" />
         </form>
       </div>
