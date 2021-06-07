@@ -28,8 +28,6 @@ class NewBottle extends React.Component {
     this.props.addBottle(formState);
     console.log("props NEW BOTTLE",this.props);
 
-   
-
     // vider le champ après la saisie
     this.setState = {
       country: "",
