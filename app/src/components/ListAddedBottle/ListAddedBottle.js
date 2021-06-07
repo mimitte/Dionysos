@@ -3,11 +3,10 @@ import CardFiltredBottle from '../CardFiltredBottle/CardFiltredBottle';
 import { FaTrashAlt } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-// redux
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
-import {bottlesCellarReducer} from "../../redux/reducer/bottlesCellar.reducer";
 import franceFlag from "../../images/flags/Flag_of_France.svg";
+import BottleCard from "../BottleCard/BottleCard";
 
 
 class TabForAddedBottle extends React.Component {
@@ -168,6 +167,10 @@ class TabForAddedBottle extends React.Component {
     event.target.reset();
   }
 
+  displayModal() {
+    console.log("Display modal");
+  }
+
   render() {
     const { error, isLoaded } = this.props;
 
@@ -181,8 +184,16 @@ class TabForAddedBottle extends React.Component {
           {
             <>
             <div className="mobile">
-              {this.state.filteredBottles.map( (bottle) => {
+              {this.state.filteredBottles.map( (bottle, index) => {
                 return (
+                  <BottleCard
+                    index={index}
+                    name={bottle.name}
+                    region={bottle.region}
+                    year={bottle.year}
+                    displayModal={this.displayModal}>
+                  </BottleCard>
+                  /*
                   <div className="bottle-card">
                     <div className="card-img">
                       <img src="https://via.placeholder.com/150" alt="bottle image"/>
@@ -193,6 +204,7 @@ class TabForAddedBottle extends React.Component {
                       <img src={franceFlag} alt="My Happy SVG"/>
                     </div>
                   </div>
+                   */
                 )
               })}
             </div>
