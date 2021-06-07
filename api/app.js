@@ -3,17 +3,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 // Routes
-const userRoutes = require('./routes/User');
+const userRoutes = require('./routes/userRoutes');
+const cellarRoutes = require('./routes/cellarRoutes');
+const zoneRoutes = require('./routes/zoneRoutes');
+const bottleRoutes = require('./routes/bottleRoutes');
 
 // Swagger
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger/swagger.json');
 
 const api_conf = require('./api_conf.json');
-
-const cellarRoutes = require('./routes/cellarRoutes');
-const zoneRoutes = require('./routes/zoneRoutes');
-const bottleRoutes = require('./routes/bottleRoutes');
 
 const app = express();
 
