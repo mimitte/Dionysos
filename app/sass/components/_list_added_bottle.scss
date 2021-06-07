@@ -4,3 +4,18 @@
     background-color: $primary-color!important ; //sets hovered row's background color to blue
     color: blanchedalmond !important;
 }
+
+button {
+    @extend .btn;
+    @extend .btn-light;
+    @extend .btn-outline-primary;
+}
+
+#filters {
+    display: flex;
+    flex-wrap: wrap;
+    select {
+        @extend .form-select;
+        max-width: 20%;
+    }
+}

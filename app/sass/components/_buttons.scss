@@ -1,0 +1,19 @@
+.dio-btn {
+  @extend .btn;
+/*  border: solid 1px $primary-color;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  box-shadow: 1px 1px 1px $primary-color;*/
+}
+
+.dio-btn-success {
+  @extend .btn-success;
+/*  background-color: #84DB70;
+  color: whitesmoke;*/
+}
+
+.dio-btn-danger {
+  @extend .btn-danger;
+}

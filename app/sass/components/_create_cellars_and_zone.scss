@@ -1,0 +1,30 @@
+.form-check-label .redZone{
+    color: $vin-rouge-couleur;
+}
+.form-check-label .pinkZone{
+    color:rgba(228, 86, 110, 0.781);
+}
+.form-check-label .whiteZone{
+    color:#b1962a;
+}
+
+.form-check-input#checkRedWine:checked {
+    background-color:$vin-rouge-couleur !important;
+    border-color:$vin-rouge-couleur !important;
+}
+
+.form-check-input#checkPinkWine:checked {
+    background-color:rgba(228, 86, 110, 0.781) !important;
+    border-color:rgba(228, 86, 110, 0.781) !important;
+}
+
+.form-check-input#checkWhiteWine:checked {
+    background-color:#b1962a !important;
+    border-color:#b1962a !important;
+}
+#btnSubmit{
+    background-color: $vin-rouge-couleur;
+    border-color: $vin-rouge-couleur !important;
+    color: whitesmoke;
+}
+

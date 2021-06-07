@@ -15,8 +15,9 @@ function MenuHamberger(props) {
             <Nav>
               <NavLink to="/">Home</NavLink>
               <NavLink to="/cave">Cave</NavLink>
-            <NavLink to="/new_bottle">Ajouter un vin</NavLink>
-            <NavLink to="/bottle">The bottle</NavLink>
+              <NavLink to="/new_bottle">Ajouter un vin</NavLink>
+              <NavLink to="/bottle">The bottle</NavLink>
+              <NavLink to="/create_cellar">Créer une cave</NavLink>
             </Nav> 
           </Navbar.Collapse>
         </Navbar>
