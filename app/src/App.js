@@ -8,25 +8,21 @@ import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action
 import { ToastContainer } from "react-toastify";
 import { signupNewUser } from "./redux/signup/signup.action";
 
-const user_data = {
-  "email": "oki@blaze.petitpoulet",
-  "password": "blaze"
-};
-store.dispatch(getAllBottles());
-store.dispatch(signupNewUser(user_data));
-
 function App() {
-  return (
-    <Provider store={store}>
-      <div className="App">
-        <ToastContainer hideProgressBar={true} newestOnTop={true} />
-        <BrowserRouter>
-          <BurgerMenu/>
-          <Routes />
-        </BrowserRouter>
-      </div>
-    </Provider>
-  );
+    store.dispatch(getAllBottles());
+    store.dispatch(signupNewUser(user_data));
+    return (
+      <Provider store={store}>
+        <div className="App">
+          <ToastContainer hideProgressBar={true} newestOnTop={true} />
+          <BrowserRouter>
+            <BurgerMenu/>
+            <Routes />
+          </BrowserRouter>
+        </div>
+      </Provider>
+    );
+
 }
 
 export default App;
