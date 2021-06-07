@@ -7,22 +7,4 @@
         color: whitesmoke;
         text-shadow: 1px 1px $primary-color;
     }
-
-    form {
-
-        div {
-            @extend .mb-3;
-
-            label {
-                @extend .form-label
-                // font-size: 1.5em;
-            }
-
-            input[type = text],
-            input[type = number],
-            select {
-                @extend .form-control;
-            }
-        }
-    }
 }

@@ -45,7 +45,7 @@ class NewBottle extends React.Component {
       <div className="new-bottle-container">
         <h2>Nouvelle bouteille</h2>
 
-        <form onSubmit={ this.onSubmitHandler } >
+        <form className="dio-form" onSubmit={ this.onSubmitHandler } >
           <div>
             <label htmlFor="country">
                 Pays :
