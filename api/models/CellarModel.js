@@ -6,6 +6,10 @@ const CellarSchema = mongoose.Schema({
     zones: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Zone"
+    }],
+    zones: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }]
 });
 
