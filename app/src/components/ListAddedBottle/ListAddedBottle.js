@@ -15,7 +15,7 @@ class TabForAddedBottle extends React.Component {
     super(props);
     this.state = {
       bottles : this.props.bouteilles,
-      filteredBottles: [],
+      filteredBottles: this.props.bouteilles,
       countries: this.props.countries,
       regions: this.props.regions,
       years: this.props.years,
@@ -79,6 +79,7 @@ class TabForAddedBottle extends React.Component {
           regions: props.regions,
           minYear: props.minYear,
           maxYear: props.maxYear,
+          filteredBottles: props.bouteilles
       }
      }
      return null;
@@ -124,15 +125,18 @@ class TabForAddedBottle extends React.Component {
 
   filterList() {
     let bottles = this.props.bouteilles;
-    console.log(bottles);
     let filters = this.state.filters;
 
-    if (filters.country !== "" && filters.country !== undefined) {
+    if (filters.country) {
+      console.log("country : ", filters.country);
       bottles = bottles.filter( (bottle) => bottle.country === filters.country);
+      console.log(bottles);
     }
 
     if (filters.region !== "" && filters.region !== undefined) {
+      console.log("region : ", filters.region);
       bottles = bottles.filter( (bottle) => bottle.region === filters.region);
+      console.log(bottles);
     }
 
     if (filters.color !== "" && filters.color !== undefined) {
@@ -146,11 +150,10 @@ class TabForAddedBottle extends React.Component {
     if (filters.maxYear !== 0 && filters.maxYear !== undefined) {
       bottles = bottles.filter( (bottle) => bottle.year <= filters.maxYear);
     }
-console.log("ici");
     this.setState({filteredBottles: bottles});
   }
 
-  resetFilters(event) {
+  resetFilters = (event) => {
     event.preventDefault();
     let filters = [
       { country: "" },
@@ -160,18 +163,13 @@ console.log("ici");
       { maxYear: 0 }
     ];
     this.setState({ filters });
-    this.filterList();
+    this.setState({filteredBottles: this.props.bouteilles});
+    event.target.reset();
   }
 
   render() {
-    const { error, isLoaded, bouteilles } = this.props;
-    let allListFilter = {};
-    console.log(this.state.maxYear);
-    if(this.state.filteredBottles.length > 0){
-       allListFilter = this.state.filteredBottles;
-    }else{
-       allListFilter = bouteilles;
-    }
+    const { error, isLoaded } = this.props;
+
     if (error) {
       return <div>Erreur : {error.message}</div>;
     } else if (!isLoaded) {
@@ -182,7 +180,7 @@ console.log("ici");
           {
             <div className="mb-3 listeBottleTab">
               <h2>Voici la liste des vins dans votre cave</h2>
-              <div id="filters">
+              <form onSubmit={this.resetFilters} id="filters">
                 <select name="countries" id="countries" onChange={ (event) => this.filterCountries(event)}>
                   <option value="">Pays</option>
                   {this.state.countries.map( (country, index) => {
@@ -213,8 +211,8 @@ console.log("ici");
                     return <option key={ "max"+index } value={ maxYear }>{ maxYear }</option>
                   })}
                 </select>
-              </div>
-              <button onClick={ (event) => this.resetFilters(event)}>Annuler</button>
+                <button type="submit">Annuler</button>
+              </form>
               <table className="table table-hover mt-3">
                 <thead className="table-dark">
                 <tr>
@@ -230,11 +228,11 @@ console.log("ici");
                 </thead>
                 <tbody>
                 {
-                  allListFilter.map(this.createWineTableRow)
+                  this.state.filteredBottles.map(this.createWineTableRow)
                 }
                 </tbody>
               </table>
-              <CardFiltredBottle bouteilles={bouteilles}/>
+              <CardFiltredBottle bouteilles={this.props.bouteilles}/>
             </div>
           }
         </React.Fragment>
