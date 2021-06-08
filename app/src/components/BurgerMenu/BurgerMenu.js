@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 function MenuHamberger(props) {
     return (
-        <Navbar collapseOnSelect expand="md" bg="ligth" variant="light" className="col-sm-12 col-md-12 col-lg-12">
+        <Navbar collapseOnSelect expand="md" bg="ligth" variant="light" className="sticky-navbar col-sm-12 col-md-12 col-lg-12">
           <Navbar.Brand href="/">
             DIONYSOS
           </Navbar.Brand>

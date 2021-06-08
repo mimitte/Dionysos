@@ -28,8 +28,8 @@ function App() {
         <div className="App">
           <ToastContainer hideProgressBar={true} newestOnTop={true} />
           <BrowserRouter>
-            <BurgerMenu />
-            <Routes />
+            <BurgerMenu  />
+            <Routes  />
           </BrowserRouter>
         </div>
       </Provider>
