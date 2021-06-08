@@ -1,3 +1,35 @@
+.mobile {
+    display: block;
+
+    .bottle-card {
+        margin: 1em;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        border: solid 1px $primary-color;
+        display: flex;
+        cursor: pointer;
+
+        .card-img {
+            width: max-content;
+
+            img {
+                border-radius: 5px 0 0 5px;
+            }
+        }
+
+        .card-body {
+
+            img {
+                width: 2em;
+            }
+        }
+    }
+}
+
+.browser {
+    display: none;
+}
+
 .table-hover tr:hover{
 
     cursor:pointer !important; //set the cursor to pointer (hand)
@@ -17,5 +49,15 @@ button {
     select {
         @extend .form-select;
         max-width: 20%;
+    }
+}
+
+@media (min-width: 600px) {
+    .mobile {
+        display: none;
+    }
+
+    .browser {
+        display: block;
     }
 }
