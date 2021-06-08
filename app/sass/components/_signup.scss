@@ -1,0 +1,50 @@
+.fond {
+    position:relative;
+    background-image: url(../../src/images/apollo-dionysus-greek-god.jpg);
+    width: 100vw;
+    background-size: cover;
+    height: 100vh;
+    top: 0;
+    z-index: 2;
+}
+.dionysos {
+    background-image: url(../../src/images/svg_home_page.svg);
+    background-size: cover;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+}
+
+.title {
+    color: whitesmoke;
+    padding-top: 20vh;
+    padding-left: 6vw;
+    font-size: 45px;
+    font-weight: 750;
+    font-family: Roboto;
+}
+
+.sub-title {
+    color: whitesmoke;
+    font-size: 25px;
+    font-weight: lighter;
+    line-height: 1.6;
+    padding-top: 2vh;
+    padding-left: 6vw;
+    max-width: 90%;
+}
+
+.CTA-homepage {
+    align-items: center;
+    font-size: larger;
+    font-weight: bolder;
+    font-family: roboto;
+    font-size: 1.2em;
+    padding-top: 3vh;
+    padding-left: 6vw;
+    color: whitesmoke;
+    max-width: 60%;
+    
+}
+
