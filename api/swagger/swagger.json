@@ -14,11 +14,130 @@
   },
   "tags": [
     {
-      "name": "Bouteilles",
-      "description": "Les opérations sur les bouteilles"
+      "name": "Auth",
+      "description": "Operations about users"
+    },
+    {
+      "name": "Caves",
+      "description": "Operations about cellars"
+    },
+    {
+      "name": "Bottles",
+      "description": "Operations about bottles"
     }
   ],
   "paths": {
+    "/api/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register a user with an unique e-mail",
+        "operationId": "postSignup",
+        "requestBody": {
+          "description": "User email and password as JSON",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The new registered user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Log a user with e-mail password",
+        "operationId": "postLogin",
+        "requestBody": {
+          "description": "User email and password as JSON",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The user credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cellar": {
+      "get": {
+        "tags": [
+          "Caves"
+        ],
+        "summary": "Returns all cellars as a list",
+        "operationId": "getCellars",
+        "responses": {
+          "200": {
+            "description": "A list of cellars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cellar",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Caves"
+        ],
+        "summary": "Créé une cave",
+        "operationId": "postCellar",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CellarDto",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/bottle": {
       "get": {
         "tags": [
@@ -80,168 +199,29 @@
           }
         }
       }
-    },
-    "/api/v1/users/{id}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get a user by id",
-        "operationId": "getUserById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The id of a user",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid id supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-    "put": {
-      "tags": [
-        "user"
-      ],
-      "summary": "Update a user",
-      "operationId": "updateUser",
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "description": "id of a user to update",
-          "required": true,
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-        "requestBody": {
-          "description": "Updated user object",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid payload supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Delete a user",
-        "operationId": "deleteUserById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The id of user to be deleted",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "User deleted successfully"
-          },
-          "400": {
-            "description": "Invalid id supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
       "UserDto": {
+        "Type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "CellarDto": {
         "type": "object",
         "properties": {
-          "firstName": {
+          "name": {
             "type": "string"
           },
-          "lastName": {
+          "description": {
             "type": "string"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int64"
           }
         }
       },
@@ -262,6 +242,47 @@
             "format": "int64"
           },
           "color": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "Type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "Cellar": {
+        "Type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "zones": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Zone": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
             "type": "string"
           }
         }
@@ -287,25 +308,6 @@
           },
           "color": {
             "type": "string"
-          }
-        }
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "age": {
-            "type": "integer",
-            "format": "int64"
           }
         }
       },
