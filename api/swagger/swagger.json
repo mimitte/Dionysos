@@ -94,6 +94,26 @@
       }
     },
     "/api/cellar": {
+      "post": {
+        "tags": [
+          "Caves"
+        ],
+        "summary": "Créé une cave",
+        "operationId": "postCellar",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CellarDto",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Caves"
@@ -116,20 +136,31 @@
             }
           }
         }
-      },
-      "post": {
+      }
+    },
+    "/api/cellar/{id}": {
+      "get": {
         "tags": [
           "Caves"
         ],
-        "summary": "Créé une cave",
-        "operationId": "postCellar",
+        "summary": "Returns one cellar",
+        "parameters": {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "description": "Text ID of the cellar to get"
+        },
+        "operationId": "getOneCellar",
         "responses": {
           "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CellarDto",
+                  "$ref": "#/components/schemas/Cellar",
                   "type": "string"
                 }
               }
