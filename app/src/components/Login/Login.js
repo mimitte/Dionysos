@@ -11,9 +11,9 @@ import {
   FormControl
 } from "react-bootstrap";
 
-import { signupNewUser } from "../../redux/signup/signup.action"; // new import
+import { loginUser, logoutUser } from "../../redux/login/login.action"; // new import
 
-class Signup extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
    
@@ -24,7 +24,7 @@ class Signup extends Component {
       console.log(e.target[1].value);
         let userData = {email : e.target[0].value , password: e.target[1].value };
       console.log(this.props);
-      this.props.signupNewUser(userData);
+      this.props.LoginUser(userData);
     };
   
   componentDidUpdate() {
@@ -82,6 +82,20 @@ class Signup extends Component {
                             {this.props.createUser.passwordError}
                             </Form.Control.Feedback>
                         </Form.Group>
+                                
+                         <Form.Group controlId="passwordId">
+                            <Form.Label>Mot de passe</Form.Label>
+                            <Form.Control
+                            isInvalid={this.props.createUser.passwordError}
+                            // className="signupcard-text"
+                            type="password"
+                            name="password"
+                            placeholder="Mot de passe"
+                            />
+                            <Form.Control.Feedback type="invalid">
+                            {this.props.createUser.passwordError}
+                            </Form.Control.Feedback>
+                        </Form.Group>
                         <input className="dio-btn dio-btn-success" type="submit" value="Envoyez" />
                     </Form>
                     {/* <p className="mt-2">
@@ -101,19 +115,19 @@ class Signup extends Component {
 // export default Signup;
 // with code below:
 
-Signup.propTypes = {
-  signupNewUser: PropTypes.func.isRequired,
-  createUser: PropTypes.object.isRequired
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired
+//   createUser: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  createUser: state.createUser
+//   createUser: state.createUser
 });
 
 const mapDispatchToProps = (dispatch)=>{
   return {
-    signupNewUser:(userData)=>dispatch(signupNewUser(userData)),
+    loginUser:(userData)=>dispatch(loginUser(userData)),
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Signup);
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

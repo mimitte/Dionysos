@@ -25,7 +25,11 @@ export const signupNewUser = (userData) => {
     ).then(
       result => result.json()
     ).then(
-      
+      toast.success(
+        "Account for " +
+          userData.email +
+          " created successfully. Please login."
+      ),
       json => {
         dispatch({
           type: CREATE_USER_SUCCESS,
