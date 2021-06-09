@@ -33,6 +33,10 @@ let CellarController = {
   findAllZonesByCellarId: async (req, res) => {
     let foundZones = await ZoneModel.find({ cellar: req.params.id });
     res.json(foundZones);
+  },
+  findAllCellarByUserId: async (req, res) => {
+    let cellars = await CellarModel.find({ userId: req.params.id });
+    res.json({ cellars });
   }
 }
 

@@ -6,7 +6,7 @@ import {
 
 // define the initial state of the signup store
 const initialState = {
-  usernameError: "",
+  emailError: "",
   passwordError: "",
   isSubimtted: false
 };
@@ -16,18 +16,18 @@ export const signupReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_USER_SUBMITTED:
       return {
-        usernameError: "",
+        emailError: "",
         passwordError: "",
         isSubimtted: true
       };
     case CREATE_USER_ERROR:
       const errorState = {
-        usernameError: "",
+        emailError: "",
         passwordError: "",
         isSubimtted: false
       };
-      if (action.errorData.hasOwnProperty("username")) {
-        errorState.usernameError = action.errorData["username"];
+      if (action.errorData.hasOwnProperty("email")) {
+        errorState.emailError = action.errorData["email"];
       }
       if (action.errorData.hasOwnProperty("password")) {
         errorState.passwordError = action.errorData["password"];
@@ -35,7 +35,7 @@ export const signupReducer = (state = initialState, action) => {
       return errorState;
     case CREATE_USER_SUCCESS:
       return {
-        usernameError: "",
+        emailError: "",
         passwordError: "",
         isSubimtted: false
       };
