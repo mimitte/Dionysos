@@ -43,3 +43,7 @@ exports.login = (req, res, next) => {
         })
         .catch( (error) => res.status(500).json({ error }))
 };
+
+exports.auth = (req, res, next) => {
+  res.status(200).json({ "message": "authentication verified" })
+}
