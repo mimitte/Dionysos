@@ -16,7 +16,7 @@ router.route('/:id')
   .delete(cellarCtrl.delete)
   .patch(cellarCtrl.edit);
   
-router.route('/user:id')
+router.route('/user/:id')
   .get(cellarCtrl.findAllCellarByUserId);
 
 module.exports = router;
