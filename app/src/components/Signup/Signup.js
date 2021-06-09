@@ -100,7 +100,9 @@ class Signup extends Component {
                     {/* <p className="mt-2">
                         Already have account? <Link to="/login">Login</Link>
                     </p> */}
-                </div>
+              </div>
+              <p className="dio-text">Vous avez déjà un compte ? <br/>
+                <Link className="dio-btn dio-btn-success" to='/login'>Accès</Link></p>
             </div>
           </div>
         }
