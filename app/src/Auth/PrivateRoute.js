@@ -4,7 +4,10 @@ import fakeAuth from "./fakeAuth";
 function PrivateRoute({ children, ...rest }) {
   return (
     <Route {...rest} render={({ location }) => {
-      return fakeAuth.isAuthenticated === true
+      return (
+        localStorage.getItem('token') != null
+        && localStorage.getItem('userId') != null
+      ) === true
         ? children
         : <Redirect to={{
           pathname: '/login',

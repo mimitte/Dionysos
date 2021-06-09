@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux"; // new import
-import PropTypes from "prop-types"; // new import
 import { Form } from "react-bootstrap";
-
-// import { loginUser} from "../../redux/login/login.action"; // new import
+import {Link} from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -14,22 +11,7 @@ class Login extends Component {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     if (userId != null && token != null) {
-
-      const headers = { 'authorization': token, 'Content-Type': 'application/json' };
-      console.log(headers);
-      fetch('http://locahost:5000/api/auth', {
-        credentials: 'include',
-        headers: {
-          'authorization': token
-        }
-      })
-        .then( (response) => {
-          if (response.ok) {
-            console.log('redirect');
-          } else {
-            console.log(response.status);
-          }
-        });
+      this.props.history.goBack();
     }
   }
 
@@ -45,11 +27,14 @@ class Login extends Component {
       body: JSON.stringify({ email, password })
     };
     fetch('http://localhost:5000/api/auth/login', requestOptions)
-      .then( (response) => response.json())
+      .then( (response) => {
+        if (response.status != 200) this.props.push('/login');
+        else return response.json();
+      })
       .then( (userData) => {
         localStorage.setItem('userId', userData.userId);
         localStorage.setItem('token', `Bearer ${userData.token}`);
-        console.log(`from localStorage ${localStorage.getItem('userId')}`);
+        this.props.history.push('/');
       })
       .catch( (error) => console.log('Bad credentials ! You are a fraud !'));
   };
@@ -86,7 +71,7 @@ class Login extends Component {
                   <Form.Control
                     // isInvalid={this.props.createUser.passwordError}
                     // className="signupcard-text"
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="Mot de passe"
                   />
@@ -100,6 +85,7 @@ class Login extends Component {
                        Already have account? <Link to="/login">Login</Link>
                    </p> */}
             </div>
+            <p>Vous n'avez pas de compte ? <Link to='/signup'>Créez-en un</Link>.</p>
           </div>
         </div>
       }
@@ -108,17 +94,4 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  // loginUser: PropTypes.func.isRequired
-};
-
-const mapStateToProps = state => ({
-});
-
-/*const mapDispatchToProps = (dispatch)=>{
-  return {
-    loginUser:(userData)=>dispatch(loginUser(userData)),
-  }
-}*/
-
-export default connect(mapStateToProps)(Login);
+export default Login;
