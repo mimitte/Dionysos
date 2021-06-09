@@ -13,4 +13,7 @@ router.route('/:id')
   .patch(bottleCtrl.edit)
   .delete(bottleCtrl.delete);
 
+router.route('/user:id')
+  .get(bottleCtrl.findAllBottleByUserId);
+
 module.exports = router;

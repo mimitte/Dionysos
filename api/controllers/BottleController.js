@@ -34,6 +34,10 @@ let BottleController = {
     delete: async (req, res) => {
         await BottleModel.deleteOne({ _id: req.params.id });
         res.json({ "message": "Deleted bottle" });
+    },
+    findAllBottleByUserId: async (req, res) => {
+        let bottles = await BottleModel.find({ userId: req.params.id });
+        res.json({ bottles });
     }
 }
 

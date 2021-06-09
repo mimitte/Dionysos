@@ -33,8 +33,11 @@ let ZoneController = {
     findAllBottlesByZoneId: async (req, res) => {
         let found = await BottleModel.find({ zone: req.params.id });
         res.json(found);
+    },
+    findAllZoneByUserId: async (req, res) => {
+        let zones = await ZoneModel.find({ userId: req.params.id });
+        res.json({ zones });
     }
-
 }
 
 module.exports = ZoneController;
