@@ -153,7 +153,7 @@ import ShowCellar from './ShowCellar'
 
     render() {
         let btnValidate = this.state.move === true ? [<button id="update-bottle">Validez le déplacement</button> ]: [<div></div>];
-        const {zonesCellar } = this.state;
+        const {zonesCellar } = this.props;
         return (
             <>
                 <h2>Cave: {this.state.name}</h2>

@@ -11,7 +11,7 @@ import { getAllZonesToCellar } from './redux/zoneCellar/zoneCellar.action';
 import Signup from './components/Signup/Signup';
 store.dispatch(getAllBottles());
 store.dispatch(getAllZonesToCellar());
-
+const login = true;
 function App() {
   if (login) {
     console.log(login);
