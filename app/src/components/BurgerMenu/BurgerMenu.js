@@ -1,6 +1,4 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
-
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
 
@@ -18,7 +16,9 @@ function MenuHamberger(props) {
               <NavLink to="/new_bottle">Ajouter un vin</NavLink>
               <NavLink to="/bottle">The bottle</NavLink>
               <NavLink to="/create_cellar">Créer une cave</NavLink>
-            </Nav> 
+              <NavLink to="/protected">Protégée</NavLink>
+              <NavLink to="/login">Profil</NavLink>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
       );

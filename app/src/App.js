@@ -6,9 +6,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
 import { ToastContainer } from "react-toastify";
-import { signupNewUser } from "./redux/signup/signup.action";
 import Signup from './components/Signup/Signup';
-
+import fakeAuth from "./Auth/fakeAuth";
 
 function App() {
  
