@@ -67,12 +67,17 @@ import ShowCellar from './ShowCellar'
     }
 
     dispatchBottle = (elements, color) => {
+        let title = "";
         let loc  = elements.map((bottle) => {
+            title = `${bottle.name}
+                    ${bottle.year}`;
             let rowBottle = bottle["location"].row;
             let columnBottle = bottle["location"].column;
             let element = document.querySelector("[datazone='" + color + "'] [datalinebottle='" + rowBottle + "'] [databottle='" + columnBottle + "']");
             let drag = document.createElement("div");
             drag.classList.add("draggable-" + color);
+            drag.classList.add("draggable");
+            drag.setAttribute("aria-label",`${title}`);
             drag.setAttribute("draggable","true");
             drag.setAttribute("id","draggable-" + bottle._id);
             drag.setAttribute("datazone",color);
