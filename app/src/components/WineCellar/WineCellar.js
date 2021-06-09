@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import ShowCellar from './ShowCellar'
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ShowCellar from './ShowCellar';
+import Modal from '../Modal/modal';
 
 // const user = {
 //     email:"",
@@ -14,7 +14,6 @@ import ShowCellar from './ShowCellar'
     constructor(props) {
         super(props)
         let update = false;
-        console.log(this.props);
         this.state = {
             zones:this.props.zonesCellar,
             id:this.props.idCellar,
@@ -22,8 +21,22 @@ import ShowCellar from './ShowCellar'
             description:this.props.descriptionCellar,
             bottlesCellar:this.props.bottlesCellar,
             move:false,
-            etat:true,
-            creatHandler:false
+            openModal:false,
+            creatHandler:false,
+            bottle :{
+                "__v": 0,
+                "​​_id":0,
+                "​​color":'',
+                "country":'',
+                "location": {
+                "column": 0,
+                "row": 0
+                },
+                "name": "",
+                "region": "",
+                "year": 0,
+                "zone": "",
+            }
         }
     }
 
@@ -42,31 +55,48 @@ import ShowCellar from './ShowCellar'
       }
 
     componentDidMount = () => {
-
+        let clickOnDrags ="";
+        let etat = false;
         const  bouteilles = this.props.bottlesCellar
         let red = bouteilles.filter( redBottle => redBottle.color ==="red" );
         let white = bouteilles.filter( whiteBottle => whiteBottle.color ==="white" );
         let pink = bouteilles.filter( pinkBottle => pinkBottle.color ==="pink");
-        this.dispatchBottle(red, "red");
-        this.dispatchBottle(white, "white");
-        this.dispatchBottle(pink, "pink");
-    }
-
-    creatDispatchBottle =()=>{
-        const  bouteilles = this.props.bottlesCellar
-        let red = bouteilles.filter( redBottle => redBottle.color ==="red" );
-        let white = bouteilles.filter( whiteBottle => whiteBottle.color ==="white" );
-        let pink = bouteilles.filter( pinkBottle => pinkBottle.color ==="pink");
-        this.dispatchBottle(red, "red");
-        this.dispatchBottle(white, "white");
-        this.dispatchBottle(pink, "pink");
+        etat = this.dispatchBottle(red, "red");
+        etat = this.dispatchBottle(white, "white");
+        etat = this.dispatchBottle(pink, "pink");
+        if(etat){
+            clickOnDrags = document.querySelectorAll('.draggable');
+            for (const clickOnDrag of clickOnDrags) {
+                clickOnDrag.addEventListener('click',this.showModal);
+            }
+        }
     }
 
     componentDidUpdate (props, state){
 
     }
 
+    showModal = (e) =>{
+        e.preventDefault();
+        let bottle = {};
+        let id = e.target.id.split("-")[1];
+        bottle = (this.state.bottlesCellar.filter(bot => bot._id === id)[0]);
+        this.setState({
+            openModal:true,
+            bottle:{...bottle}
+        })
+    }
+
+    closeModal = () => {
+        this.setState({
+            openModal:false
+        })
+    }
+    editBottle = (bottle) =>{
+        console.log("edit");
+    }
     dispatchBottle = (elements, color) => {
+        let etat = false;
         let title = "";
         let loc  = elements.map((bottle) => {
             title = `${bottle.name}
@@ -95,7 +125,9 @@ import ShowCellar from './ShowCellar'
                 container.addEventListener('dragleave',this.dragLeave);
                 container.addEventListener('drop',this.dragDrop);
             }
+            etat = true;
         }
+        return etat;
     }
 
 
@@ -159,6 +191,7 @@ import ShowCellar from './ShowCellar'
     render() {
         let btnValidate = this.state.move === true ? [<button id="update-bottle">Validez le déplacement</button> ]: [<div></div>];
         const {zonesCellar } = this.props;
+        console.log(this.state);
         return (
             <>
                 <h2>Cave: {this.state.name}</h2>
@@ -166,6 +199,19 @@ import ShowCellar from './ShowCellar'
                 <section id="zoneCellars">
                         {zonesCellar.map((elements) =><this.creatZoneCellars zoneElements={elements}  key={elements.id}/>)}
                 </section>
+                <Modal showModal={this.state.openModal} closeModal={this.closeModal}>
+                    <div className="modal-title">
+                        <h2>{this.state.bottle.name}</h2>
+                    </div>
+                    <div className="modal-body">
+                            <h3>{this.state.bottle.country}</h3>
+                            <p>{this.state.bottle.region}</p>
+                            <p>{this.state.bottle.year}</p>
+                    </div>
+                    <div className="modal-footer">
+                    <button className="button-modal-cellar" onClick={()=> this.editBottle(this.state.bottle)}>Modfier</button><button className="button-modal-cellar">Fermer</button>
+                    </div>
+                </Modal>
                 {btnValidate}
             </>
         )

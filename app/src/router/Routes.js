@@ -5,6 +5,7 @@ import NewBottle from '../components/NewBottle/NewBottle';
 import ListAddedBottle from '../components/ListAddedBottle/ListAddedBottle';
 import Dashboard from '../components/Dashboard/Dashboard';
 import CreateCellarsAndZones from '../components/CreateCellarsAndZones/CreateCellarsAndZones'
+import Bottle from '../components/Bottle/Bottle';
 function Routes(props) {
     return (
         // Switch: les Routes sont testés une par une, si et seulement si, l'url ne correspond pas
@@ -16,6 +17,7 @@ function Routes(props) {
             <Route exact path="/cave" component={WineCellar}/>
             <Route exact path="/new_bottle" component={ NewBottle }/>
             <Route exact path="/liste" component={ListAddedBottle}/>
+            <Route exact path="/bottle" component={Bottle}/>
             
         </Switch>
     )
