@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const ZoneSchema = mongoose.Schema({
-    userId: { type: String, require: true},
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "UserId",
+        required: true
+    },
     name: { type: String, required: true},
     columns: { type: Number, required: true},
     rows: { type: Number, required: true},
