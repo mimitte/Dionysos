@@ -27,6 +27,28 @@
     }
   ],
   "paths": {
+    "/api/auth": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Verify your authentication token",
+        "operationId": "auth",
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "Unauthenticated request",
+            "content": {
+              "application/json": {
+                "error": "Unauthenticated request !"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/auth/signup": {
       "post": {
         "tags": [
