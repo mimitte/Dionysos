@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const ZoneSchema = mongoose.Schema({
     name: { type: String, required: true},
+    color: {type: String, required: true},
     columns: { type: Number, required: true},
     rows: { type: Number, required: true},
     cellar: {

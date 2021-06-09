@@ -28,7 +28,7 @@ function ShowCellar({zone, columns, rows}) {
     for (let j = 0; j < rows; j++){
         let styleJsx = j > 0 ?{marginTop:'2.4vh'}:{};
         htmlRow.push(
-            <div id={'line'+j+1}   className="lineBottle" datalinebottle={j+1} key={j+1} style={styleJsx} >
+            <div id={'line'+j+1}   className="lineBottle" datalinebottle={j+1} key={"key"+j+1} style={styleJsx} >
                 <div className="row-zone">{j+1}</div>
                     {j === 0 ? htmlColumnsWithNum : htmlColumnsLessNum}
             </div>);

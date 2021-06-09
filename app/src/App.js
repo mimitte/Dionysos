@@ -7,22 +7,22 @@ import store from './redux/store';
 import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
 import { ToastContainer } from "react-toastify";
 import { signupNewUser } from "./redux/signup/signup.action";
+import { getAllZonesToCellar } from './redux/zoneCellar/zoneCellar.action';
+
+store.dispatch(getAllBottles());
+store.dispatch(getAllZonesToCellar());
 
 function App() {
-    store.dispatch(getAllBottles());
-    store.dispatch(signupNewUser(user_data));
-    return (
-      <Provider store={store}>
-        <div className="App">
-          <ToastContainer hideProgressBar={true} newestOnTop={true} />
-          <BrowserRouter>
-            <BurgerMenu/>
-            <Routes />
-          </BrowserRouter>
-        </div>
-      </Provider>
-    );
-
+  return (
+    <Provider store={store}>
+      <div className="App">
+        <ToastContainer hideProgressBar={true} newestOnTop={true} />
+        <BrowserRouter>
+          <BurgerMenu/>
+          <Routes />
+        </BrowserRouter>
+      </div>
+    </Provider>
+  );
 }
-
 export default App;

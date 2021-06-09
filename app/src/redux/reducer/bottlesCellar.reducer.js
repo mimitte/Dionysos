@@ -2,7 +2,13 @@
 import { LIST_BOTTLES } from "../ListBottlesCellar/types";
 import { DELETE_BOTTLE } from "../deleteBottleCellar/types";
 import {creatFilterList} from "../../utils/filterBottles";
+import { LIST_ZONES} from "../zoneCellar/types";
 let initListBottle = {
+    zonesCellar: [],
+    idCellar: "",
+    nameCellar : "",
+    descriptionCellar:"",
+    bottlesCellar :[],
     bouteilles: {},
     error:false,
     isLoaded:false,
@@ -15,15 +21,14 @@ let initListBottle = {
         "rouge",
         "blanc",
         "rosé"
-      ]
-}; // initial state
+      ],
+};
 
 export const bottlesCellarReducer =(state=initListBottle, action)=> {
     switch (action.type) {
         case LIST_BOTTLES:
-            const bouteilles = action.payload; 
+            const bouteilles = action.payload;
             const filters = creatFilterList(bouteilles);
-            console.log(filters);
             return {
                 ...state,
                 bouteilles,
@@ -37,11 +42,22 @@ export const bottlesCellarReducer =(state=initListBottle, action)=> {
             }
 
         case DELETE_BOTTLE :
+
             return {
                 ...state,
                 bouteilles: state.bouteilles.filter(bouteille => bouteille._id !== action.payload)
             };
-
+        case LIST_ZONES :
+            const data = action.payload;
+            return {
+                ...state,
+                idCellar: data.idCellar,
+                nameCellar : data.nameCellar,
+                descriptionCellar:data.descriptionCellar,
+                zonesCellar: data.zonesCellar,
+                isLoaded:data.isLoaded,
+                bottlesCellar: data.bottlesCellar
+            };
         default:
             return state;
     }
