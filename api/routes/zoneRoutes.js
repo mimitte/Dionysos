@@ -15,7 +15,7 @@ router.route('/:id')
 
 router.get('/:id/bottle', zoneCtrl.findAllBottlesByZoneId);
 
-router.route('/user:id')
+router.route('/user/:id')
   .get(zoneCtrl.findAllZoneByUserId);
 
 module.exports = router;
