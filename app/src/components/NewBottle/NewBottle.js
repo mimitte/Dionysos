@@ -28,8 +28,6 @@ class NewBottle extends React.Component {
     this.props.addBottle(formState);
     console.log("props NEW BOTTLE",this.props);
 
-   
-
     // vider le champ après la saisie
     this.setState = {
       country: "",
@@ -45,7 +43,7 @@ class NewBottle extends React.Component {
       <div className="new-bottle-container">
         <h2>Nouvelle bouteille</h2>
 
-        <form onSubmit={ this.onSubmitHandler } >
+        <form className="dio-form" onSubmit={ this.onSubmitHandler } >
           <div>
             <label htmlFor="country">
                 Pays :
@@ -99,7 +97,7 @@ class NewBottle extends React.Component {
                 <option value="rosé">Rosé</option>
             </select>
           </div>
-          <input type="submit" value="Créer" />
+          <input className="dio-btn dio-btn-success" type="submit" value="Créer" />
         </form>
       </div>
     );

@@ -8,7 +8,7 @@ import {
 
 
 export const signupNewUser = (userData) => {
-  console.log("blah here");
+  console.log(userData);
   return (dispatch) => {
     dispatch({ type: CREATE_USER_SUBMITTED });
     fetch(

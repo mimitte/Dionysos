@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 // Routes
-const userRoutes = require('./routes/userRoute');
+const userRoutes = require('./routes/userRoutes');
 const cellarRoutes = require('./routes/cellarRoutes');
 const zoneRoutes = require('./routes/zoneRoutes');
 const bottleRoutes = require('./routes/bottleRoutes');

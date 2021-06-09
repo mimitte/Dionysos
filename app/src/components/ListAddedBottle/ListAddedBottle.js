@@ -3,10 +3,11 @@ import CardFiltredBottle from '../CardFiltredBottle/CardFiltredBottle';
 import { FaTrashAlt } from "react-icons/fa";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-// redux
+import translateEnglishToFrench from '../../../src/utils/translateEnglishToFrench'
 import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
-import {bottlesCellarReducer} from "../../redux/reducer/bottlesCellar.reducer";
+import franceFlag from "../../images/flags/Flag_of_France.svg";
+import BottleCard from "../BottleCard/BottleCard";
 
 
 class TabForAddedBottle extends React.Component {
@@ -57,13 +58,13 @@ class TabForAddedBottle extends React.Component {
           <tr key={bouteille._id} className="cursor-pointer">
               <td>{index + 1}</td>
               <td>{bouteille.name}</td>
-              <td>{bouteille.color}</td>
+              {/* on a traduit en français car dans la BD les couleurs sont en anglais */}
+              <td>{translateEnglishToFrench(bouteille.color)}</td>
               <td>{bouteille.region}</td>
               <td>{bouteille.country}</td>
               <td>{bouteille.year}</td>
               <td className="text-center">
                 <FaTrashAlt onClick={() => this.suppression(bouteille._id)}/>
-
               </td>
           </tr>
       );
@@ -167,6 +168,10 @@ class TabForAddedBottle extends React.Component {
     event.target.reset();
   }
 
+  displayModal() {
+    console.log("Display modal");
+  }
+
   render() {
     const { error, isLoaded } = this.props;
 
@@ -178,7 +183,33 @@ class TabForAddedBottle extends React.Component {
       return (
         <React.Fragment>
           {
-            <div className="mb-3 listeBottleTab">
+            <>
+            <div className="mobile">
+              {this.state.filteredBottles.map( (bottle, index) => {
+                return (
+                  <BottleCard
+                    index={index}
+                    name={bottle.name}
+                    region={bottle.region}
+                    year={bottle.year}
+                    displayModal={this.displayModal}>
+                  </BottleCard>
+                  /*
+                  <div className="bottle-card">
+                    <div className="card-img">
+                      <img src="https://via.placeholder.com/150" alt="bottle image"/>
+                    </div>
+                    <div className="card-body">
+                      <h5>{ bottle.name }</h5>
+                      <p>{ bottle.region } - { bottle.year }</p>
+                      <img src={franceFlag} alt="My Happy SVG"/>
+                    </div>
+                  </div>
+                   */
+                )
+              })}
+            </div>
+            <div className="mb-3 listeBottleTab browser">
               <h2>Voici la liste des vins dans votre cave</h2>
               <form onSubmit={this.resetFilters} id="filters">
                 <select name="countries" id="countries" onChange={ (event) => this.filterCountries(event)}>
@@ -234,6 +265,7 @@ class TabForAddedBottle extends React.Component {
               </table>
               <CardFiltredBottle bouteilles={this.props.bouteilles}/>
             </div>
+            </>
           }
         </React.Fragment>
       );
