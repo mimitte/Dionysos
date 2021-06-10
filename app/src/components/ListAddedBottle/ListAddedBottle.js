@@ -9,7 +9,6 @@ import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action
 import franceFlag from "../../images/flags/Flag_of_France.svg";
 import BottleCard from "../BottleCard/BottleCard";
 
-
 class TabForAddedBottle extends React.Component {
 
   constructor(props) {
@@ -129,15 +128,11 @@ class TabForAddedBottle extends React.Component {
     let filters = this.state.filters;
 
     if (filters.country) {
-      console.log("country : ", filters.country);
       bottles = bottles.filter( (bottle) => bottle.country === filters.country);
-      console.log(bottles);
     }
 
     if (filters.region !== "" && filters.region !== undefined) {
-      console.log("region : ", filters.region);
       bottles = bottles.filter( (bottle) => bottle.region === filters.region);
-      console.log(bottles);
     }
 
     if (filters.color !== "" && filters.color !== undefined) {
@@ -169,7 +164,6 @@ class TabForAddedBottle extends React.Component {
   }
 
   displayModal() {
-    console.log("Display modal");
   }
 
   render() {
@@ -194,18 +188,6 @@ class TabForAddedBottle extends React.Component {
                     year={bottle.year}
                     displayModal={this.displayModal}>
                   </BottleCard>
-                  /*
-                  <div className="bottle-card">
-                    <div className="card-img">
-                      <img src="https://via.placeholder.com/150" alt="bottle image"/>
-                    </div>
-                    <div className="card-body">
-                      <h5>{ bottle.name }</h5>
-                      <p>{ bottle.region } - { bottle.year }</p>
-                      <img src={franceFlag} alt="My Happy SVG"/>
-                    </div>
-                  </div>
-                   */
                 )
               })}
             </div>
