@@ -28,7 +28,7 @@ class Signup extends Component {
     };
   
   componentDidUpdate() {
-    console.log(this.state.login);
+
   }
 
   // update function to call the action
@@ -58,29 +58,29 @@ class Signup extends Component {
                         <Form.Group >
                             <Form.Label>Email</Form.Label>
                             <Form.Control
-                            //isInvalid={this.props.createUser.emailError}
+                            isInvalid={this.props.createUser.emailError}
                             // className="signupcard-text"
                             type="text"
                             name="email"
-                            placeholder="Enter an email"
+                            placeholder="Entrez votre email"
                             />
-                            {/* <FormControl.Feedback type="invalid">
+                            <FormControl.Feedback type="invalid">
                             {this.props.createUser.emailError}
-                            </FormControl.Feedback> */}
+                            </FormControl.Feedback>
                         </Form.Group>
 
                         <Form.Group controlId="passwordId">
-                            <Form.Label>Your password</Form.Label>
+                            <Form.Label>Mot de passe</Form.Label>
                             <Form.Control
-                            //isInvalid={this.props.createUser.passwordError}
+                            isInvalid={this.props.createUser.passwordError}
                             // className="signupcard-text"
                             type="password"
                             name="password"
-                            placeholder="Enter password"
+                            placeholder="Mot de passe"
                             />
-                            {/* <Form.Control.Feedback type="invalid">
+                            <Form.Control.Feedback type="invalid">
                             {this.props.createUser.passwordError}
-                            </Form.Control.Feedback> */}
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <input className="dio-btn dio-btn-success" type="submit" value="Envoyez" />
                     </Form>
@@ -101,10 +101,10 @@ class Signup extends Component {
 // export default Signup;
 // with code below:
 
-// Signup.propTypes = {
-//   signupNewUser: PropTypes.func.isRequired,
-//   createUser: PropTypes.object.isRequired
-// };
+Signup.propTypes = {
+  signupNewUser: PropTypes.func.isRequired,
+  createUser: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   createUser: state.createUser
