@@ -85,15 +85,15 @@ class Signup extends Component {
                         <Form.Group controlId="passwordId">
                             <Form.Label>Mot de passe</Form.Label>
                             <Form.Control
-                            isInvalid={this.props.createUser.passwordError}
+                            // isInvalid={this.props.createUser.passwordError}
                             // className="signupcard-text"
                             type="password"
                             name="password"
                             placeholder="Mot de passe"
                             />
-                            <Form.Control.Feedback type="invalid">
+                            {/* <Form.Control.Feedback type="invalid">
                             {this.props.createUser.passwordError}
-                            </Form.Control.Feedback>
+                            </Form.Control.Feedback> */}
                         </Form.Group>
                         <input className="dio-btn dio-btn-success" type="submit" value="Envoyez" />
                     </Form>
