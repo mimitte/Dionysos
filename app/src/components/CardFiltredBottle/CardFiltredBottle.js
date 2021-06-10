@@ -8,7 +8,6 @@ function CardForEachWineColor(props) {
     // il faut que les props soit les mêmes nom que les props dans <CardForEachWineColor/>
 
     const {color,quantity,imgVin, imgAlt} = props
-    
     return (
     <React.Fragment>
         <div  className="card col-lg-3  mt-1 " style={{width: "10rem"}}>
@@ -18,8 +17,7 @@ function CardForEachWineColor(props) {
                 <p className="card-text">Il y a {quantity} bouteilles de vin {color} dans votre cave</p>
             </div>
         </div>
-    </React.Fragment>   
-       
+    </React.Fragment>
     );
 }
 
@@ -32,7 +30,7 @@ class CardFiltredBottle extends React.Component {
         //     bouteilles: [],
         //     };
     }
-    
+
       render() {
         const { bouteilles } = this.props;
         const {red, white,pink} = filterColorbottles(bouteilles);
@@ -50,7 +48,7 @@ class CardFiltredBottle extends React.Component {
                 </h5>
                 <br />
               <div className="troisCartesDeVins d-flex justify-content-between">
-                 
+
                   <CardForEachWineColor
                         quantity={red}
                         color={`rouge`}
@@ -70,7 +68,6 @@ class CardFiltredBottle extends React.Component {
               </div>
               </React.Fragment>
           )
-        
-    }            
+    }
 }
 export default CardFiltredBottle;

@@ -84,3 +84,117 @@
 
     }
 }
+
+.draggable {
+    position:relative;
+    cursor: help;
+}
+
+.draggable:hover::after,.draggable:focus::after {
+   content:attr(aria-label);
+   position:absolute;
+   top:-2.4em;
+   left:50%;
+   transform: translateX(-50%);
+   z-index:1;
+   white-space:nowrap;
+   padding: 5px 14px;
+   background: $primary-color;
+   color:#fff;
+   border-radius: 4px;
+   font-size: 1.2rem;
+}
+
+[aria-label]:hover:before,
+[aria-label]:hover:before {
+    content:"\1F83F";
+    position: absolute;
+    top: -1em;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color:$primary-color;
+}
+[aria-label]:focus {
+    outline: none;
+}
+
+///Modal
+
+#modalCellar {
+
+}
+.modal-cellar {
+    display: block;
+    position:fixed;
+    z-index:1;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(117, 190, 218, 0.5);
+}
+.modal-body {
+    border:1px solid $primary-color !important;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding:20px;
+    border:1px solid #888;
+    max-width: 400px;
+    width: 250px;
+}
+.modal-title {
+    color: rgb(255, 255, 255);
+    border-radius: 5px 5px 0 0;
+}
+.modal-footer, .modal-title{
+    width: 100%;
+    background-color: $primary-color;
+}
+
+
+button,
+      button::after {
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      }
+      button {
+      background: none;
+      border: 4px solid #fff;
+      border-radius: 10px;
+      color: #fff;
+      display: block;
+      font-size: 1.6em;
+      font-weight: bold;
+      margin: 10px auto;
+      padding: 2em 6em;
+      position: relative;
+      text-transform: uppercase;
+      }
+      button::before,
+      button::after {
+      background: #fff !important;
+      content: '';
+      position: absolute!important;
+      z-index: -1!important;
+      }
+      button:hover {
+      color: #29f2e4;
+      }
+      .button-modal-cellar::after {
+      height: 0;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      }
+      .button-modal-cellar:hover:after {
+      height: 50px !important;
+      left: 0 !important;
+      top: 0 !important;
+      width: 50px !important;
+      }

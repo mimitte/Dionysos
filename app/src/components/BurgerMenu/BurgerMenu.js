@@ -1,8 +1,11 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
-
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink } from 'react-router-dom';
+
+function signout() {
+  localStorage.removeItem('userId');
+  localStorage.removeItem('token');
+}
 
 function MenuHamberger(props) {
     return (
@@ -12,13 +15,13 @@ function MenuHamberger(props) {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" >
-            <Nav>
+            <Nav id='links'>
               <NavLink to="/">Home</NavLink>
               <NavLink to="/cave">Cave</NavLink>
               <NavLink to="/new_bottle">Ajouter un vin</NavLink>
-              <NavLink to="/bottle">The bottle</NavLink>
               <NavLink to="/create_cellar">Créer une cave</NavLink>
-            </Nav> 
+              <button onClick={signout}>Déconnexion</button>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
       );
