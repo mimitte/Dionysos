@@ -1,5 +1,5 @@
 .fond {
-    position:relative;
+    position:fixed;
     background-image: url(../../src/images/apollo-dionysus-greek-god.jpg);
     width: 100vw;
     background-size: cover;
@@ -10,7 +10,7 @@
 .dionysos {
     background-image: url(../../src/images/svg_home_page.svg);
     background-size: cover;
-    position: absolute;
+    position: fixed;
     height: 100vh;
     width: 100vw;
     z-index: 1;
@@ -46,5 +46,17 @@
     color: whitesmoke;
     max-width: 60%;
     
+}
+
+.dio-text {
+    align-items: center;
+    font-size: larger;
+    font-weight: bolder;
+    font-family: roboto;
+    font-size: 1.2em;
+    padding-top: 3vh;
+    padding-left: 6vw;
+    color: whitesmoke;
+    max-width: 60%;
 }
 
