@@ -1,5 +1,6 @@
 .fond {
-    position:fixed;
+    position:absolute;
+    display: flex;
     background-image: url(../../src/images/apollo-dionysus-greek-god.jpg);
     width: 100vw;
     background-size: cover;
@@ -8,9 +9,9 @@
     z-index: 2;
 }
 .dionysos {
+    position:absolute;
     background-image: url(../../src/images/svg_home_page.svg);
     background-size: cover;
-    position: fixed;
     height: 100vh;
     width: 100vw;
     z-index: 1;
@@ -60,3 +61,32 @@
     max-width: 60%;
 }
 
+@media (min-width: 270px) {
+    .dionysos {
+        height: 130vh;
+    }
+}
+
+@media (min-width: 300px) {
+    .dionysos {
+        height: 140vh;
+    }
+}
+
+@media (min-width: 360px) {
+    .dionysos {
+        height: 120vh;
+    }
+}
+
+@media (min-width: 400px) {
+    .dionysos {
+        height: 110vh;
+    }
+}
+
+@media (min-width: 600px) {
+    .dionysos {
+        height: 100vh;
+    }
+}

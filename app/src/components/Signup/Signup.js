@@ -20,11 +20,20 @@ class Signup extends Component {
   }
     formSubmit = e => {
       e.preventDefault();
-      console.log(e.target[0].value);
-      console.log(e.target[1].value);
-        let userData = {email : e.target[0].value , password: e.target[1].value };
-      console.log(this.props);
-      this.props.signupNewUser(userData);
+      let password1 = e.target[1].value;
+      let confirmPassword = e.target[2].value;
+      let userData = { email: e.target[0].value, password: password1 };
+      if (password1 === confirmPassword) {
+        this.props.signupNewUser(userData);
+        this.props.history.push('/login');
+
+      } else {
+        console.log('wrong password');
+        e.target.reset();
+      }
+        // let userData = {email : e.target[0].value , password: password1 };
+    
+      
     };
   
   componentDidUpdate() {
@@ -82,27 +91,27 @@ class Signup extends Component {
                             {this.props.createUser.passwordError}
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId="passwordId">
-                            <Form.Label>Mot de passe</Form.Label>
+                        <Form.Group controlId="passwordId2">
+                            <Form.Label>Ré-entrez le Mot de passe</Form.Label>
                             <Form.Control
                             // isInvalid={this.props.createUser.passwordError}
                             // className="signupcard-text"
                             type="password"
-                            name="password"
+                            name="confirm-password"
                             placeholder="Mot de passe"
                             />
                             {/* <Form.Control.Feedback type="invalid">
                             {this.props.createUser.passwordError}
                             </Form.Control.Feedback> */}
                         </Form.Group>
-                        <input className="dio-btn dio-btn-success" type="submit" value="Envoyez" />
+                        <input className="dio-btn dio-btn-success" type="submit" value="Inscription" />
                     </Form>
                     {/* <p className="mt-2">
                         Already have account? <Link to="/login">Login</Link>
                     </p> */}
               </div>
               <p className="dio-text">Vous avez déjà un compte ? <br/>
-                <Link className="dio-btn dio-btn-success" to='/login'>Accès</Link></p>
+                <Link className="dio-btn dio-btn-success" to='/login'>Connectez</Link></p>
             </div>
           </div>
         }
