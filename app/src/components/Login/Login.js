@@ -86,7 +86,7 @@ class Login extends Component {
                    </p> */}
             </div>
               <p className="dio-text">Vous n'avez pas de compte ? <br/>
-                <Link className="dio-btn dio-btn-success" to='/signup'>Créez en un</Link></p>
+                <Link to='/signup'><button className="dio-btn dio-btn-success" >Créez en un</button></Link></p>
           </div>
         </div>
       }

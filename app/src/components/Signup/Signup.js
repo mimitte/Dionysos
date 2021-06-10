@@ -111,7 +111,7 @@ class Signup extends Component {
                     </p> */}
               </div>
               <p className="dio-text">Vous avez déjà un compte ? <br/>
-                <Link className="dio-btn dio-btn-success" to='/login'>Connectez</Link></p>
+                <Link to='/login'><button className="dio-btn dio-btn-success" >Connectez</button></Link></p>
             </div>
           </div>
         }
