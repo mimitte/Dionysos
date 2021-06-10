@@ -82,12 +82,27 @@ class Signup extends Component {
                             {this.props.createUser.passwordError}
                             </Form.Control.Feedback>
                         </Form.Group>
+                        <Form.Group controlId="passwordId">
+                            <Form.Label>Mot de passe</Form.Label>
+                            <Form.Control
+                            // isInvalid={this.props.createUser.passwordError}
+                            // className="signupcard-text"
+                            type="password"
+                            name="password"
+                            placeholder="Mot de passe"
+                            />
+                            {/* <Form.Control.Feedback type="invalid">
+                            {this.props.createUser.passwordError}
+                            </Form.Control.Feedback> */}
+                        </Form.Group>
                         <input className="dio-btn dio-btn-success" type="submit" value="Envoyez" />
                     </Form>
                     {/* <p className="mt-2">
                         Already have account? <Link to="/login">Login</Link>
                     </p> */}
-                </div>
+              </div>
+              <p className="dio-text">Vous avez déjà un compte ? <br/>
+                <Link className="dio-btn dio-btn-success" to='/login'>Accès</Link></p>
             </div>
           </div>
         }

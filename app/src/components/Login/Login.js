@@ -85,7 +85,8 @@ class Login extends Component {
                        Already have account? <Link to="/login">Login</Link>
                    </p> */}
             </div>
-            <p>Vous n'avez pas de compte ? <Link to='/signup'>Créez-en un</Link>.</p>
+              <p className="dio-text">Vous n'avez pas de compte ? <br/>
+                <Link className="dio-btn dio-btn-success" to='/signup'>Créez-en un</Link></p>
           </div>
         </div>
       }

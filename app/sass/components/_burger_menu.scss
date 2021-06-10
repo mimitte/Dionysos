@@ -4,24 +4,31 @@
     text-decoration: none;
     color:whitesmoke;
     background-color: $primary-color;
-    font-size: medium;  
+    font-size: medium;
+    padding: 0.4em 1em;
+    justify-content: center;  
+    border-radius: 3px;
+    margin: auto;
+
   }
 
-  #responsive-navbar-nav a:hover{
-    background: whitesmoke ;
-    color: $primary-color;
-  }
+#responsive-navbar-nav a:hover{
+  background: whitesmoke ;
+  color: $primary-color;
+}
 
-  .navbar-brand{
-      color: whitesmoke !important;
-      font-weight: 600;
-      margin-right: 6em !important;   
-  }
+.navbar-brand{
+    color: whitesmoke !important;
+    font-weight: 600;
+    margin-right: 6em !important; 
+ 
+}
 
-  .navbar-light{
-    background-color: $primary-color;
-  }
-  
-  button.navbar-toggler{
-     background-color: whitesmoke;
-  }
+.navbar-light{
+  background-color: $primary-color;
+}
+
+button.navbar-toggler{
+    background-color: whitesmoke;
+}
+
