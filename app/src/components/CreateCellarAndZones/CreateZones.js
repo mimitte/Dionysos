@@ -4,29 +4,17 @@ import React from 'react';
 import { connect } from "react-redux";
 import { createCellar } from '../../redux/CreateCellarsAndZones/createCellar.action'
 
-class CreateCellarAndZones extends React.Component {
+class CreateCellar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name:"",
-            description:"",
+            cellar:"",
             isCheckedRedZone:false,
             isCheckedPinkZone:false,
             isCheckedWhiteZone:false,
             capacityOfRedZone:0,
             capacityOfPinkZone:0,
-            capacityOfWhiteZone:0,
-            // ceci sera utiles pour la validation de formulaire
-            // errors:{
-            //     name:"",
-            //     description:"",
-            //     isCheckedRedZone:false,
-            //     isCheckedPinkZone:false,
-            //     isCheckedWhiteZone:false,
-            //     capacityOfRedZone:0,
-            //     capacityOfPinkZone:0,
-            //     capacityOfWhiteZone:0, 
-            // } 
+            capacityOfWhiteZone:0, 
         };
     }
 
@@ -40,15 +28,13 @@ class CreateCellarAndZones extends React.Component {
         this.props.createCellar(this.state);
         // Vider les input après la saisie
         this.setState = {
-            name:"",
-            description:"",
+            cellar:"",
             isCheckedRedZone:false,
             isCheckedPinkZone:false,
             isCheckedWhiteZone:false,
             capacityOfRedZone:0,
             capacityOfPinkZone:0,
-            capacityOfWhiteZone:0, 
-           
+            capacityOfWhiteZone:0,   
         };
     }
 
@@ -57,30 +43,13 @@ class CreateCellarAndZones extends React.Component {
             <>
               <h2>Je crée ma cave ...</h2>
               <form onSubmit={this.onSubmitCreateCellar}>
-                  <div className="form-group mb-3">
-                    <label htmlFor="nomCave">Nom de votre cave</label>
-                    <input type="text" name="nomCave" id="nomCave" value={this.state.name}
-                     onChange={(event)=> {
-                        this.setState({ name: event.target.value});
-              
-                    }}
-                    className="form-control" placeholder="ex: cave n°1" required/>
-                  </div>
-                  <div className="form-group mb-3">
-                    <label htmlFor="descriptionCave" className="form-label">Description cave</label>
-                    <textarea className="form-control" id="descriptionCave" name="descriptionCave"  rows="3"
-                    value={this.state.description}
-                    onChange={(event)=> {
-                        this.setState({ description: event.target.value});  
-                    }}
-                    required></textarea>
-</div>
-                  <h5>Je définie les zones de ma cave</h5>
+                 
+                  <h5>Je définie les zones de ma cave...</h5>
                   {/* zone vin rouge */}
                   <div className="form-check mb-3">
                     <input className="form-check-input" type="checkbox"
                      value={this.state.isCheckedRedZone}
-                     onChange={(event)=>this.setState({ isCheckedRedZone: !event.checked})}
+                     onChange={(event)=>this.setState({ isCheckedRedZone: !event.checked })}
                       id="checkRedWine" required/>
                     <label className="form-check-label" htmlFor="checkRedWine">
                         <h5 className="redZone">Zone pour les vins rouges</h5>
@@ -99,7 +68,7 @@ class CreateCellarAndZones extends React.Component {
                 <div className="form-check">
                     <input className="form-check-input" type="checkbox"
                      value={this.state.isCheckedPinkZone}
-                     onChange={(event)=>this.setState({ isCheckedPinkZone: !event.checked})}
+                     onChange={(event)=>this.setState({ isCheckedPinkZone: !event.checked })}
                       id="checkPinkWine" required/>
                     <label className="form-check-label" htmlFor="checkPinkWine">
                         <h5 className="pinkZone">Zone pour les vins rosés</h5>
@@ -117,7 +86,7 @@ class CreateCellarAndZones extends React.Component {
                 <div className="form-check">
                     <input className="form-check-input" type="checkbox" 
                     value={this.state.isCheckedWhiteZone}
-                    onChange={(event)=>this.setState({ isCheckedWhiteZone: !event.checked})}
+                    onChange={(event)=>this.setState({ isCheckedWhiteZone: !event.checked })}
                     id="checkWhiteWine" required/>
                     <label className="form-check-label" htmlFor="checkWhitekWine">
                         <h5 className="whiteZone">Zone pour les vins blancs</h5>
@@ -128,7 +97,7 @@ class CreateCellarAndZones extends React.Component {
                     <input type="number" name="tailleZoneBlanc" id="tailleZoneBlanc"
                     value={this.state.capacityOfWhiteZone}
                     onChange={ (event) => {
-                        this.setState({ capacityOfWhiteZone: event.target.value})}}
+                        this.setState({ capacityOfWhiteZone: event.target.value })}}
                     id="tailleZoneBlanc" className="form-control" placeholder="ex:40" required/>
                 </div>
                 <button type="submit" id="btnSubmit" className="form-control mt-2 mb-2">Créer ma cave</button>   
@@ -138,4 +107,4 @@ class CreateCellarAndZones extends React.Component {
     }
 }
 
-export default connect(null, { createCellar })(CreateCellarAndZones);
+export default connect(null, { createCellar })(CreateCellar);
