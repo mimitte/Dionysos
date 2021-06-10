@@ -7,6 +7,7 @@ const ZoneSchema = mongoose.Schema({
         required: true
     },
     name: { type: String, required: true},
+    color: {type: String, required: true},
     columns: { type: Number, required: true},
     rows: { type: Number, required: true},
     cellar: {
