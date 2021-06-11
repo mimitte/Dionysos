@@ -1,5 +1,6 @@
 // ici on importe la constante qui contient le nom du type de l'action
 import  {LIST_BOTTLES, LIST_BOTTLES_CELLAR} from "./types";
+import isAuthenticated from "../../utils/isAuthenticated";
 
 /** fonction getAllBottles contient toute la logique de notre demande à la BD
  * Ici notre demande consiste à récupérer toutes les bouteilles ajoutées dans la cave
@@ -7,11 +8,15 @@ import  {LIST_BOTTLES, LIST_BOTTLES_CELLAR} from "./types";
 */
 export const getAllBottles =()=>{
 
+  if ( isAuthenticated() ) {
+
+    let userId = localStorage.getItem('userId');
+
     return async (dispatch)=>{
-        return (
-            await fetch("http://localhost:5000/api/bottle")
-           .then(response => response.json())
-           .then(
+      return (
+        await fetch(`http://localhost:5000/api/bottle/user/${userId}`)
+          .then(response => response.json())
+          .then(
             (result) => {
               dispatch({
                 type: LIST_BOTTLES,
@@ -23,29 +28,10 @@ export const getAllBottles =()=>{
               dispatch({
                 error,
                 isLoaded:false
-             });
+              });
             }
           )
-        )
+      )
     }
+  }
 }
-
-// export const getAllBottlesToCellar =()=>{
-//   return async (dispatch)=>{
-//     await fetch("http://localhost:5000/api/bottle")
-//     .then(response => response.json())
-//     .then(
-
-//     )
-//   }
-// }
-
-// export const getCellar =(id)=>{
-//   return async (dispatch)=>{
-//     await fetch("http://localhost:5000/api/bottle")
-//     .then(response => response.json())
-//     .then(
-
-//     )
-//   }
-// }

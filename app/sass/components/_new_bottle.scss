@@ -1,4 +1,5 @@
 .new-bottle-container {
+    @extend .container-md;
 
     h2 {
         margin: 1em 0;
