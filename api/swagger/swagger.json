@@ -194,10 +194,10 @@
     "/api/bottle": {
       "get": {
         "tags": [
-          "Bouteilles"
+          "Bottles"
         ],
-        "summary": "Récupère une liste de bouteilles",
-        "operationId": "getBottles",
+        "summary": "Get a list of all bottles",
+        "operationId": "findAll",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -214,12 +214,77 @@
       },
       "post": {
         "tags": [
-          "Bouteilles"
+          "Bottles"
         ],
-        "summary": "Créer une bouteille",
-        "operationId": "createBottle",
+        "summary": "Create a bottle",
+        "operationId": "create",
         "requestBody": {
-          "description": "Created user object",
+          "description": "Create a bottle",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BottleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Bottle created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bottle"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bottle/user/{id}": {
+      "get": {
+        "tags": [
+          "Bottles"
+        ],
+        "summary": "Get the user's bottles",
+        "operationId": "findAllBottleByUserId",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cellar",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Bottles"
+        ],
+        "summary": "Edit a bottle",
+        "operationId": "edit",
+        "requestBody": {
+          "description": "Edit a bottle",
           "content": {
             "application/json": {
               "schema": {
