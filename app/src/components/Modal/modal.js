@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function modal({ showModal,children, closeModal }) {
-    console.log(showModal);
     return (
         showModal && (
             <div id="modalCellar" className="modal-cellar" onClick={closeModal}>

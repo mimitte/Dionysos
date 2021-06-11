@@ -1,13 +1,9 @@
 import React from 'react';
 
-function ShowCellar({zone, columns, rows}) {
+function ShowCellar({zone, columns, rows, index}) {
     let htmlRow = [];
     let htmlColumnsWithNum = [];
     let htmlColumnsLessNum = [];
-    let nbPlace = columns * rows;
-    const tabIndex =[];
-    let ran ="";
-
     for (let i = 0; i < columns; i++){
 
         htmlColumnsWithNum.push(
@@ -24,11 +20,12 @@ function ShowCellar({zone, columns, rows}) {
         </div>);
 
     }
-
+    let moreKey = 10;
     for (let j = 0; j < rows; j++){
+        moreKey++;
         let styleJsx = j > 0 ?{marginTop:'2.4vh'}:{};
         htmlRow.push(
-            <div id={'line'+j+1}   className="lineBottle" datalinebottle={j+1} key={"key"+j+1} style={styleJsx} >
+            <div id={'line'+j+1}   className="lineBottle" datalinebottle={j+1} key={index+j+moreKey} style={styleJsx} >
                 <div className="row-zone">{j+1}</div>
                     {j === 0 ? htmlColumnsWithNum : htmlColumnsLessNum}
             </div>);
