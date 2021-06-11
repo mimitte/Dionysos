@@ -3,14 +3,28 @@ let ZoneModel = require('../models/ZoneModel');
 
 let CellarController = {
   findAll: async (req, res) => {
-    let allCellars = await CellarModel.find();
-    res.json(allCellars);
+    CellarModel
+      .find()
+      .populate({
+        path: 'zones',
+        populate: { path: 'bottles' }
+      })
+      .exec((err, cellars) => {
+        if (err) res.stat(500).json({ err })
+        res.status(200).json(cellars)
+      });
   },
   find: async (req, res) => {
-    let zones = await ZoneModel.find({ cellar: req.params.id});
-    let foundCellar = await CellarModel.findOne({ _id: req.params.id });
-    foundCellar.zones = zones;
-    res.json(foundCellar);
+    CellarModel
+      .findOne({ _id: req.params.id })
+      .populate({
+        path: 'zones',
+        populate: { path: 'bottles' }
+      })
+      .exec((err, cellar) => {
+        if (err) res.status(500).json({ err })
+        res.status(200).json(cellar)
+      });
   },
   create: async (req, res) => {
     delete req.body._id;
@@ -30,13 +44,17 @@ let CellarController = {
     await CellarModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
     res.status(200).json({ "message": "Cellar modified" });
   },
-  findAllZonesByCellarId: async (req, res) => {
-    let foundZones = await ZoneModel.find({ cellar: req.params.id });
-    res.json(foundZones);
-  },
-  findAllCellarByUserId: async (req, res) => {
-    let cellars = await CellarModel.find({ userId: req.params.id });
-    res.json({ cellars });
+  findAllByUser: async (req, res) => {
+    CellarModel
+      .find({ user: req.params.id })
+      .populate({
+        path: 'zones',
+        populate: { path: 'bottles' }
+      })
+      .exec((err, cellars) => {
+        if (err) res.stat(500).json({ err })
+        res.status(200).json(cellars)
+      });
   }
 }
 
