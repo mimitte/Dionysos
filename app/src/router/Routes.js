@@ -8,7 +8,7 @@ import CreateCellarsAndZones from '../components/CreateCellarsAndZones/CreateCel
 import Signup from "../components/Signup/Signup";
 import PrivateRoute from "../Auth/PrivateRoute";
 import TestLogin from "../components/Login/Login";
-
+import Bottle from '../components/Bottle/Bottle';
 function Routes(props) {
   return (
     // Switch: les Routes sont testés une par une, si et seulement si, l'url ne correspond pas
@@ -29,6 +29,9 @@ function Routes(props) {
       </PrivateRoute>
       <PrivateRoute exact path="/liste">
         <ListAddedBottle />
+      </PrivateRoute>
+      <PrivateRoute exact path="/bottle">
+        <Bottle />
       </PrivateRoute>
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={TestLogin} />

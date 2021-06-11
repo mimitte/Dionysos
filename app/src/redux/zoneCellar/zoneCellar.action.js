@@ -1,10 +1,4 @@
-// ici on importe la constante qui contient le nom du type de l'action
 import  {LIST_BOTTLES, LIST_ZONES} from "./types";
-
-/** fonction getAllBottles contient toute la logique de notre demande à la BD
- * Ici notre demande consiste à récupérer toutes les bouteilles ajoutées dans la cave
- * On exporte la fonction getAllBottles parce qu'on va l'importer dans le reducer
-*/
 const data = {
   'zonesCellar': [],
   'idCellar': "",
@@ -39,14 +33,14 @@ export const getAllZonesToCellar =()=>{
                   for (const bottle of bottles) {
                     data.bottlesCellar.push(bottle);
                   }
-                  dispatch({
-                    type: LIST_ZONES,
-                    payload: data,
-                });
+
                 })
               }
-              console.log("data");
-              
+              dispatch({
+                type: LIST_ZONES,
+                payload: data,
+                isLoaded:true
+            });
             }
           )
         }
@@ -54,23 +48,3 @@ export const getAllZonesToCellar =()=>{
     )
   }
 }
-
-// export const getAllBottlesToCellar =()=>{
-//   return async (dispatch)=>{
-//     await fetch("http://localhost:5000/api/bottle")
-//     .then(response => response.json())
-//     .then(
-
-//     )
-//   }
-// }
-
-// export const getCellar =(id)=>{
-//   return async (dispatch)=>{
-//     await fetch("http://localhost:5000/api/bottle")
-//     .then(response => response.json())
-//     .then(
-
-//     )
-//   }
-// }
