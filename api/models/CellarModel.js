@@ -1,17 +1,19 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require("mongoose");
 
-const CellarSchema = mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "UserId",
-        required: true
-    },
+const CellarSchema = new Schema({
     name: { type: String, required: true},
     description: { type: String, required: true},
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     zones: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Zone"
+        type: Schema.Types.ObjectId,
+        ref: 'Zone'
     }]
 });
 
-module.exports = mongoose.model('Cellar', CellarSchema);
+const Cellar = model('Cellar', CellarSchema, 'cellars');
+
+module.exports = Cellar;

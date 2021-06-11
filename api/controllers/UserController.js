@@ -46,4 +46,29 @@ exports.login = (req, res, next) => {
 
 exports.auth = (req, res, next) => {
   res.status(200).json({ "message": "authentication verified" })
+};
+
+exports.find = (req, res, next) => {
+  User
+    .findOne({ _id: req.params.id})
+    .populate('cellars')
+    .populate('zones')
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).json({err});
+        return;
+      }
+      res.status(200).json(user);
+    });
+}
+
+exports.patch = (req, res, next) => {
+  User
+    .updateOne({ _id: req.params.id }, { $set: { ...req.body }})
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).json({err});
+      }
+      res.status(200).json(user);
+    })
 }

@@ -23,4 +23,4 @@ const BottleSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Bottle', BottleSchema);
+module.exports = mongoose.model('Bottle', BottleSchema, 'bottles');
