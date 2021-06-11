@@ -175,9 +175,10 @@ class TabForAddedBottle extends React.Component {
   render() {
     const { error, isLoaded } = this.props;
 
+
     if (error) {
       return <div>Erreur : {error.message}</div>;
-    } else if (!isLoaded) {
+    } else if (isLoaded) {
       return <div className="divForLoadign">Chargement…</div>;
     } else {
       return (
