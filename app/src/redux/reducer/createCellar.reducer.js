@@ -5,7 +5,7 @@ import { CREATE_CELLAR } from "../CreateCellarsAndZones/type";
 const initCellar = {
     id:"",
     name:"",
-    description:""
+    description:"",
     
 }; // initial state 
 
