@@ -24,12 +24,12 @@ export const signupNewUser = (userData) => {
       }
     ).then(
       result => result.json()
-    ).then(
-      // toast.success(
-      //   "Account for " +
-      //     userData.email +
-      //     " created successfully. Please login."
-      // ),
+    ).then (
+      toast.success(
+        "Le Compte " +
+          userData.email +
+          " a été créé. Redirection pour vous connecter."
+      ),
       json => {
         dispatch({
           type: CREATE_USER_SUCCESS,
