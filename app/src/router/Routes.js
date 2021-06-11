@@ -8,8 +8,8 @@ import Signup from "../components/Signup/Signup";
 import PrivateRoute from "../Auth/PrivateRoute";
 import TestLogin from "../components/Login/Login";
 import CreateCellarsAndZones from '../components/CreateCellarsAndZones/CreateCellarsAndZones';
-import CreateCellar from '../components/CreateCellarAndZones/CreateCellar';
-import CreateZones from '../components/CreateCellarAndZones/CreateZones';
+import CreateCellar from '../components/CreateCellarsAndZones/CreateCellar';
+import CreateZones from '../components/CreateCellarsAndZones/CreateZones';
 
 function Routes(props) {
   return (
