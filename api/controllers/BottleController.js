@@ -6,7 +6,6 @@ let BottleController = {
         let limit = parseInt(req.query.limit, 10);
         let zones;
         if (offset !== undefined && limit !== undefined) {
-            console.log(`offset : ${offset} - limit : ${limit}`);
             zones = await BottleModel.find().skip(offset).limit(limit);
         } else {
             zones = await BottleModel.find();
@@ -37,7 +36,7 @@ let BottleController = {
     },
     findAllBottleByUserId: async (req, res) => {
         let bottles = await BottleModel.find({ userId: req.params.id });
-        res.json({ bottles });
+        res.json(bottles);
     }
 }
 

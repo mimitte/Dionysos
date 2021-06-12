@@ -4,7 +4,7 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import filterColorbottles from '../../utils/filterColorBottles';
 import DashboardMenu from '../DashboardMenu/DashboardMenu';
-
+import spinner from '../../utils/spinner';
 am4core.useTheme(am4themes_animated);
 
 class Dashboard extends React.Component {
@@ -13,23 +13,27 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      spinner:null
+      isLoaded:false
+
     }
   }
 
   componentDidMount(){
-    const spinner = document.getElementById("spinner");
-    spinner.removeAttribute('hidden');
+    //const spinner = document.getElementById("spinner");
+    //spinner.removeAttribute('hidden');
     fetch("http://localhost:5000/api/bottle?")
       .then(response => response.json())
         .then(
           (bouteilles) => {
+            this.setState({
+              isLoaded:true
+            })
           const colorRouge ="#ac1e44";
           const colorRose = "#ffe6ff";
           const colorBlanc = "#fff0b3";
           // appel à la fonction filterColorbottles qui contient les méthodes pour filtrer les bouteilles par couleurs les bouteilles 
           const {red, white,pink} = filterColorbottles(bouteilles);
-          spinner.setAttribute('hidden','');
+          //spinner.setAttribute('hidden','');
           let data = [{
               "country": "Vin rouge",
               "disabled": true,
@@ -116,13 +120,15 @@ class Dashboard extends React.Component {
       }
     }
   render() {
-    const spinner = []
+
     return (
       <>
         <h2>Bienvenue sur Dionysos !</h2>
-        <div hidden id="spinner"></div>
+        {/* <div hidden id="spinner"></div> */}
         <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
         <DashboardMenu/>
+        {spinner(this.state.isLoaded)}
+        {/* <this.spinner/> */}
       </>
     );
   }

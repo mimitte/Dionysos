@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useLocation, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import WineCellar from '../components/WineCellar/WineCellar';
 import NewBottle from '../components/NewBottle/NewBottle';
 import ListAddedBottle from '../components/ListAddedBottle/ListAddedBottle';
@@ -9,7 +9,6 @@ import PrivateRoute from "../Auth/PrivateRoute";
 import TestLogin from "../components/Login/Login";
 //j'ai plus besoin de createCellar et createZone ==> garder uniquement CreateCellarsAndZones en cas de conflit
 import CreateCellarsAndZones from '../components/CreateCellarsAndZones/CreateCellarsAndZones';
-import CreateCellar from '../components/CreateCellarsAndZones/CreateCellar';
 
 function Routes(props) {
   return (
