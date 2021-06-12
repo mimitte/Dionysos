@@ -7,9 +7,9 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import Signup from "../components/Signup/Signup";
 import PrivateRoute from "../Auth/PrivateRoute";
 import TestLogin from "../components/Login/Login";
+//j'ai plus besoin de createCellar et createZone ==> garder uniquement CreateCellarsAndZones en cas de conflit
 import CreateCellarsAndZones from '../components/CreateCellarsAndZones/CreateCellarsAndZones';
 import CreateCellar from '../components/CreateCellarsAndZones/CreateCellar';
-import CreateZones from '../components/CreateCellarsAndZones/CreateZones';
 
 function Routes(props) {
   return (
@@ -17,9 +17,6 @@ function Routes(props) {
       {/* Sans l'attribut Exact, si l'url correspond a deux ..<Route>...</Route>, les deux composants seront chargés */}
       <PrivateRoute exact path="/">
         <Dashboard />
-      </PrivateRoute>
-      <PrivateRoute exact path="/create_cellar">
-        <CreateCellarsAndZones />
       </PrivateRoute>
       <PrivateRoute exact path="/cave">
         <WineCellar />
@@ -30,14 +27,10 @@ function Routes(props) {
       <PrivateRoute exact path="/liste">
         <ListAddedBottle />
       </PrivateRoute>
-      <PrivateRoute  exact path="/create_cellar_and_zones">
+      {/* Si jamais il y a un conflit: il faudrait garder CreateCellarsAndZones ==>path="/create_cellar_zones" 
+      J'en aurai plus besoin de CreateCellar*/}
+      <PrivateRoute  exact path="/create_cellar_zones">
         <CreateCellarsAndZones/>
-      </PrivateRoute>
-      <PrivateRoute exact path="/create_cellar">
-        <CreateCellar/>
-      </PrivateRoute>
-      <PrivateRoute exact path="/create_zones">
-        <CreateZones/>
       </PrivateRoute>
       <Route path="/signup" component={Signup}/>
       <Route path="/login" component={TestLogin} />

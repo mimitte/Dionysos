@@ -10,8 +10,9 @@ import { signupNewUser } from "./redux/signup/signup.action";
 import { getAllZonesToCellar } from './redux/zoneCellar/zoneCellar.action';
 import Signup from './components/Signup/Signup';
 import fakeAuth from "./Auth/fakeAuth";
-store.dispatch(getAllBottles());
-store.dispatch(getAllZonesToCellar());
+
+// store.dispatch(getAllBottles());
+// store.dispatch(getAllZonesToCellar());
 const login = true;
 function App() {
   if (login) {

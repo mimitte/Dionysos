@@ -1,11 +1,11 @@
 import { CREATE_CELLAR } from "./type";
 
-export const createCellar =cellarObj=>{
-   
+export const createCellar =(cellarObj)=>{
+   console.log("voici cellarObj",cellarObj);
     // FETCH
     return(dispatch=>{
-
-        fetch('http://localhost:5000/api/cellar',{
+        
+        fetch(`http://localhost:5000/api/cellar/`,{
             method:"POST",
             // cela indique au server de l'api que le corps de la requête est en json
             headers:{"Content-Type": "application/json"} ,
@@ -25,5 +25,3 @@ export const createCellar =cellarObj=>{
     
 }
 
-
-    

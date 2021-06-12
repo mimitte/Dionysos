@@ -22,7 +22,7 @@
     background-color:#b1962a !important;
     border-color:#b1962a !important;
 }
-#btnNextStep{
+#btnNextStep,#btnSubmit,#btnNextStep2,#btnPrevStep2{
     background-color: $vin-rouge-couleur;
     border-color: $vin-rouge-couleur !important;
     color: whitesmoke;
@@ -33,26 +33,13 @@
     border-color: $vin-rouge-couleur !important;
     color: whitesmoke;
 }
-#btnSubmit{
-    background-color: $vin-rouge-couleur;
-    border-color: $vin-rouge-couleur !important;
-    color: whitesmoke;
-}
+
 
 #formForCreateCellar #btnNextStep{
     width:50% !important;
     margin: 0 auto !important;
 }
-#btnStep2{
+.btnWithStep{
     display: flex !important;
 }
-#formForCreateCellar #btnPrev{
-    
-    width:25% !important;
-    margin: 0 auto !important;
-}
-#formForCreateCellar #btnSubmit{
-    
-    width:25% !important;
-    margin: 0 auto !important;
-}
+
