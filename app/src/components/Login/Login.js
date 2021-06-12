@@ -79,13 +79,14 @@ class Login extends Component {
                            {this.props.createUser.passwordError}
                            </Form.Control.Feedback>*/}
                 </Form.Group>
-                <input className="dio-btn dio-btn-success" type="submit" value="Envoyez" />
+                <input className="dio-btn dio-btn-success" type="submit" value="Connexion" />
               </Form>
               {/* <p className="mt-2">
                        Already have account? <Link to="/login">Login</Link>
                    </p> */}
             </div>
-            <p>Vous n'avez pas de compte ? <Link to='/signup'>Créez-en un</Link>.</p>
+              <p className="dio-text">Vous n'avez pas de compte ? <br/>
+                <Link to='/signup'><button className="dio-btn dio-btn-success" >Créez en un</button></Link></p>
           </div>
         </div>
       }

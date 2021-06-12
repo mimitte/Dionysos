@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require("mongoose");
 
-const ZoneSchema = mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "UserId",
+const ZoneSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
     name: { type: String, required: true},
@@ -11,14 +11,15 @@ const ZoneSchema = mongoose.Schema({
     columns: { type: Number, required: true},
     rows: { type: Number, required: true},
     cellar: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Cellar",
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: "Cellar"
     },
     bottles: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Bottle"
     }]
 });
 
-module.exports = mongoose.model('Zone', ZoneSchema);
+const Zone = model('Zone', ZoneSchema, 'zones');
+
+module.exports = Zone;

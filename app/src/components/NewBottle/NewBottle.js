@@ -103,13 +103,5 @@ class NewBottle extends React.Component {
     );
   }
 }
-// export default NewBottle;
-// const mapDispatchToProps = (dispatch)=>{
-//   return {
-//     addBottle:(obj)=>dispatch(addBottle(obj)),
-//   }
-// }
-
-// export default connect(mapDispatchToProps)(NewBottle);
 
 export default connect(null, { addBottle })(NewBottle);

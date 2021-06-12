@@ -16,14 +16,14 @@ export const signupReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_USER_SUBMITTED:
       return {
-        emailError: "",
-        passwordError: "",
+        emailError: "Email soumis",
+        passwordError: "passwd soumis",
         isSubimtted: true
       };
     case CREATE_USER_ERROR:
       const errorState = {
-        emailError: "",
-        passwordError: "",
+        emailError: "email existant",
+        passwordError: "password invalide",
         isSubimtted: false
       };
       if (action.errorData.hasOwnProperty("email")) {
@@ -35,9 +35,9 @@ export const signupReducer = (state = initialState, action) => {
       return errorState;
     case CREATE_USER_SUCCESS:
       return {
-        emailError: "",
-        passwordError: "",
-        isSubimtted: false
+        emailError: "Votre compte a bien été créé",
+        passwordError: "Password valide",
+        isSubimtted: true
       };
     default:
       return state;

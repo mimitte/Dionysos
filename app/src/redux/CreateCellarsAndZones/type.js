@@ -1,1 +1,2 @@
 export const CREATE_CELLAR = "CREATE_CELLAR";
+export const CREATE_ZONES = "CREATE_ZONES";

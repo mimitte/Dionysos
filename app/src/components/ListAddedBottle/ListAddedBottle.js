@@ -9,7 +9,6 @@ import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action
 import franceFlag from "../../images/flags/Flag_of_France.svg";
 import BottleCard from "../BottleCard/BottleCard";
 
-
 class TabForAddedBottle extends React.Component {
 
   constructor(props) {
@@ -129,15 +128,11 @@ class TabForAddedBottle extends React.Component {
     let filters = this.state.filters;
 
     if (filters.country) {
-      console.log("country : ", filters.country);
       bottles = bottles.filter( (bottle) => bottle.country === filters.country);
-      console.log(bottles);
     }
 
     if (filters.region !== "" && filters.region !== undefined) {
-      console.log("region : ", filters.region);
       bottles = bottles.filter( (bottle) => bottle.region === filters.region);
-      console.log(bottles);
     }
 
     if (filters.color !== "" && filters.color !== undefined) {
@@ -169,7 +164,6 @@ class TabForAddedBottle extends React.Component {
   }
 
   displayModal() {
-    console.log("Display modal");
   }
 
   render() {
@@ -185,87 +179,75 @@ class TabForAddedBottle extends React.Component {
         <React.Fragment>
           {
             <>
-            <div className="mobile">
-              {this.state.filteredBottles.map( (bottle, index) => {
-                return (
-                  <BottleCard
-                    index={index}
-                    name={bottle.name}
-                    region={bottle.region}
-                    year={bottle.year}
-                    displayModal={this.displayModal}>
-                  </BottleCard>
-                  /*
-                  <div className="bottle-card">
-                    <div className="card-img">
-                      <img src="https://via.placeholder.com/150" alt="bottle image"/>
-                    </div>
-                    <div className="card-body">
-                      <h5>{ bottle.name }</h5>
-                      <p>{ bottle.region } - { bottle.year }</p>
-                      <img src={franceFlag} alt="My Happy SVG"/>
-                    </div>
-                  </div>
-                   */
-                )
-              })}
-            </div>
-            <div className="mb-3 listeBottleTab browser">
-              <h2>Voici la liste des vins dans votre cave</h2>
-              <form onSubmit={this.resetFilters} id="filters">
-                <select name="countries" id="countries" onChange={ (event) => this.filterCountries(event)}>
-                  <option value="">Pays</option>
-                  {this.state.countries.map( (country, index) => {
-                    return <option key={ index } value={ country }>{ country }</option>
-                  })}
-                </select>
-                <select name="regions" id="regions" onChange={ (event) => this.filterRegions(event)}>
-                  <option value="">Région</option>
-                  {this.state.regions.map( (region, index) => {
-                    return <option key={ index } value={ region }>{ region }</option>
-                  })}
-                </select>
-                <select name="colors" id="colors" onChange={ (event) => this.filterColors(event)}>
-                  <option value="">Couleurs</option>
-                  {this.state.colors.map( (color, index) => {
-                    return <option key={ index } value={ color }>{ color }</option>
-                  })}
-                </select>
-                <select name="minYear" id="minYear" onChange={ (event) => this.filterMinYear(event)}>
-                  <option value="">Année Min</option>
-                  {this.state.years.map( (minYear, index) => {
-                    return <option key={ index } value={ minYear }>{ minYear }</option>
-                  })}
-                </select>
-                <select name="maxYear" id="maxYear" onChange={ (event) => this.filterMaxYear(event)}>
-                  <option value="">Année Max</option>
-                  {this.state.years.map( (maxYear, index) => {
-                    return <option key={ "max"+index } value={ maxYear }>{ maxYear }</option>
-                  })}
-                </select>
-                <button type="submit">Annuler</button>
-              </form>
-              <table className="table table-hover mt-3">
-                <thead className="table-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Couleur</th>
-                  <th scope="col">Région</th>
-                  <th scope="col">Pays</th>
-                  <th scope="col">Année</th>
-                  <th scope="">Supprimer</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                  this.state.filteredBottles.map(this.createWineTableRow)
-                }
-                </tbody>
-              </table>
-              <CardFiltredBottle bouteilles={this.props.bouteilles}/>
-            </div>
+              <div className="mobile">
+                {this.state.filteredBottles.map( (bottle, index) => {
+                  return (
+                    <BottleCard
+                      index={index}
+                      name={bottle.name}
+                      region={bottle.region}
+                      year={bottle.year}
+                      displayModal={this.displayModal}>
+                    </BottleCard>
+                  )
+                })}
+              </div>
+              <div className="mb-3 listeBottleTab browser">
+                <h2>Voici la liste des vins dans votre cave</h2>
+                <form onSubmit={this.resetFilters} id="filters">
+                  <select name="countries" id="countries" onChange={ (event) => this.filterCountries(event)}>
+                    <option value="">Pays</option>
+                    {this.state.countries.map( (country, index) => {
+                      return <option key={ index } value={ country }>{ country }</option>
+                    })}
+                  </select>
+                  <select name="regions" id="regions" onChange={ (event) => this.filterRegions(event)}>
+                    <option value="">Région</option>
+                    {this.state.regions.map( (region, index) => {
+                      return <option key={ index } value={ region }>{ region }</option>
+                    })}
+                  </select>
+                  <select name="colors" id="colors" onChange={ (event) => this.filterColors(event)}>
+                    <option value="">Couleurs</option>
+                    {this.state.colors.map( (color, index) => {
+                      return <option key={ index } value={ color }>{ color }</option>
+                    })}
+                  </select>
+                  <select name="minYear" id="minYear" onChange={ (event) => this.filterMinYear(event)}>
+                    <option value="">Année Min</option>
+                    {this.state.years.map( (minYear, index) => {
+                      return <option key={ index } value={ minYear }>{ minYear }</option>
+                    })}
+                  </select>
+                  <select name="maxYear" id="maxYear" onChange={ (event) => this.filterMaxYear(event)}>
+                    <option value="">Année Max</option>
+                    {this.state.years.map( (maxYear, index) => {
+                      return <option key={ "max"+index } value={ maxYear }>{ maxYear }</option>
+                    })}
+                  </select>
+                  <button type="submit">Annuler</button>
+                </form>
+                <table className="table table-hover mt-3">
+                  <thead className="table-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Couleur</th>
+                    <th scope="col">Région</th>
+                    <th scope="col">Pays</th>
+                    <th scope="col">Année</th>
+                    <th scope="">Supprimer</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    this.state.filteredBottles.map(this.createWineTableRow)
+                  }
+                  </tbody>
+                </table>
+                <CardFiltredBottle bouteilles={this.props.bouteilles}/>
+              </div>
             </>
           }
         </React.Fragment>

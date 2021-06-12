@@ -1,4 +1,11 @@
-import  {LIST_BOTTLES, LIST_ZONES} from "./types";
+import  { LIST_ZONES } from "./types";
+import isAuthenticated from "../../utils/isAuthenticated";
+
+/** fonction getAllBottles contient toute la logique de notre demande à la BD
+ * Ici notre demande consiste à récupérer toutes les bouteilles ajoutées dans la cave
+ * On exporte la fonction getAllBottles parce qu'on va l'importer dans le reducer
+*/
+
 const data = {
   'zonesCellar': [],
   'idCellar': "",
