@@ -69,7 +69,7 @@ class CreateWhiteZone extends React.Component {
                         id="tailleZoneRouge" 
                         className="custom-slider"
                     />
-                    <p className="buble">
+                    <p className="buble fw-bolder">
                         Vous pouvez mettre  xx bouteilles
                     </p>
                 </div>
@@ -79,14 +79,14 @@ class CreateWhiteZone extends React.Component {
                         onClick= {this.back }
                          id="btnPrev"
                         className="form-control mt-2 mb-2">
-                        « back 
+                        « Précédent
                     </button> 
                      <button 
                             type="submit"
                             id="btnSubmitWhite" 
                             className="form-control mt-2 mb-2"
                     >
-                         Créer mes zones
+                         Créer ma zone
                      </button>  
                 </div>
                 

@@ -41,7 +41,7 @@ class CreatePinkZone extends React.Component {
                         // required
                     />
                     <label className="form-check-label" htmlFor="checkPinkWine">
-                        <p className="pinkZone">
+                        <p className="pinkZone fw-bolder">
                             Cochez ici si vous souhaitez créer une zone pour les Rosé
                         </p>
                     </label>
