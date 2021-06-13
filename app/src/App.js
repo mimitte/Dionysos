@@ -9,9 +9,19 @@ import { ToastContainer } from "react-toastify";
 import { signupNewUser } from "./redux/signup/signup.action";
 import { getAllZonesToCellar } from './redux/zoneCellar/zoneCellar.action';
 import Signup from './components/Signup/Signup';
+<<<<<<< Updated upstream
 import fakeAuth from "./Auth/fakeAuth";
 store.dispatch(getAllBottles());
 store.dispatch(getAllZonesToCellar());
+=======
+import isAuthenticated from "./utils/isAuthenticated";
+
+if ( isAuthenticated() ) {
+  store.dispatch(getAllBottles());
+}
+// store.dispatch(getAllZonesToCellar());
+
+>>>>>>> Stashed changes
 const login = true;
 function App() {
   if (login) {

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const BottleSchema = mongoose.Schema({
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "UserId",
         required: true
@@ -12,11 +12,6 @@ const BottleSchema = mongoose.Schema({
     year: { type: Number, required: true },
     color: { type: String, required: true },
     note: { type: String, required: false },
-    zone: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Zone",
-      required: false
-    },
     location: {
       column: { type: Number, required: false },
       row: { type: Number, required: false }

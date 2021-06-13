@@ -7,10 +7,6 @@ const userSchema = new Schema({
     cellars: [{
         type: Schema.Types.ObjectId,
         ref: 'Cellar'
-    }],
-    zones: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Zone'
     }]
 });
 
