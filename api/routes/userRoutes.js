@@ -8,5 +8,6 @@ router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 router.get('/:id', userCtrl.find);
 router.patch('/:id', userCtrl.patch);
+router.delete('/', userCtrl.deleteAll)
 
 module.exports = router;
