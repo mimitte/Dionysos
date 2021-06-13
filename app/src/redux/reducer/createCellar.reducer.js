@@ -7,7 +7,7 @@ const initCellar = {}; // initial state
 export const createCellar =(state=initCellar, action)=> {
     switch (action.type) {
        
-        // si tu reçois une action de type LIST_BOTTLES retourne nous {...}
+        // si tu reçois une action de type CREATE_CELLAR retourne nous {...}
         case CREATE_CELLAR:
 
             const cellar = action.payload;  // payload = données reçue dans l'action

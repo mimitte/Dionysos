@@ -85,7 +85,7 @@ class CreateCellar extends React.Component {
                 <div className="btnWithStep">
                      <button 
                             type="submit"
-                            id="btnSubmit" 
+                            id="btnSubmitRed" 
                             className="form-control mt-2 mb-2"
                     >
                          Créer ma cave

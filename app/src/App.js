@@ -9,9 +9,11 @@ import { ToastContainer } from "react-toastify";
 import { getAllZonesToCellar } from './redux/zoneCellar/zoneCellar.action';
 import Signup from './components/Signup/Signup';
 import isAuthenticated from "./utils/isAuthenticated";
+import { getCellarsOfUser } from './redux/GetCellarsOfUser/getCellarsOfUser.action';
 
 if ( isAuthenticated() ) {
   store.dispatch(getAllBottles());
+  store.dispatch(getCellarsOfUser());
 }
 store.dispatch(getAllZonesToCellar());
 

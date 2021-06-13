@@ -6,76 +6,25 @@ import CreateWhiteZone from './CreateWhiteZone';
 import CreateCellar from './CreateCellar';
 // redux
 import { connect } from "react-redux";
-import { createCellar } from '../../redux/CreateCellarsAndZones/createCellar.action'
+import { createZoneAction } from '../../redux/CreateCellarsAndZones/createZone.action';
 
 
 class CreateCellarsAndZones extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            step:1,
-            //step 1
+            step:2,
             isCheckedRedZone:false,
-            isCheckedPinkZone:false,
-            isCheckedWhiteZone:false,
-            nbBottles:0,  
-            name: this.getNameOfZone(),
-            rows: "",
-            columns: "",
-            color: "",
+            rows:0,
+            columns:7,
+            color:"red",
             user: localStorage.getItem('userId'),
-            cellar:localStorage.getItem('userId'),
-
-                
+            cellar:""      
         };
     }
-    getNameOfZone =()=>{
-        
-        if (this.isCheckedRedZone == true) {
-            return "Mes superbes vins rouges"
-        }
-        else if(this.isCheckedPinkZone = true){
-            return "Mes vins Rosé"
-        }
-        else if (this.isCheckedWhiteZone = true) {
-            return "Mes vins blancs"
-        }else{
-            return null
-        }
-    }
-//     getColorOfZone =()=>{
-//         if (this.isCheckedRedZone === true) {
-//             return "red"
-//         }
-//         else if(this.isCheckedPinkZone === true){
-//             return "pink"
-//         }
-//         else if (this.isCheckedWhiteZone == true) {
-//             return "white"
-//         }
-//     }
-   
-//     getRowsOfZone =(nbBottles)=>{
-//         if (this.nbBottles >=1) {
-//             const rows = nbBottles % 7 + 1
-//         return rows; 
-//         } else{
-//             const rows = 0;
-//             return rows;
-//         }
-          
-//     }
-//    getCapacityBottle=(rows)=>{
-//        if (this.nbBottles >=1) {
-//         const capacity = rows * 7;
-//         return capacity;
-//        } else{
-//            const capacity =0;
-//            return capacity;
-//        }
-        
-//    }
+
     nextStep = () =>{
+      
       const { step }=this.state;
       this.setState({
           step:step + 1
@@ -90,26 +39,27 @@ class CreateCellarsAndZones extends React.Component {
     
     showStep =()=>{
     
-        const { step , zoneObj,nbBottles } = this.state;
-        
-        //  const { step,name,description } = this.state; // equivalent à const step = this.state.step
+        const { step,nbBottles,name,rows,cellar,isCheckedRedZone } = this.state;
+        const cellarsOfUser = this.props.cellarsOfUser;
+        console.log("mes caves dans cpt",this.props.cellarsOfUser)
         const html1 =<CreateCellar
                             nextStep={this.nextStep}
                             prevStep={this.prevStep}
                     />
         const html2 = <CreateRedZone
                             handleChange={ this.handleChange }
+                            cellarsOfUser={cellarsOfUser}
+                            handleSubmitForCreateZone={this.handleSubmitForCreateZone}
                             nextStep={this.nextStep}
                             prevStep={this.prevStep}
-                            zoneObj={zoneObj}
-                            nbBottles={nbBottles}
+                            name={name}
+                            rows={rows}
+                            cellar={cellar}
                         />
-
         const html3 = <CreatePinkZone
                         handleChange={ this.handleChange }
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
-                        zoneObj={zoneObj}
                         nbBottles={nbBottles}  
                     />
          const html4 = <CreateWhiteZone
@@ -138,38 +88,24 @@ class CreateCellarsAndZones extends React.Component {
         !event.checked :
         event.target.value
         this.setState({
-            cellarObj:{
-                [input]:valeurInput
-            }     
+             [input]:valeurInput      
         })
     }
 
-    handleSubmit =(event)=>{
+    handleSubmitForCreateZone =(event)=>{
         event.preventDefault();
-        console.log("saisie via form creer cave avec Step", event);
-        // createCellar cest l'ACTION CREATE_CELLAR'
-        // redux
-        this.props.createCellar(this.state);
+        console.log("saisie via form creer zone ", event);
+        this.props.createZoneAction(this.state);
         // Vider les input après la saisie
         this.setState = {
             step:2,
-            //step 1
-            cellarObj :{
-                name:"",
-                description:"",
-                user:""
-            },
-            // user:"",
-            // name:"",
-            // description:"",
-            // step 2
-            cellar:"",
-            isCheckedRedZone:false,
-            isCheckedPinkZone:false,
-            isCheckedWhiteZone:false,
-            capacityOfRedZone:0,
-            capacityOfPinkZone:0,
-            capacityOfWhiteZone:0, 
+            isCheckedRedZone:false,  
+            name:"",
+            rows:0,
+            columns:7,
+            color:"",
+            user:"",
+            cellar:""
         };
     }
     
@@ -185,4 +121,9 @@ class CreateCellarsAndZones extends React.Component {
     }
 }
 
-export default connect(null, { createCellar })(CreateCellarsAndZones);
+const mapStateToProps = (state)=>{
+    return {
+      ...state.getCellarsOfUserReducer
+    }
+  }
+export default connect(mapStateToProps, (null, {createZoneAction}))(CreateCellarsAndZones);

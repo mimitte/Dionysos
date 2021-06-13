@@ -21,32 +21,59 @@ class CreateWhiteZone extends React.Component {
                  
                 <br />
                 {/* zone vin blanc */}
+                <div className="form-group mb-3">
+                    <label>Sélectionnez une cave</label>
+                    <select  className="form-control">
+                        <option>Lorem </option>
+                        <option>Ipsum</option>      
+                    </select>
+                 </div>
                 <div className="form-check">
                     <input 
                         className="form-check-input" 
                         type="checkbox"
                         name="isCheckedWhiteZone"
-                        onChange={ handleChange('isCheckedWhiteZone') }
+                        // onChange={ handleChange('isCheckedWhiteZone') }
                         id="checkWhiteWine" 
                         // required
                     />
                     <label className="form-check-label" htmlFor="checkWhitekWine">
-                        <h5 className="whiteZone">Zone pour les vins blancs</h5>
+                        <p className="whiteZone">
+                            Cochez ici si vous souhaitez créer une zone pour les vins blancs
+                        </p>
                     </label>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="tailleZoneBlanc">Nombre de bouteilles de rosés</label>
+                <div className=" form-group mb-3 ">
+                    <label htmlFor="name">Nom de votre zone (vous pouvez modifiez)</label>
                     <input 
-                        type="number" 
-                        name="nbBottles"
-                        id="tailleZoneBlanc"
-                        value ={nbBottles}
-                        onChange={handleChange('nbBottles}')}
-                        className="form-control"
-                        placeholder="ex:40" 
-                        // required
+                        type="text" 
+                        name="name" 
+                        defaultValue="Mes  vins Blancs"
+                        // onChange={ handleChange('name') }
+                        className="form-control"  
+                        required
                     />
                 </div>
+
+                <div className="form-group slider-parent">
+                    <label htmlFor="tailleZoneBlanc">Il y aura combien de bouteilles environ ?</label>
+                    <br />
+                    <input 
+                        type="range"
+                        min="1"
+                        max="21"
+                        step="5"
+                        name="rows"
+                        // value ={rows } 
+                        // onChange={ handleChange("rows")}
+                        id="tailleZoneRouge" 
+                        className="custom-slider"
+                    />
+                    <p className="buble">
+                        Vous pouvez mettre  xx bouteilles
+                    </p>
+                </div>
+                <br />
                 <div className="btnWithStep">
                     <button  
                         onClick= {this.back }
@@ -56,7 +83,7 @@ class CreateWhiteZone extends React.Component {
                     </button> 
                      <button 
                             type="submit"
-                            id="btnSubmit" 
+                            id="btnSubmitWhite" 
                             className="form-control mt-2 mb-2"
                     >
                          Créer mes zones
