@@ -9,8 +9,6 @@ import { ToastContainer } from "react-toastify";
 import Signup from './components/Signup/Signup';
 import isAuthenticated from "./utils/isAuthenticated";
 
-store.dispatch(getAllBottles());
-
 if ( isAuthenticated() ) {
   store.dispatch(getAllBottles());
 }
