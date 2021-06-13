@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router';
 // redux
 import { connect } from 'react-redux';
 import { createCellar } from "../../redux/CreateCellarsAndZones/createCellar.action";
@@ -10,13 +9,7 @@ class CreateCellar extends React.Component {
       name:"",
       description:"",
       user:localStorage.getItem('userId'),
-      step:1,
-      toCreateZones:false
      }
-    continue = e =>{
-      e.preventDefault();
-      this.props.nextStep();
-    }
     handleChangeForCellar = input => event =>{
       event.preventDefault();
       // console.log("voici les inputs",event.target.value);
@@ -37,21 +30,15 @@ class CreateCellar extends React.Component {
     console.log("voici les props arrivés dans CreateCellar", this.props);
     // Vider les input après la saisie
     this.setState = {
-        
         name:"",
         description:"",
         user:"" ,
-        toCreateZones:true 
     };
 }
     render() {
-        const {  name , description, toCreateZones } = this.state;
-        if (toCreateZones) {
-          return <Redirect to="/create_zones"/>
-        }
+        const {  name , description } = this.state;
         return(
             <> 
-              
               <h2 className="col-lg-4 col-md-4 col-sm-12 offset-4">Je crée ma cave ...</h2>
               <form  
                     onSubmit={ this.handleSubmitForCellar }
@@ -67,7 +54,7 @@ class CreateCellar extends React.Component {
                         value={ name }
                         onChange={ this.handleChangeForCellar("name") }
                         className="form-control"  
-                        required
+                        // required
                     />
                   </div>
                   <div className="form-group mb-3">
@@ -78,7 +65,8 @@ class CreateCellar extends React.Component {
                         onChange={ this.handleChangeForCellar("description") }
                         rows="3"
                         className="form-control"
-                        required>
+                        // required
+                    >
                     </textarea>
                  </div>
                 <h5>Créer maintenant les zones de votre cave...</h5>
@@ -92,7 +80,7 @@ class CreateCellar extends React.Component {
                      </button> 
                      <button 
 
-                        onClick= {this.continue }
+                        onClick= {()=>this.props.nextStep() }
                         id="btnNextStep2"
                         className=" form-control mt-2 mb-2 ">
                             Etape suivante »

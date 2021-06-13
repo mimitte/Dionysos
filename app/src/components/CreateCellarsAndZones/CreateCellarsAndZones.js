@@ -13,7 +13,7 @@ class CreateCellarsAndZones extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            step:2,
+            step:1,
             isCheckedRedZone:false,
             rows:0,
             columns:7,
@@ -44,7 +44,7 @@ class CreateCellarsAndZones extends React.Component {
         console.log("mes caves dans cpt",this.props.cellarsOfUser)
         const html1 =<CreateCellar
                             nextStep={this.nextStep}
-                            prevStep={this.prevStep}
+                            step={step}
                     />
         const html2 = <CreateRedZone
                             handleChange={ this.handleChange }

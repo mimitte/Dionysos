@@ -10,8 +10,8 @@ class CreateRedZone extends React.Component {
       }
     continue = e =>{
         e.preventDefault();
-        const {cellarsOfUser} = this.props
-        console.log("cellars of user", cellarsOfUser);
+        // const {cellarsOfUser} = this.props
+        // console.log("cellars of user", cellarsOfUser);
         this.props.nextStep();
       }
      
@@ -55,7 +55,7 @@ class CreateRedZone extends React.Component {
                         // required
                     />
                     <label className="form-check-label" htmlFor="checkRedWine">
-                        <p className="redZone">
+                        <p className="redZone fw-bolder">
                             Cochez ici si vous souhaitez créer une zone pour les vins rouges
                         </p>
                     </label>
