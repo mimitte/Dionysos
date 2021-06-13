@@ -1,0 +1,1 @@
+export const GET_CELLARS_OF_USER = "GET_CELLARS_OF_USER";

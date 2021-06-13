@@ -26,6 +26,7 @@ export const getAllZonesToCellar = () => {
           .then(response => response.json())
           .then(
             (result) => {
+              if (result != null || result !=undefined ){              
               data.idCellar = result._id;
               data.descriptionCellar = result.description;
               data.nameCellar = result.name;
@@ -53,7 +54,8 @@ export const getAllZonesToCellar = () => {
                         })
                     }
                   })
-            })
+              }
+              })
       )}
     }
 }

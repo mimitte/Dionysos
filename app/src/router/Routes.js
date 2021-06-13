@@ -7,6 +7,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import Signup from "../components/Signup/Signup";
 import PrivateRoute from "../Auth/PrivateRoute";
 import TestLogin from "../components/Login/Login";
+//j'ai plus besoin de createCellar et createZone ==> garder uniquement CreateCellarsAndZones en cas de conflit
 import CreateCellarsAndZones from '../components/CreateCellarsAndZones/CreateCellarsAndZones';
 
 function Routes(props) {
@@ -25,7 +26,9 @@ function Routes(props) {
       <PrivateRoute exact path="/liste">
         <ListAddedBottle />
       </PrivateRoute>
-      <PrivateRoute  exact path="/create_cellar_and_zones">
+      {/* Si jamais il y a un conflit: il faudrait garder CreateCellarsAndZones ==>path="/create_cellar_zones" 
+      J'en aurai plus besoin de CreateCellar*/}
+      <PrivateRoute  exact path="/create_cellar_zones">
         <CreateCellarsAndZones/>
       </PrivateRoute>
       <Route path="/signup" component={Signup}/>
