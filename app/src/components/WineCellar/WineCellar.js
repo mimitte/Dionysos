@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ShowCellar from './ShowCellar';
 import Modal from '../Modal/modal';
-
+import spinner from '../../utils/spinner';
 // const user = {
 //     email:"",
 //     idCellar: "609ea3b71fac1d1be0430703",
@@ -13,7 +13,7 @@ import Modal from '../Modal/modal';
  class WineCellar extends Component {
     constructor(props) {
         super(props)
-        let update = false;
+       // let update = false;
         this.state = {
             zones:this.props.zonesCellar,
             id:this.props.idCellar,
@@ -96,6 +96,7 @@ import Modal from '../Modal/modal';
         console.log("edit");
     }
     dispatchBottle = (elements, color) => {
+        console.log(elements);
         let etat = false;
         let title = "";
         let loc  = elements.map((bottle) => {
@@ -146,6 +147,7 @@ import Modal from '../Modal/modal';
                 content.classList.toggle("drop-zone");
             }
         }
+        console.log(e.target)
     }
 
     dragLeave=(event) =>{
@@ -173,7 +175,8 @@ import Modal from '../Modal/modal';
 
 
 
-    creatZoneCellars = ({zoneElements}) =>{
+    creatZoneCellars = ({zoneElements, index}) =>{
+        console.log(zoneElements);
         let color = zoneElements.color;
         let titleColor = color === "white" ? "Blanc" : color === "pink" ? "Rosé" : "Rouge"
         return(
@@ -181,7 +184,7 @@ import Modal from '../Modal/modal';
                 <div className="wine-zone">
                     <h3>Emplacement vin {titleColor} </h3>
                     <div className="zone" datazone={color} >
-                        <ShowCellar zone={color} columns={zoneElements.columns} rows={zoneElements.rows} key={zoneElements.id}/>
+                        <ShowCellar zone={color} index={zoneElements._id +index} columns={zoneElements.columns} rows={zoneElements.rows} key={zoneElements._id +index}/>
                     </div>
                 </div>
             </>
@@ -189,32 +192,42 @@ import Modal from '../Modal/modal';
     }
 
     render() {
-        let btnValidate = this.state.move === true ? [<button id="update-bottle">Validez le déplacement</button> ]: [<div></div>];
-        const {zonesCellar } = this.props;
-        console.log(this.state);
-        return (
-            <>
-                <h2>Cave: {this.state.name}</h2>
-                <h3>Nombre de bouteilles total : {this.state.bottlesCellar.length > 0 ? this.props.bottlesCellar.length:''}</h3>
-                <section id="zoneCellars">
-                        {zonesCellar.map((elements) =><this.creatZoneCellars zoneElements={elements}  key={elements.id}/>)}
-                </section>
-                <Modal showModal={this.state.openModal} closeModal={this.closeModal}>
-                    <div className="modal-title">
-                        <h2>{this.state.bottle.name}</h2>
-                    </div>
-                    <div className="modal-body">
-                            <h3>{this.state.bottle.country}</h3>
-                            <p>{this.state.bottle.region}</p>
-                            <p>{this.state.bottle.year}</p>
-                    </div>
-                    <div className="modal-footer">
-                    <button className="button-modal-cellar" onClick={()=> this.editBottle(this.state.bottle)}>Modfier</button><button className="button-modal-cellar">Fermer</button>
-                    </div>
-                </Modal>
-                {btnValidate}
-            </>
-        )
+        if(this.props.isLoadedCellar){
+            let btnValidate = this.state.move === true ? [<button id="update-bottle">Validez le déplacement</button> ]: [<div></div>];
+            const {zonesCellar } = this.props;
+            
+            const moreKey = 10;
+            return (
+                <>
+                    <h2>Cave: {this.state.name}</h2>
+                    <h3>Nombre de bouteilles total : {this.state.bottlesCellar.length > 0 ? this.props.bottlesCellar.length:''}</h3>
+                    <section id="zoneCellars">
+                            {zonesCellar.map((elements) =><this.creatZoneCellars zoneElements={elements} index={elements._id+moreKey}  key={elements._id+moreKey}/>)}
+                    </section>
+                    <Modal showModal={this.state.openModal} closeModal={this.closeModal}>
+                        <div className="modal-title" id={this.state.bottle.name}>
+                            <h2>{this.state.bottle.name}</h2>
+                        </div>
+                        <div className="modal-body">
+                                <h3>{this.state.bottle.country}</h3>
+                                <p>{this.state.bottle.region}</p>
+                                <p>{this.state.bottle.year}</p>
+                        </div>
+                        <div className="modal-footer">
+                        <button className="button-modal-cellar" onClick={()=> this.editBottle(this.state.bottle)}>Modfier</button><button className="button-modal-cellar">Fermer</button>
+                        </div>
+                    </Modal>
+                    
+                    {btnValidate}
+                </>
+            )
+        } else {
+            return (
+                <>
+                {spinner(this.state.isLoaded)}
+                </>
+            )
+        }
     }
 }
 

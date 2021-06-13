@@ -13,7 +13,8 @@ const rootReducer = combineReducers({
     bottlesCellarReducer:bottlesCellarReducer,
     createUser: signupReducer,
     auth: loginReducer,
-    createCellar
+    createCellar,
+    
 });
 
 

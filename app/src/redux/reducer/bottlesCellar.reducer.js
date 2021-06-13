@@ -9,9 +9,10 @@ let initListBottle = {
     nameCellar : "",
     descriptionCellar:"",
     bottlesCellar :[],
-    bouteilles: {},
+    bouteilles: [],
     error:false,
     isLoaded:false,
+    isLoadedCellar:false,
     countries: [],
       regions: [],
       years:[],
@@ -49,13 +50,15 @@ export const bottlesCellarReducer =(state=initListBottle, action)=> {
             };
         case LIST_ZONES :
             const data = action.payload;
+            console.log(data.zonesCellar);
+            console.log(data.bottlesCellar);
             return {
                 ...state,
                 idCellar: data.idCellar,
                 nameCellar : data.nameCellar,
                 descriptionCellar:data.descriptionCellar,
                 zonesCellar: data.zonesCellar,
-                isLoaded:data.isLoaded,
+                isLoadedCellar:data.isLoaded,
                 bottlesCellar: data.bottlesCellar
             };
         default:
