@@ -4,17 +4,7 @@ class CreateRedZone extends React.Component {
     constructor(props) {
         super(props);
     }
-    back = e =>{
-        e.preventDefault();
-        this.props.prevStep();
-      }
-    continue = e =>{
-        e.preventDefault();
-        // const {cellarsOfUser} = this.props
-        // console.log("cellars of user", cellarsOfUser);
-        this.props.nextStep();
-      }
-     
+    
     render() {
         
         const {  handleChange,handleSubmitForCreateZone, cellarsOfUser,rows,cellar} = this.props;

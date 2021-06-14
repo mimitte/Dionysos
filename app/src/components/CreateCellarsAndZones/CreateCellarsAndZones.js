@@ -24,28 +24,13 @@ class CreateCellarsAndZones extends React.Component {
             
         };
     }
-//   checkColorOfZone =()=>{
-//         const redColor= this.isCheckedRedZone;
-//         const pinkColor=this.isCheckedPinkZone;
-//         const whiteColor=this.isCheckedWhiteZone;
-
-//        if(redColor == true){
-//            console.log(" red is true");
-//            return "red"
-//        }else if(pinkColor == true){
-//            return "pink"
-//        }else if(whiteColor == true){
-//            return "white"
-//        }
-//     } 
     nextStep = () =>{
       
       const { step }=this.state;
       this.setState({
           step:step + 1
       })  
-    }
-        
+    }    
     prevStep =()=>{
         const { step }=this.state;
         this.setState({
@@ -73,11 +58,11 @@ class CreateCellarsAndZones extends React.Component {
         const html2 = <CreateRedZone
                             handleChange={ this.handleChange }
                             cellarsOfUser={cellarsOfUser}
-                            prevStep={this.prevStep}
                             nextStep={this.nextStep}
                             handleSubmitForCreateZone={this.handleSubmitForCreateZone}
                             rows={rows}
                             cellar={cellar}
+                            step={step}
                         />
         const html3 = <CreatePinkZone
                             nextStep={this.nextStep}
@@ -99,7 +84,13 @@ class CreateCellarsAndZones extends React.Component {
         // } else if(step == 4){
         //     return html4 ;
         // }   
-        return html3   
+       if(step == 1){
+             return html1 ;
+             }
+        else if(step == 2){
+             return html2 ;
+         }
+         
     }
 
     handleChange = input => event =>{
@@ -114,6 +105,7 @@ class CreateCellarsAndZones extends React.Component {
     }
 
     handleSubmitForCreateZone =(event)=>{
+        const {nextStep} =this.state;
         event.preventDefault();
         console.log("saisie via form creer zone ", event);
         this.props.createZoneAction(this.state);
@@ -125,7 +117,7 @@ class CreateCellarsAndZones extends React.Component {
             buttons: [
                 {
                 label: 'Oui',
-                onClick: () => this.prevStep()
+                onClick: () => nextStep()
                 },
                 {
                 label: 'Non',

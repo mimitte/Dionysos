@@ -16,14 +16,7 @@ class CreatePinkZone extends React.Component {
             cellar:""
         };
     }
-    backToRedZone = e =>{
-        e.preventDefault();
-        this.props.prevStep();
-      }
-    continue = e =>{
-        e.preventDefault();
-        this.props.nextStep();
-      }
+  
       handleChange = input => event =>{
         event.preventDefault();
         // console.log("voici les inputs",event.target.value);
@@ -35,6 +28,7 @@ class CreatePinkZone extends React.Component {
         })
     }
     handleSubmit =(event)=>{
+        const { nextStep } =this.props;
         event.preventDefault();
         console.log("saisie via form creer zone ", event);
         this.props.createZoneAction(this.state);
@@ -46,7 +40,7 @@ class CreatePinkZone extends React.Component {
             buttons: [
                 {
                 label: 'Oui',
-                onClick: () => this.props.backToCreateCave()
+                onClick: () => this.nextStep()
                 }
             ]
             
@@ -156,10 +150,6 @@ class CreatePinkZone extends React.Component {
                     >
                          Créer ma zone 
                     </button>  
-                    <button  onClick= {this.continue } id="btnNextStep2" className=" form-control mt-2 mb-2 ">
-                   Etape suivante »
-                    </button> 
-
                 </div>
                 
             </form>
