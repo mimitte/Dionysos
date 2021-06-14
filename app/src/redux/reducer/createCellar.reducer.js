@@ -16,7 +16,7 @@ export const createCellar =(state=initCellar, action)=> {
             ...state, 
             user:cellar.user,
             name:cellar.name,
-            description:cellar.description        
+            description:cellar.description,
         }
         default:
             return state;

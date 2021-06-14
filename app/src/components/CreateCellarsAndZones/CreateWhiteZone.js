@@ -8,6 +8,10 @@ class CreateWhiteZone extends React.Component {
         e.preventDefault();
         this.props.prevStep();
       }
+      backLast = e =>{
+        e.preventDefault();
+        this.props.prevStepLast();
+      }
 
     render() {
         
@@ -38,7 +42,7 @@ class CreateWhiteZone extends React.Component {
                         // required
                     />
                     <label className="form-check-label" htmlFor="checkWhitekWine">
-                        <p className="whiteZone">
+                        <p className="whiteZone fw-bold">
                             Cochez ici si vous souhaitez créer une zone pour les vins blancs
                         </p>
                     </label>
@@ -76,10 +80,10 @@ class CreateWhiteZone extends React.Component {
                 <br />
                 <div className="btnWithStep">
                     <button  
-                        onClick= {this.back }
+                        onClick= {this.backLast }
                          id="btnPrev"
                         className="form-control mt-2 mb-2">
-                        « Précédent
+                        « Créer une nouvelle cave
                     </button> 
                      <button 
                             type="submit"

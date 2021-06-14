@@ -17,8 +17,8 @@ class CreateRedZone extends React.Component {
      
     render() {
         
-        const {  handleChange, cellarsOfUser,name,rows,cellar} = this.props;
-        console.log("cellars of user", cellarsOfUser);
+        const {  handleChange,handleSubmitForCreateZone, cellarsOfUser,rows,cellar} = this.props;
+        // console.log("cellars of user from CreateRedZone", cellarsOfUser);
         
         return(
             <> 
@@ -26,7 +26,7 @@ class CreateRedZone extends React.Component {
                  Je crée une zone rouge  ....
             </h5>
               <form 
-                    onSubmit={this.props.handleSubmitForCreateZone}
+                    onSubmit={ handleSubmitForCreateZone }
                     id="formCreateRedZone"
                     className="col-lg-4 col-md-4 col-sm-12 offset-4" >
                   {/* zone vin rouge */}
@@ -77,9 +77,9 @@ class CreateRedZone extends React.Component {
                 <br />
                     <input 
                         type="range"
-                        min="1"
+                        min="2"
                         max="21"
-                        step="5"
+                        step="1"
                         name="rows"
                         value ={rows } 
                         onChange={ handleChange("rows")}
@@ -93,12 +93,6 @@ class CreateRedZone extends React.Component {
                 <br />
                 
                 <div className="btnWithStep">
-                    <button  
-                    onClick= {this.back } 
-                    id="btnPrevStep2"
-                     className="btnPrevNextOfCreateZoneRed form-control mt-2 mb-2 ">
-                        « Précédent
-                    </button> 
                     <button 
                             type="submit"
                             id="btnSubmit" 
@@ -106,10 +100,6 @@ class CreateRedZone extends React.Component {
                     >
                          Créer ma zone 
                      </button> 
-                    <button  onClick= {this.continue } id="btnNextStep2" 
-                    className="btnPrevNextOfCreateZoneRed form-control mt-2 mb-2 ">
-                   Etape suivante »
-                </button> 
 
                 </div>
                 

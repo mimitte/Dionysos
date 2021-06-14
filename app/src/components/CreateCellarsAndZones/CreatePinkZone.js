@@ -15,7 +15,7 @@ class CreatePinkZone extends React.Component {
 
     render() {
         
-        const {  handleChange, nbBottles} = this.props
+        const {  handleChange, cellarsOfUser,rows,cellar} = this.props;
         
         return(
             <> 
@@ -80,12 +80,12 @@ class CreatePinkZone extends React.Component {
                 </div>
                 <br />
                 <div className="btnWithStep">
-                    <button  
+                    {/* <button  
                     onClick= {this.back } 
                     id="btnPrevStep2"
                      className="form-control mt-2 mb-2 ">
                         « Précédent
-                    </button>
+                    </button> */}
                     <button 
                             type="submit"
                             id="btnSubmitPink" 

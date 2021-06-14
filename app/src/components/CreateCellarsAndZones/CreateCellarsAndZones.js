@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import CreateRedZone from './CreateRedZone';
 import CreatePinkZone from './CreatePinkZone';
 import CreateWhiteZone from './CreateWhiteZone';
@@ -14,15 +15,30 @@ class CreateCellarsAndZones extends React.Component {
         super(props);
         this.state = {
             step:1,
-            isCheckedRedZone:false,
             rows:0,
             columns:7,
             color:"red",
             user: localStorage.getItem('userId'),
-            cellar:""      
+            cellar:"" ,
+            isCheckedRedZone:false,
+            isCheckedPinkZone:false,
+            isCheckedWhiteZone:false
         };
     }
+  checkColorOfZone =()=>{
+        const redColor= this.isCheckedRedZone;
+        const pinkColor=this.isCheckedPinkZone;
+        const whiteColor=this.isCheckedWhiteZone;
 
+       if(redColor == true){
+           console.log(" red is true");
+           return "red"
+       }else if(pinkColor == true){
+           return "pink"
+       }else if(whiteColor == true){
+           return "white"
+       }
+    } 
     nextStep = () =>{
       
       const { step }=this.state;
@@ -30,45 +46,56 @@ class CreateCellarsAndZones extends React.Component {
           step:step + 1
       })  
     }
+        
     prevStep =()=>{
         const { step }=this.state;
         this.setState({
             step: step - 1
         })
     }
+
+    prevStepLast =()=>{
+        const { step }=this.state;
+        this.setState({
+            step: step - 3
+        })
+    }
     
     showStep =()=>{
     
-        const { step,nbBottles,name,rows,cellar,isCheckedRedZone } = this.state;
+        const { step,rows,cellar,isCheckedRedZone } = this.state;
         const cellarsOfUser = this.props.cellarsOfUser;
         console.log("mes caves dans cpt",this.props.cellarsOfUser)
         const html1 =<CreateCellar
                             nextStep={this.nextStep}
                             step={step}
                     />
+        
         const html2 = <CreateRedZone
                             handleChange={ this.handleChange }
                             cellarsOfUser={cellarsOfUser}
-                            handleSubmitForCreateZone={this.handleSubmitForCreateZone}
-                            nextStep={this.nextStep}
                             prevStep={this.prevStep}
-                            name={name}
+                            nextStep={this.nextStep}
+                            handleSubmitForCreateZone={this.handleSubmitForCreateZone}
                             rows={rows}
                             cellar={cellar}
                         />
         const html3 = <CreatePinkZone
-                        handleChange={ this.handleChange }
-                        nextStep={this.nextStep}
-                        prevStep={this.prevStep}
-                        nbBottles={nbBottles}  
+                            handleChange={ this.handleChange }
+                            nextStep={this.nextStep}
+                            prevStepPinkZone={this.prevStepPinkZone}
+                            cellarsOfUser={cellarsOfUser}
+                            handleSubmitForCreateZone={this.handleSubmitForCreateZone}
+                            rows={rows}
+                            cellar={cellar}  
                     />
          const html4 = <CreateWhiteZone
-                            nbBottles={nbBottles}
                             handleChange={ this.handleChange }
-                            prevStep={this.prevStep}
+                            prevStepLast={this.prevStepLast}
                             handleSubmit={this.handleSubmit}
                             
                         />
+   
          if (step == 1) {
              return html1 ;
          }
@@ -96,6 +123,21 @@ class CreateCellarsAndZones extends React.Component {
         event.preventDefault();
         console.log("saisie via form creer zone ", event);
         this.props.createZoneAction(this.state);
+         // message alert pour confirmer que la cave a bien été créée, redirection création zone
+        confirmAlert({
+            
+            title:"Votre zone rouge a bien été créé",
+            message:"Voulez-vous créer une zone rosée pour vos vins Rosé ?" ,
+            buttons: [
+                {
+                label: 'Oui',
+                onClick: () => this.prevStep()
+                },
+                {
+                label: 'Non',
+                onClick: () => { return }
+                }]
+        })
         // Vider les input après la saisie
         this.setState = {
             step:2,
