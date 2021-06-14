@@ -2,7 +2,7 @@
 import { LIST_BOTTLES } from "../ListBottlesCellar/types";
 import { DELETE_BOTTLE } from "../deleteBottleCellar/types";
 import {creatFilterList} from "../../utils/filterBottles";
-import { LIST_ZONES} from "../zoneCellar/types";
+import { LIST_ALL_ELEMENTS_OF_CELLARS} from "../getAllElements/types";
 let initListBottle = {
     zonesCellar: [],
     idCellar: "",
@@ -48,7 +48,7 @@ export const bottlesCellarReducer =(state=initListBottle, action)=> {
                 ...state,
                 bouteilles: state.bouteilles.filter(bouteille => bouteille._id !== action.payload)
             };
-        case LIST_ZONES :
+        case LIST_ALL_ELEMENTS_OF_CELLARS :
             const data = action.payload;
             console.log(data.zonesCellar);
             console.log(data.bottlesCellar);

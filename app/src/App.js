@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
 import { ToastContainer } from "react-toastify";
-import { getAllElements } from './redux/zoneCellar/getAllElements.action';
+import { getAllElements } from './redux/getAllElements/getAllElements.action';
 import Signup from './components/Signup/Signup';
 import isAuthenticated from "./utils/isAuthenticated";
 import { getCellarsOfUser } from './redux/GetCellarsOfUser/getCellarsOfUser.action';
