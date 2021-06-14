@@ -52,7 +52,7 @@ let CellarController = {
         populate: { path: 'bottles' }
       })
       .exec((err, cellars) => {
-        if (err) res.stat(500).json({ err })
+        if (err) res.status(500).json({ err })
         res.status(200).json(cellars)
       });
   }
