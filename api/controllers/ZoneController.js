@@ -1,5 +1,5 @@
 let ZoneModel = require('../models/ZoneModel');
-let BottleModel = require('../models/BottleModel');
+let CellarModel = require('../models/CellarModel');
 
 let ZoneController = {
     findAll: async (req, res) => {
@@ -21,10 +21,26 @@ let ZoneController = {
           });
     },
     create: async (req, res) => {
-        delete req.body._id;
-        let newZone = new ZoneModel(req.body);
-        let savedZone = await newZone.save();
-        res.json(savedZone);
+      delete req.body._id;
+      let newZone = new ZoneModel(req.body.zone);
+      let cellarId = req.body.cellar;
+
+      let savedZone = await newZone.save()
+      let newZoneId = savedZone._id;
+
+      CellarModel
+        .findOne({ _id: cellarId })
+        .exec((err, cellar) => {
+          if (err) res.status(500).json({ err });
+          let zones = cellar.zones ? cellar.zones : []
+          zones.push(newZoneId);
+          CellarModel
+            .updateOne({ _id: cellarId }, { zones: zones })
+            .exec( (err, cellar) => {
+              if (err) res.status(500).json({ err })
+              res.status(200).json(newZone)
+            });
+        });
     },
     edit: async (req, res) => {
         await ZoneModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });

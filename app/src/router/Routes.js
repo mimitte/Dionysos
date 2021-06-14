@@ -25,7 +25,7 @@ function Routes(props) {
       <PrivateRoute exact path="/liste">
         <ListAddedBottle />
       </PrivateRoute>
-      <PrivateRoute  exact path="/create_cellar_and_zones">
+      <PrivateRoute  exact path="/create_cellar_zones">
         <CreateCellarsAndZones/>
       </PrivateRoute>
       <Route path="/signup" component={Signup}/>

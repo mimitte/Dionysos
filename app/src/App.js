@@ -9,11 +9,15 @@ import { ToastContainer } from "react-toastify";
 import { getAllElements } from './redux/zoneCellar/getAllElements.action';
 import Signup from './components/Signup/Signup';
 import isAuthenticated from "./utils/isAuthenticated";
+import { getCellarsOfUser } from './redux/GetCellarsOfUser/getCellarsOfUser.action';
 
 if ( isAuthenticated() ) {
   store.dispatch(getAllBottles());
-  store.dispatch(getAllElements());
+  //store.dispatch(getAllElements());
+  store.dispatch(getCellarsOfUser());
 }
+
+ 
 
 
 const login = true;

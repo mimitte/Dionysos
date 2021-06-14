@@ -45,7 +45,7 @@ export const getAllElements = () => {
           //       })
           //     }
           //     dispatch({
-          //       type: LIST_ZONES,
+          //       type: LIST_ALL_ELEMENTS_OF_CELLARS,
           //       payload: data,
           //       isLoaded:true
           //   });

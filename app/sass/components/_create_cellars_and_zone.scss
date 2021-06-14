@@ -22,37 +22,54 @@
     background-color:#b1962a !important;
     border-color:#b1962a !important;
 }
-#btnNextStep{
+#btnNextStep,#btnSubmit,#btnSubmitRed,#btnNextStep2,#btnPrevStep2{
     background-color: $vin-rouge-couleur;
     border-color: $vin-rouge-couleur !important;
     color: whitesmoke;
 }
+.btnPrevNextOfCreateZoneRed{
+    background-color:#aa445f !important;
+    color: whitesmoke;
 
+}
 #btnPrev{
     background-color: $vin-rouge-couleur;
     border-color: $vin-rouge-couleur !important;
     color: whitesmoke;
 }
-#btnSubmit{
-    background-color: $vin-rouge-couleur;
-    border-color: $vin-rouge-couleur !important;
-    color: whitesmoke;
-}
+
 
 #formForCreateCellar #btnNextStep{
     width:50% !important;
     margin: 0 auto !important;
 }
-#btnStep2{
+.btnWithStep{
     display: flex !important;
 }
-#formForCreateCellar #btnPrev{
-    
-    width:25% !important;
-    margin: 0 auto !important;
+
+#btnSubmitPink{
+    background-color:rgba(228, 86, 110, 0.781) !important;
+    color: whitesmoke;
 }
-#formForCreateCellar #btnSubmit{
-    
-    width:25% !important;
-    margin: 0 auto !important;
+
+#btnSubmitWhite{
+    background-color:#b1962a !important;
+    color: whitesmoke;
 }
+
+input[type=range] {
+    // -webkit-appearance:none !important;   /*nécessaire pour Chrome */
+    padding: 0;                   /* nécessaire pour IE */
+    // font: inherit;                /* même rendu suivant font document */
+    // outline: none;
+    color: $primary-color !important;/* sert pour couleur de référence, via currentColor, pour le curseur */
+    opacity: .8;
+    // background:$primary-color!important; /* sert pour couleur de fond de la zone de déplacement */
+    // box-sizing: border-box;       /* même modèle de boîte pour tous */
+    transition: opacity .2s;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-moz-range-progress {
+    background-color: #43e5f7; 
+  }

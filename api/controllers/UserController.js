@@ -72,3 +72,14 @@ exports.patch = (req, res, next) => {
       res.status(200).json(user);
     })
 }
+
+exports.deleteAll = (req, res, next) => {
+  User
+    .deleteMany()
+    .exec((err, response) => {
+    if (err) {
+      res.status(500).json({ err });
+    }
+    res.status(200).json(response);
+  })
+}
