@@ -14,7 +14,7 @@ const data = {
   'bottlesCellar': [],
 }
 const id =`60ab7a0771b8be43209216f1`;
-export const getAll = () =>{
+export const getAllElements = () => {
   return  (dispatch)=>{
     return (
         fetch(`http://localhost:5000/api/cellar/user/${id}`)

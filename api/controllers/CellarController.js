@@ -41,7 +41,9 @@ let CellarController = {
     res.json({ "message": "Deleted all" });
   },
   edit: async (req, res) => {
-    await CellarModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });
+    let {zones} = req.body;
+    console.log(zones);
+    await CellarModel.updateOne({ _id: req.params.id }, { $push: {zones:{$each: [zones]}}});
     res.status(200).json({ "message": "Cellar modified" });
   },
   findAllByUser: async (req, res) => {

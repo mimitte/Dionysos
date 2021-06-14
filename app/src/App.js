@@ -6,14 +6,15 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { getAllBottles } from "./redux/ListBottlesCellar/listBottleCellar.action";
 import { ToastContainer } from "react-toastify";
-import { getAllZonesToCellar } from './redux/zoneCellar/zoneCellar.action';
+import { getAllElements } from './redux/zoneCellar/getAllElements.action';
 import Signup from './components/Signup/Signup';
 import isAuthenticated from "./utils/isAuthenticated";
 
 if ( isAuthenticated() ) {
   store.dispatch(getAllBottles());
+  store.dispatch(getAllElements());
 }
-store.dispatch(getAllZonesToCellar());
+
 
 const login = true;
 
