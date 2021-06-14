@@ -20,8 +20,9 @@ let BottleController = {
   create: async (req, res) => {
     delete req.body._id;
     let zoneId = req.body.zone;
+    let location = req.body.location;
 
-    if (!zoneId) {
+    if (!zoneId || !location) {
       delete req.body.zone;
       delete req.body.location;
     }
