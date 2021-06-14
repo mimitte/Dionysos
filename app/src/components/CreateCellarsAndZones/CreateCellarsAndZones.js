@@ -17,28 +17,27 @@ class CreateCellarsAndZones extends React.Component {
             step:1,
             rows:0,
             columns:7,
+            isCheckedRedZone:false,
             color:"red",
             user: localStorage.getItem('userId'),
             cellar:"" ,
-            isCheckedRedZone:false,
-            isCheckedPinkZone:false,
-            isCheckedWhiteZone:false
+            
         };
     }
-  checkColorOfZone =()=>{
-        const redColor= this.isCheckedRedZone;
-        const pinkColor=this.isCheckedPinkZone;
-        const whiteColor=this.isCheckedWhiteZone;
+//   checkColorOfZone =()=>{
+//         const redColor= this.isCheckedRedZone;
+//         const pinkColor=this.isCheckedPinkZone;
+//         const whiteColor=this.isCheckedWhiteZone;
 
-       if(redColor == true){
-           console.log(" red is true");
-           return "red"
-       }else if(pinkColor == true){
-           return "pink"
-       }else if(whiteColor == true){
-           return "white"
-       }
-    } 
+//        if(redColor == true){
+//            console.log(" red is true");
+//            return "red"
+//        }else if(pinkColor == true){
+//            return "pink"
+//        }else if(whiteColor == true){
+//            return "white"
+//        }
+//     } 
     nextStep = () =>{
       
       const { step }=this.state;
@@ -63,9 +62,9 @@ class CreateCellarsAndZones extends React.Component {
     
     showStep =()=>{
     
-        const { step,rows,cellar,isCheckedRedZone } = this.state;
+        const { step,rows,cellar } = this.state;
         const cellarsOfUser = this.props.cellarsOfUser;
-        console.log("mes caves dans cpt",this.props.cellarsOfUser)
+        console.log("mes caves dans parent component",this.props.cellarsOfUser)
         const html1 =<CreateCellar
                             nextStep={this.nextStep}
                             step={step}
@@ -81,31 +80,26 @@ class CreateCellarsAndZones extends React.Component {
                             cellar={cellar}
                         />
         const html3 = <CreatePinkZone
-                            handleChange={ this.handleChange }
                             nextStep={this.nextStep}
-                            prevStepPinkZone={this.prevStepPinkZone}
-                            cellarsOfUser={cellarsOfUser}
-                            handleSubmitForCreateZone={this.handleSubmitForCreateZone}
-                            rows={rows}
-                            cellar={cellar}  
-                    />
+                            step={step}
+                          
+                        />
          const html4 = <CreateWhiteZone
-                            handleChange={ this.handleChange }
                             prevStepLast={this.prevStepLast}
-                            handleSubmit={this.handleSubmit}
-                            
+                            step={step}
                         />
    
-         if (step == 1) {
-             return html1 ;
-         }
-         else if(step == 2){
-             return html2 ;
-         }else if(step == 3){
-            return html3 ;
-        } else if(step == 4){
-            return html4 ;
-        }      
+        //  if (step == 1) {
+        //      return html1 ;
+        //  }
+        //  else if(step == 2){
+        //      return html2 ;
+        //  }else if(step == 3){
+        //     return html3 ;
+        // } else if(step == 4){
+        //     return html4 ;
+        // }   
+        return html3   
     }
 
     handleChange = input => event =>{

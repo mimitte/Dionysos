@@ -86,7 +86,7 @@ class CreateRedZone extends React.Component {
                         id="tailleZoneRouge" 
                     />
                     <div className="buble">
-                    Vous pouvez mettre  { rows *7 } bouteilles
+                    Vous pouvez mettre  { rows *7 } bouteilles dans cette zone
                     </div>
                     
                 </div>

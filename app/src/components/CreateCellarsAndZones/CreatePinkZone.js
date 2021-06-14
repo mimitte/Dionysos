@@ -1,10 +1,22 @@
 import React from 'react';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { connect } from "react-redux";
+import { createZoneAction } from '../../redux/CreateCellarsAndZones/createZone.action';
 
 class CreatePinkZone extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            rows:0,
+            columns:7,
+            isCheckedWhiteZone:false,
+            color:"pink",
+            user: localStorage.getItem('userId'),
+            cellar:""
+        };
     }
-    back = e =>{
+    backToRedZone = e =>{
         e.preventDefault();
         this.props.prevStep();
       }
@@ -12,23 +24,74 @@ class CreatePinkZone extends React.Component {
         e.preventDefault();
         this.props.nextStep();
       }
-
+      handleChange = input => event =>{
+        event.preventDefault();
+        // console.log("voici les inputs",event.target.value);
+        const valeurInput = event.target.type === "checkbox" ?
+        !event.checked :
+        event.target.value
+        this.setState({
+             [input]:valeurInput      
+        })
+    }
+    handleSubmit =(event)=>{
+        event.preventDefault();
+        console.log("saisie via form creer zone ", event);
+        this.props.createZoneAction(this.state);
+         // message alert pour confirmer que la cave a bien été créée, redirection création zone
+        confirmAlert({
+            
+            title:"Votre zone pour les vins Rosé a bien été créé.",
+            message:"Voulez-vous créer une zone pour les vins blancs? ?" ,
+            buttons: [
+                {
+                label: 'Oui',
+                onClick: () => this.props.backToCreateCave()
+                }
+            ]
+            
+        })
+        // Vider les input après la saisie
+        this.setState = {
+            isCheckedWhiteZone:false,  
+            name:"",
+            rows:0,
+            columns:7,
+            color:"",
+            user:"",
+            cellar:""
+        };
+    }
     render() {
-        
-        const {  handleChange, cellarsOfUser,rows,cellar} = this.props;
-        
+        const { rows,cellar } = this.state;
+        const { cellarsOfUser } = this.props;
+        console.log("ma liste de caves dans Pink zone", cellarsOfUser);
         return(
             <> 
              <h5 className="col-lg-4 col-md-4 col-sm-12 offset-4" >
-                 Je crée une zone rouge pour ma cave ....
+                 Je crée une zone rosée pour ma cave ....
             </h5>
-              <form  id="formCreatePinkZone" className="col-lg-4 col-md-4 col-sm-12 offset-4">
+              <form 
+                    onSubmit= { this.handleSubmit } id="formCreatePinkZone" className="col-lg-4 col-md-4 col-sm-12 offset-4"
+             >
                   {/* zone rosé*/}
                   <div className="form-group mb-3">
                     <label>Sélectionnez une cave</label>
-                    <select  className="form-control">
-                        <option>Lorem </option>
-                        <option>Ipsum</option>      
+                    <select
+                        onChange={this.handleChange('cellar')} 
+                        value={cellar} 
+                        className="form-control"
+                    >
+                         {
+                            cellarsOfUser.map((cellar,index)=> 
+                            <option 
+                                key={index}
+                                name="cellar"
+                                value={cellar._id}
+                            >
+                                    {cellar.name}
+                            </option>)
+                        } 
                     </select>
                  </div>
                 <div className="form-check">
@@ -36,7 +99,7 @@ class CreatePinkZone extends React.Component {
                         className="form-check-input"
                         type="checkbox"
                         name="isCheckedPinkZone"
-                        // onChange={handleChange('isCheckedPinkZone')}
+                        onChange={this.handleChange('isCheckedPinkZone')}
                         id="checkPinkWine"
                         // required
                     />
@@ -52,7 +115,7 @@ class CreatePinkZone extends React.Component {
                         type="text" 
                         name="name" 
                         defaultValue="Mes  vins Rosé"
-                        // onChange={ handleChange('name') }
+                        onChange={ this.handleChange('name') }
                         className="form-control"  
                         required
                     />
@@ -67,14 +130,14 @@ class CreatePinkZone extends React.Component {
                         max="21"
                         step="5"
                         name="rows"
-                        // value ={rows } 
-                        // onChange={ handleChange("rows")}
+                        value ={rows } 
+                        onChange={ this.handleChange("rows")}
                         id="tailleZoneRose" 
                         className="custom-slider"
                     />
                     <br />
                     <p className="buble">
-                        Vous pouvez mettre  xx bouteilles dans votre zone Rosé
+                        Vous pouvez mettre  xx bouteilles dans cette zone.
                     </p>
       
                 </div>
@@ -106,4 +169,9 @@ class CreatePinkZone extends React.Component {
     }
 }
 
-export default CreatePinkZone;
+const mapStateToProps = (state)=>{
+    return {
+      ...state.getCellarsOfUserReducer
+    }
+  }
+export default connect(mapStateToProps, (null, {createZoneAction}))(CreatePinkZone);

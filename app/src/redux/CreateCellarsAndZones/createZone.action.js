@@ -13,13 +13,10 @@ export const createZoneAction =(zoneObj)=>{
         })
        .then(response=>response.json())
        .then(data=>{
-           if (data.isCheckedRedZone == true) {
             dispatch({
                 type:CREATE_ZONE,
                 payload:data
-            }) 
-           }
-            
+            })  
         })
         .catch(error=>{
             console.log(error);
