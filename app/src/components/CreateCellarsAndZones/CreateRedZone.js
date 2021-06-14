@@ -1,14 +1,67 @@
 import React from 'react';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { connect } from "react-redux";
+import { createZoneAction } from '../../redux/CreateCellarsAndZones/createZone.action';
 
 class CreateRedZone extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            rows:0,
+            columns:7,
+            isCheckedRedZone:false,
+            color:"red",
+            user: localStorage.getItem('userId'),
+            cellar:""
+        };
     }
-    
+    handleChange = input => event =>{
+        event.preventDefault();
+        // console.log("voici les inputs",event.target.value);
+        const valeurInput = event.target.type === "checkbox" ?
+        !event.checked :
+        event.target.value
+        this.setState({
+             [input]:valeurInput      
+        })
+    }
+    handleSubmit =(event)=>{
+        event.preventDefault();
+        console.log("saisie via form creer zone ", event);
+        this.props.createZoneAction(this.state);
+         // message alert pour confirmer que la cave a bien été créée, redirection création zone
+        confirmAlert({
+            
+            title:"Votre zone pour les vins Rouges a bien été créé.",
+            message:"Voulez-vous créer une zone pour les vins Rosés? ?" ,
+            buttons: [
+                {
+                label: 'Oui',
+                onClick: () => this.props.nextStep()
+                },
+                // {
+                //     label: 'Non',
+                //     onClick: () => this.props.prevStep()
+                //     },
+            ]  
+        })
+        // Vider les input après la saisie
+        this.setState = {
+            isCheckedRedZone:false,  
+            name:"",
+            rows:0,
+            columns:7,
+            color:"",
+            user:"",
+            cellar:""
+        };
+    }
     render() {
         
-        const {  handleChange,handleSubmitForCreateZone, cellarsOfUser,rows,cellar} = this.props;
-        // console.log("cellars of user from CreateRedZone", cellarsOfUser);
+        const { rows,cellar } = this.state;
+        const { cellarsOfUser } = this.props;
+        console.log("cellars of user from CreateRedZone", cellarsOfUser);
         
         return(
             <> 
@@ -16,13 +69,13 @@ class CreateRedZone extends React.Component {
                  Je crée une zone rouge  ....
             </h5>
               <form 
-                    onSubmit={ handleSubmitForCreateZone }
+                    onSubmit={ this.handleSubmit}
                     id="formCreateRedZone"
                     className="col-lg-4 col-md-4 col-sm-12 offset-4" >
                   {/* zone vin rouge */}
                 <div className="form-group mb-3">
                     <label htmlFor="selectCellars">Sélectionnez une cave</label>
-                    <select onChange={ handleChange('cellar')} value={cellar} className="form-control" id="selectCellars">
+                    <select onChange={ this.handleChange('cellar')} value={cellar} className="form-control" id="selectCellars">
                         {
                             cellarsOfUser.map((cellar,index)=> 
                             <option 
@@ -40,7 +93,7 @@ class CreateRedZone extends React.Component {
                         className="form-check-input"
                         type="checkbox"
                         name="isCheckedRedZone"
-                        onChange={ handleChange('isCheckedRedZone')}
+                        onChange={ this.handleChange('isCheckedRedZone')}
                         id="checkRedWine"
                         // required
                     />
@@ -56,8 +109,8 @@ class CreateRedZone extends React.Component {
                         type="text" 
                         name="name" 
                         defaultValue="Mes superbes vins rouges"
-                        onChange={ handleChange('name') }
-                        className="form-control"  
+                        onChange={ this.handleChange('name') }
+                        className="form-control"
                         required
                     />
                   </div>
@@ -72,7 +125,7 @@ class CreateRedZone extends React.Component {
                         step="1"
                         name="rows"
                         value ={rows } 
-                        onChange={ handleChange("rows")}
+                        onChange={ this.handleChange("rows")}
                         id="tailleZoneRouge" 
                     />
                     <div className="buble">
@@ -99,4 +152,9 @@ class CreateRedZone extends React.Component {
     }
 }
 
-export default CreateRedZone;
+const mapStateToProps = (state)=>{
+    return {
+      ...state.getCellarsOfUserReducer
+    }
+  }
+export default connect(mapStateToProps, (null, {createZoneAction}))(CreateRedZone);

@@ -40,7 +40,7 @@ class CreatePinkZone extends React.Component {
             buttons: [
                 {
                 label: 'Oui',
-                onClick: () => this.nextStep()
+                onClick: () => this.props.nextStep()
                 }
             ]
             
@@ -59,7 +59,7 @@ class CreatePinkZone extends React.Component {
     render() {
         const { rows,cellar } = this.state;
         const { cellarsOfUser } = this.props;
-        console.log("ma liste de caves dans Pink zone", cellarsOfUser);
+        // console.log("ma liste de caves dans Pink zone", cellarsOfUser);
         return(
             <> 
              <h5 className="col-lg-4 col-md-4 col-sm-12 offset-4" >

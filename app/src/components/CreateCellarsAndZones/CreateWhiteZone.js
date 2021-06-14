@@ -17,10 +17,6 @@ class CreateWhiteZone extends React.Component {
         };
     }
   
-    backToCreateCave = e =>{
-        e.preventDefault();
-        this.props.prevStepLast();
-      }
     handleChange = input => event =>{
         event.preventDefault();
         // console.log("voici les inputs",event.target.value);
@@ -43,7 +39,7 @@ class CreateWhiteZone extends React.Component {
             buttons: [
                 {
                 label: 'Oui',
-                onClick: () => this.backToCreateCave()
+                onClick: () => this.props.prevStepLast()
                 }
             ]
         })
@@ -137,12 +133,6 @@ class CreateWhiteZone extends React.Component {
                 </div>
                 <br />
                 <div className="btnWithStep">
-                    <button  
-                        onClick= {this.backLast }
-                         id="btnPrev"
-                        className="form-control mt-2 mb-2">
-                        « Créer une nouvelle cave
-                    </button> 
                      <button 
                             type="submit"
                             id="btnSubmitWhite" 
