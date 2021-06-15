@@ -36,7 +36,7 @@ class CreatePinkZone extends React.Component {
         confirmAlert({
             
             title:"Votre zone pour les vins Rosé a bien été créé.",
-            message:"Voulez-vous créer une zone pour les vins blancs? ?" ,
+            message:"Voulez-vous créer une zone pour les vins blancs ?" ,
             buttons: [
                 {
                 label: 'Oui',

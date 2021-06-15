@@ -56,11 +56,11 @@ class CreateCellar extends React.Component {
         const {  name , description } = this.state;
         return(
             <> 
-              <h2 className="col-lg-4 col-md-4 col-sm-12 offset-4">Je crée ma cave ...</h2>
+              <h2 className="offset-4 col-lg-4 col-sm-12 ">Je crée ma cave ...</h2>
               <form  
                     onSubmit={ this.handleSubmitForCellar }
                     id="formForCreateCellar"
-                    className="col-lg-4 col-md-4 col-sm-12 offset-4"
+                    className="col-lg-4 col-sm-12 offset-4"
                >
                   <div className=" form-group mb-3 ">
                     <label htmlFor="name">Nom de votre cave</label>

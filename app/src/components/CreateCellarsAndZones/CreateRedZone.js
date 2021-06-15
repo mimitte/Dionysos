@@ -3,6 +3,9 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { connect } from "react-redux";
 import { createZoneAction } from '../../redux/CreateCellarsAndZones/createZone.action';
+// import Slider from 'react-rangeslider';
+import ReactSlider from 'react-slider'
+import { getCellarsOfUser } from '../../redux/GetCellarsOfUser/getCellarsOfUser.action';
 
 class CreateRedZone extends React.Component {
     constructor(props) {
@@ -10,6 +13,7 @@ class CreateRedZone extends React.Component {
         this.state = {
             rows:0,
             columns:7,
+            name:"",
             isCheckedRedZone:false,
             color:"red",
             user: localStorage.getItem('userId'),
@@ -18,7 +22,7 @@ class CreateRedZone extends React.Component {
     }
     handleChange = input => event =>{
         event.preventDefault();
-        // console.log("voici les inputs",event.target.value);
+        console.log("voici les inputs",event.target.value);
         const valeurInput = event.target.type === "checkbox" ?
         !event.checked :
         event.target.value
@@ -28,7 +32,8 @@ class CreateRedZone extends React.Component {
     }
     handleSubmit =(event)=>{
         event.preventDefault();
-        console.log("saisie via form creer zone ", event);
+        console.log("saisie via form creer zone ", this.state);
+       
         this.props.createZoneAction(this.state);
          // message alert pour confirmer que la cave a bien été créée, redirection création zone
         confirmAlert({
@@ -57,9 +62,28 @@ class CreateRedZone extends React.Component {
             cellar:""
         };
     }
+    componentDidMount () {
+        const
+            range = document.getElementById('range'),
+            rangeV = document.getElementById('rangeV'),
+        setValue = ()=>{
+            const
+                newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ),
+                newPosition = 10 - (newValue * 0.2);
+                rangeV.innerHTML = `<span>${range.value}</span>`;
+                rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+                console.log(range);
+        };
+        document.addEventListener("DOMContentLoaded", setValue);
+        range.addEventListener('input', setValue);
+        // on appelle ici pour que ça s'exécutes sans qu'on recharge la page
+        // this.props.getCellarsOfUser();
+    }
+    
     render() {
         
-        const { rows,cellar } = this.state;
+        const { rows,cellar,name } = this.state;
+        // objet qui contient toute la liste de caves
         const { cellarsOfUser } = this.props;
         console.log("cellars of user from CreateRedZone", cellarsOfUser);
         
@@ -75,9 +99,9 @@ class CreateRedZone extends React.Component {
                   {/* zone vin rouge */}
                 <div className="form-group mb-3">
                     <label htmlFor="selectCellars">Sélectionnez une cave</label>
-                    <select onChange={ this.handleChange('cellar')} value={cellar} className="form-control" id="selectCellars">
+                    <select onChange={ this.handleChange('cellar')} value={cellar}  id="selectCellars">
                         {
-                            cellarsOfUser.map((cellar,index)=> 
+                            cellarsOfUser.reverse().map((cellar,index)=> 
                             <option 
                                 key={index}
                                 name="cellar"
@@ -105,10 +129,12 @@ class CreateRedZone extends React.Component {
                 </div>
                 <div className=" form-group mb-3 ">
                     <label htmlFor="name">Nom de votre zone (vous pouvez modifiez)</label>
+                    <br />
                     <input 
                         type="text" 
                         name="name" 
-                        defaultValue="Mes superbes vins rouges"
+                        // defaultValue="Mes superbes vins rouges"
+                        value={ name }
                         onChange={ this.handleChange('name') }
                         className="form-control"
                         required
@@ -116,25 +142,47 @@ class CreateRedZone extends React.Component {
                   </div>
                 
                 <div className="form-group slider-parent">
-                <label htmlFor="tailleZoneRouge">Il y aura combien de bouteilles environ ?  </label>
+                <label htmlFor="tailleZoneRouge">La colonne de votre zone est 7, définissez le nombre de ranger que vous souhaitez?  </label>
                 <br />
-                    <input 
-                        type="range"
-                        min="2"
-                        max="21"
-                        step="1"
-                        name="rows"
-                        value ={rows } 
-                        onChange={ this.handleChange("rows")}
-                        id="tailleZoneRouge" 
+                {/* <ReactSlider
+                        className="horizontal-slider"
+                        marks
+                        markClassName="example-mark"
+                        min={0}
+                        max={9}
+                        thumbClassName="example-thumb"
+                        trackClassName="example-track"
+                        renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+                    /> */}
+                {/* <div className='slider'>
+                    <Slider
+                        min={0}
+                        max={100}
+                        value={rows}
+                        onChange={this.handleChange}
                     />
-                    <div className="buble">
-                    Vous pouvez mettre  { rows *7 } bouteilles dans cette zone
+                    <div className='value'>{rows}</div>
+                 </div> */}
+                <div className="slidecontainer range-wrap">
+                    <div className="range-value" id="rangeV"></div>   
+                        <input 
+                            type="range"
+                             min="2"
+                             max="20"
+                            value={rows}
+                            step="1"
+                            onChange={ this.handleChange("rows")}
+                            className="slider"
+                             id="range"/>
+                    <div className="nbBouteilles">
+                        Vous pouvez mettre  { rows *7 } bouteilles dans cette zone
                     </div>
-                    
                 </div>
+                </div>    
+                    
+                {/* </div> */}
                 <br />
-                
+               
                 <div className="btnWithStep">
                     <button 
                             type="submit"
@@ -143,18 +191,24 @@ class CreateRedZone extends React.Component {
                     >
                          Créer ma zone 
                      </button> 
-
-                </div>
+                </div> 
                 
               </form>
             </>
         );
     }
 }
-
+// c'est pour prendre le state du reducer pour mettre en props de ce composant
 const mapStateToProps = (state)=>{
     return {
       ...state.getCellarsOfUserReducer
     }
   }
-export default connect(mapStateToProps, (null, {createZoneAction}))(CreateRedZone);
+// le state ne se met pas à jour tant qu'on recharge pas la cave
+// il va mettre à jour le state du store sans que je rafraîchit la page
+// const mapDispatchToProps =(dispatch)=>{
+//     return {
+//         getCellarsOfUser:()=>dispatch(getCellarsOfUser)
+//     }
+// }
+export default connect(mapStateToProps,(null, {createZoneAction}))(CreateRedZone);

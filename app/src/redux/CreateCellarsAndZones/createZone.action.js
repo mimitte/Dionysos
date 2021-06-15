@@ -2,6 +2,18 @@ import { CREATE_ZONE } from "./type";
 
 export const createZoneAction =(zoneObj)=>{
    console.log("voici zoneObj dans action",zoneObj);
+   // reformer l'objet tel que l'api attend
+   let body = {
+       cellar: zoneObj.cellar,
+       zone: {
+           name: zoneObj.name,
+           rows: zoneObj.rows,
+           columns: zoneObj.columns,
+           color: zoneObj.color,
+           user: zoneObj.user
+        }
+   }
+   console.log("body", body);
     // FETCH
     return(dispatch=>{
         
@@ -9,7 +21,7 @@ export const createZoneAction =(zoneObj)=>{
             method:"POST",
             // cela indique au server de l'api que le corps de la requête est en json
             headers:{"Content-Type": "application/json"} ,
-            body: JSON.stringify(zoneObj)
+            body: JSON.stringify(body)
         })
        .then(response=>response.json())
        .then(data=>{
