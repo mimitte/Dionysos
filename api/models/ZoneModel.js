@@ -10,10 +10,6 @@ const ZoneSchema = new Schema({
     color: {type: String, required: true},
     columns: { type: Number, required: true},
     rows: { type: Number, required: true},
-    cellar: {
-        type: Schema.Types.ObjectId,
-        ref: "Cellar"
-    },
     bottles: [{
         type: Schema.Types.ObjectId,
         ref: "Bottle"
