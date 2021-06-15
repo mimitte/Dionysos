@@ -3,6 +3,7 @@ import {
   CREATE_USER_SUBMITTED,
   CREATE_USER_SUCCESS
 } from "../signup/signupTypes";
+import { fowardMessages } from '../../utils/signupMessages';
 
 // define the initial state of the signup store
 const initialState = {
@@ -10,19 +11,22 @@ const initialState = {
   passwordError: "",
   isSubimtted: false
 };
+let emailError = "";
 
 // define how action will change the state of the store
 export const signupReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_USER_SUBMITTED:
+      emailError = fowardMessages(true, CREATE_USER_SUBMITTED);
       return {
-        emailError: "Email soumis",
+        emailError: emailError,
         passwordError: "passwd soumis",
         isSubimtted: true
       };
     case CREATE_USER_ERROR:
+      emailError = fowardMessages(true, CREATE_USER_ERROR);
       const errorState = {
-        emailError: "email existant",
+        emailError: emailError,
         passwordError: "password invalide",
         isSubimtted: false
       };
@@ -34,8 +38,9 @@ export const signupReducer = (state = initialState, action) => {
       }
       return errorState;
     case CREATE_USER_SUCCESS:
+      emailError = fowardMessages(true, CREATE_USER_SUCCESS);
       return {
-        emailError: "Votre compte a bien été créé",
+        emailError: emailError,
         passwordError: "Password valide",
         isSubimtted: true
       };

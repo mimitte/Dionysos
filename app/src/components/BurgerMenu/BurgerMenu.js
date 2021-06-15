@@ -1,10 +1,11 @@
 import React from 'react';
 import { Nav, Navbar } from "react-bootstrap";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 function signout() {
   localStorage.removeItem('userId');
   localStorage.removeItem('token');
+  
 }
 
 function MenuHamberger(props) {
@@ -20,7 +21,7 @@ function MenuHamberger(props) {
               <NavLink to="/cave">Cave</NavLink>
               <NavLink to="/new_bottle">Ajouter un vin</NavLink>
               <NavLink to="/create_cellar_zones">Créer une cave</NavLink>
-              <button onClick={signout}>Déconnexion</button>
+              <Link to='/login' onClick={signout}>Déconnexion</Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

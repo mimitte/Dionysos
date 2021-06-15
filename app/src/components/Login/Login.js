@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 class Login extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
