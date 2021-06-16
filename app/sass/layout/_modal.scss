@@ -1,0 +1,24 @@
+.dio-modal {
+  div {
+    form {
+      div {
+        input[type=text] {
+          @extend .form-control;
+        }
+
+        label {
+          @extend .form-label;
+        }
+      }
+    }
+
+    #dio-modal-header {
+      border: solid 1px $primary-color;
+
+      div {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+}
