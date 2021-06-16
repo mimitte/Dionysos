@@ -126,7 +126,6 @@ class CreateWhiteZone extends React.Component {
                         name="name" 
                         onChange={ this.handleChange('name') }
                         className="form-control"  
-                        required
                     />
                 </div>
 
@@ -157,7 +156,14 @@ class CreateWhiteZone extends React.Component {
                             className="form-control mt-2 mb-2"
                     >
                          Créer ma zone
-                     </button>  
+                     </button>
+                     <button  
+                           id="prevStep"
+                           onClick= { this.props.prevStepLastToFirst } 
+                          className="form-control mt-2 mb-2Step  "
+                    >
+                        Annuler
+                    </button>   
                 </div>
                 
               </form>
