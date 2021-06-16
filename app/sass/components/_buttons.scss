@@ -18,3 +18,7 @@
 .dio-btn-danger {
   @extend .btn-danger;
 }
+
+.dio-btn-info {
+  @extend .btn-primary;
+}

@@ -8,6 +8,8 @@ import Signup from '../components/Signup/Signup';
 import PrivateRoute from '../Auth/PrivateRoute';
 import TestLogin from '../components/Login/Login';
 import Management from '../components/Management/Management';
+import CreateCellar from "../components/CreateCellarsAndZones/CreateCellar";
+import CreateCellarsAndZones from "../components/CreateCellarsAndZones/CreateCellarsAndZones";
 
 function Routes(props) {
     return (
@@ -26,7 +28,7 @@ function Routes(props) {
                 <ListAddedBottle />
             </PrivateRoute>
             <PrivateRoute exact path='/create_cellar_zones'>
-                    <ListAddedBottle />
+                <CreateCellarsAndZones />
             </PrivateRoute>
             <PrivateRoute  exact path='/management'>
                 <Management />

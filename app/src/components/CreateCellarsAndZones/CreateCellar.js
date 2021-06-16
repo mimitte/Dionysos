@@ -71,7 +71,7 @@ class CreateCellar extends React.Component {
                         value={ name }
                         onChange={ this.handleChangeForCellar("name") }
                         className="form-control"  
-                        // required
+                        required
                     />
                   </div>
                   <div className="form-group mb-3">
@@ -82,7 +82,7 @@ class CreateCellar extends React.Component {
                         onChange={ this.handleChangeForCellar("description") }
                         rows="3"
                         className="form-control"
-                        // required
+                        required
                     >
                     </textarea>
                  </div>
