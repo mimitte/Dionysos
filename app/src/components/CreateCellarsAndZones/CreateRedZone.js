@@ -3,17 +3,14 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { connect } from "react-redux";
 import { createZoneAction } from '../../redux/CreateCellarsAndZones/createZone.action';
-// import Slider from 'react-rangeslider';
-import ReactSlider from 'react-slider'
-import { getCellarsOfUser } from '../../redux/GetCellarsOfUser/getCellarsOfUser.action';
 
 class CreateRedZone extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            name:"",
             rows:0,
             columns:7,
-            name:"",
             isCheckedRedZone:false,
             color:"red",
             user: localStorage.getItem('userId'),
@@ -139,46 +136,27 @@ class CreateRedZone extends React.Component {
                         className="form-control"
                         required
                     />
-                  </div>
+                </div>
                 
-                <div className="form-group slider-parent">
+            <div className="form-group slider-parent">
                 <label htmlFor="tailleZoneRouge">La colonne de votre zone est 7, définissez le nombre de ranger que vous souhaitez?  </label>
                 <br />
-                {/* <ReactSlider
-                        className="horizontal-slider"
-                        marks
-                        markClassName="example-mark"
-                        min={0}
-                        max={9}
-                        thumbClassName="example-thumb"
-                        trackClassName="example-track"
-                        renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-                    /> */}
-                {/* <div className='slider'>
-                    <Slider
-                        min={0}
-                        max={100}
-                        value={rows}
-                        onChange={this.handleChange}
-                    />
-                    <div className='value'>{rows}</div>
-                 </div> */}
                 <div className="slidecontainer range-wrap">
                     <div className="range-value" id="rangeV"></div>   
                         <input 
                             type="range"
                              min="2"
                              max="20"
-                            value={rows}
+                            value={ rows }
                             step="1"
-                            onChange={ this.handleChange("rows")}
+                            onChange={ this.handleChange("rows") }
                             className="slider"
                              id="range"/>
                     <div className="nbBouteilles">
                         Vous pouvez mettre  { rows *7 } bouteilles dans cette zone
                     </div>
                 </div>
-                </div>    
+            </div>    
                     
                 {/* </div> */}
                 <br />
@@ -204,11 +182,4 @@ const mapStateToProps = (state)=>{
       ...state.getCellarsOfUserReducer
     }
   }
-// le state ne se met pas à jour tant qu'on recharge pas la cave
-// il va mettre à jour le state du store sans que je rafraîchit la page
-// const mapDispatchToProps =(dispatch)=>{
-//     return {
-//         getCellarsOfUser:()=>dispatch(getCellarsOfUser)
-//     }
-// }
 export default connect(mapStateToProps,(null, {createZoneAction}))(CreateRedZone);

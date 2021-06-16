@@ -8,6 +8,7 @@ class CreatePinkZone extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            name:"",
             rows:0,
             columns:7,
             isCheckedWhiteZone:false,
@@ -108,7 +109,7 @@ class CreatePinkZone extends React.Component {
                     <input 
                         type="text" 
                         name="name" 
-                        defaultValue="Mes  vins Rosé"
+
                         onChange={ this.handleChange('name') }
                         className="form-control"  
                         required

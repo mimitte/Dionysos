@@ -108,8 +108,8 @@ input[type=range] {
     width: 100%;
     height: 4px;
     cursor: pointer;
-    animate: 0.2s;
-    background: #03a9f4;
+    // animate: 0.2s;
+    background: $vin-rouge-couleur;
     border-radius: 25px;
   }
   input[type=range]::-webkit-slider-thumb {
@@ -123,7 +123,7 @@ input[type=range] {
     margin-top: -8px;
   }
   input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #03a9f4;
+    background: $vin-rouge-couleur;
   }
   .range-wrap{
     width: 500px;
@@ -139,7 +139,7 @@ input[type=range] {
     height: 24px;
     line-height: 24px;
     text-align: center;
-    background: #03a9f4;
+    background: $vin-rouge-couleur;
     color: #fff;
     font-size: 12px;
     display: block;
@@ -154,7 +154,7 @@ input[type=range] {
     position: absolute;
     width: 0;
     height: 0;
-    border-top: 10px solid #03a9f4;
+    border-top: 10px solid $vin-rouge-couleur;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     top: 100%;
