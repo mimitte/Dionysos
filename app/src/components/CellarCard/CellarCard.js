@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { useState } from 'react';
+import { Modal } from 'react-bootstrap';
+import {getCellarsOfUser} from "../../redux/GetCellarsOfUser/getCellarsOfUser.action";
+import store from "../../redux/store";
 
 function CellarCard(props) {
     const [show, setShow] = useState(false);
@@ -19,13 +21,13 @@ function CellarCard(props) {
         fetch(`http://localhost:5000/api/cellar/${cellarId}`, {
             method: 'DELETE'
         }).then( (response) => {
-            setShow(false);
+            console.log(response);
         }).catch( (error) => {
             console.log(error);
         });
     }
 
-    const handleConfirm = (event, cellarId) => {
+    const handleEdit = (event, cellarId) => {
         if (event) {
             event.preventDefault();
             let name = event.target[0].value;
@@ -36,10 +38,10 @@ function CellarCard(props) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: name
+                    name: name,
+                    description: description
                 })
             }).then( (response) => {
-                console.log(response.status);
                 setShow(false);
             }).catch( (error) => {
                 console.log(error);
@@ -47,7 +49,7 @@ function CellarCard(props) {
         }
     }
 
-    const { name, description, _id } = props.cellar;
+    const { name, description, _id, zones } = props.cellar;
 
     return (
         <>
@@ -55,6 +57,18 @@ function CellarCard(props) {
                 <div id="fields">
                     <h5>{ name }</h5>
                     <h6>{ description }</h6>
+                    { zones.length > 0 && <p>Il y a { zones.length } zones</p> }
+                    { zones.length > 0 &&
+                    zones.map( (zone) => {
+                        return (
+                            <>
+                                <p>{ zone }</p>
+                            </>
+                        )
+                    })}
+                    { zones.length <= 0 &&
+                    <p>Il n'y a pas de zones</p>
+                    }
                 </div>
                 <div id="buttons">
                     <input
@@ -75,7 +89,7 @@ function CellarCard(props) {
                     <Modal.Title>{ name }</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form action="submit" onSubmit={ (event) => handleConfirm(event, _id)}>
+                    <form action="submit" onSubmit={ (event) => handleEdit(event, _id)}>
                         <div>
                             <label htmlFor="name">Nom</label><br/>
                             <input type="text" className="text" defaultValue={ name } />

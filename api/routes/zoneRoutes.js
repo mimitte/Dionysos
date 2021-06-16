@@ -13,7 +13,7 @@ router.route('/')
 
 router.route('/:id')
   .get(zoneCtrl.find)
-  .patch(auth, zoneCtrl.edit)
+  .patch(zoneCtrl.edit)
   .delete(auth, zoneCtrl.delete)
   .all(errorsCtrl.methodNotAllowed);
 
