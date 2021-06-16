@@ -57,6 +57,24 @@ class CreatePinkZone extends React.Component {
             cellar:""
         };
     }
+    componentDidMount () {
+        const
+            range = document.getElementById('range'),
+            rangeV = document.getElementById('rangeV'),
+        setValue = ()=>{
+            const
+                newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ),
+                newPosition = 10 - (newValue * 0.2);
+                rangeV.innerHTML = `<span>${range.value}</span>`;
+                rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+                console.log(range);
+        };
+        document.addEventListener("DOMContentLoaded", setValue);
+        range.addEventListener('input', setValue);
+        // on appelle ici pour que ça s'exécutes sans qu'on recharge la page
+        // this.props.getCellarsOfUser();
+    }
+    
     render() {
         const { rows,cellar } = this.state;
         const { cellarsOfUser } = this.props;
@@ -78,7 +96,7 @@ class CreatePinkZone extends React.Component {
                         className="form-control"
                     >
                          {
-                            cellarsOfUser.map((cellar,index)=> 
+                            cellarsOfUser.reverse().map((cellar,index)=> 
                             <option 
                                 key={index}
                                 name="cellar"
@@ -119,24 +137,24 @@ class CreatePinkZone extends React.Component {
                 <div className="form-group slider-parent">
                     <label htmlFor="tailleZoneRose">Il y aura environ bouteilles dans votre zone ? </label>
                     <br />
-                    <input 
-                        type="range"
-                        min="1"
-                        max="21"
-                        step="5"
-                        name="rows"
-                        value ={rows } 
-                        onChange={ this.handleChange("rows")}
-                        id="tailleZoneRose" 
-                        className="custom-slider"
-                    />
-                    <br />
-                    <p className="buble">
-                        Vous pouvez mettre  xx bouteilles dans cette zone.
-                    </p>
-      
+                    <div className="slidecontainer range-wrap">
+                    <div className="range-value" id="rangeV"></div>   
+                        <input 
+                            type="range"
+                             min="2"
+                             max="20"
+                            value={ rows }
+                            step="1"
+                            onChange={ this.handleChange("rows") }
+                            className="slider"
+                             id="range"/>
+                    <div className="nbBouteilles">
+                        Vous pouvez mettre  { rows *7 } bouteilles dans cette zone
+                    </div>
                 </div>
-                <br />
+            </div>    
+                    
+                    <br />
                 <div className="btnWithStep">
                     {/* <button  
                     onClick= {this.back } 

@@ -48,7 +48,7 @@ class CreateCellarsAndZones extends React.Component {
                         />
    
          if (step == 1) {
-             return html2 ;
+             return html1 ;
          }
          else if(step == 2){
              return html2 ;
@@ -70,5 +70,4 @@ class CreateCellarsAndZones extends React.Component {
         );
     }
 }
-
 export default CreateCellarsAndZones;
