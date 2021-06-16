@@ -19,7 +19,7 @@ export const createZoneReducer =(state=initZone, action)=> {
             columns:zone.columns,
             user:zone.user,
             name:zone.name,
-            cellar:zone.cellar     
+            cellar:zone.cellar,   
         }
         default:
             return state;
