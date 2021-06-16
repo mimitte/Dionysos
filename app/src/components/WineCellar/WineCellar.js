@@ -186,7 +186,7 @@ class WineCellar extends Component {
             let bottle = document.getElementById(id);
             if(bottle.getAttribute("datazone") === zoneColor){
                 e.target.append(document.getElementById(id));
-                const bottle = this.searchBottles(document.getElementById(id).id.split('-')[1]);
+               // const bottle = this.searchBottles(document.getElementById(id).id.split('-')[1]);
                 e.target.classList.toggle("drop-zone");
             }
         }
