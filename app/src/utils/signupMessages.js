@@ -10,7 +10,7 @@ export const fowardMessages = (isSubimtted, type) => {
             if (isSubimtted) {
                 message = "Votre demande a été envoyée";
             } else {
-                message = "Votre demande n'a pu aboutir";
+                message = "Utilisateur inexistant; Votre demande n'a pu aboutir";
             }
             break;
         case CREATE_USER_SUCCESS:
