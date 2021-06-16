@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { deleteBottle } from '../../redux/deleteBottleCellar/deleteBottle.action';
 import franceFlag from "../../images/flags/Flag_of_France.svg";
 import BottleCard from "../BottleCard/BottleCard";
+import spinner from '../../utils/spinner';
 
 class TabForAddedBottle extends React.Component {
 
@@ -168,13 +169,9 @@ class TabForAddedBottle extends React.Component {
 
   render() {
     const { error, isLoaded } = this.props;
-
-
-    if (error) {
-      return <div>Erreur : {error.message}</div>;
-    } else if (isLoaded) {
-      return <div className="divForLoadign">Chargement…</div>;
-    } else {
+  
+    console.log(this.props);
+    if(isLoaded){
       return (
         <React.Fragment>
           {
@@ -252,9 +249,15 @@ class TabForAddedBottle extends React.Component {
           }
         </React.Fragment>
       );
+    } else {
+      return (
+          <>
+          {spinner(this.state.isLoadedCellar)}
+          </>
+      )
+  }
     }
   }
-}
 
 const mapStateToProps = (state)=>{
   return {
