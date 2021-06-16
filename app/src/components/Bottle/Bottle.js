@@ -16,7 +16,6 @@ class Bottle extends Component {
 
         if (this.state.color === "rouge") {
             return "background-red";
-                
         } else if (this.state.color === "blanc") {
             return "background-white";
         } else {

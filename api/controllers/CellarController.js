@@ -42,7 +42,6 @@ let CellarController = {
   },
   edit: async (req, res) => {
     let {zones} = req.body;
-    console.log(zones);
     await CellarModel.updateOne({ _id: req.params.id }, { $push: {zones:{$each: [zones]}}});
     res.status(200).json({ "message": "Cellar modified" });
   },
@@ -54,7 +53,7 @@ let CellarController = {
         populate: { path: 'bottles' }
       })
       .exec((err, cellars) => {
-        if (err) res.status(500).json({ err })
+        if (err) res.stat(500).json({ err })
         res.status(200).json(cellars)
       });
   }

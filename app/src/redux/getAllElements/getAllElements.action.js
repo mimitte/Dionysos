@@ -1,5 +1,4 @@
-import  { LIST_ZONES } from "./types";
-import isAuthenticated from "../../utils/isAuthenticated";
+import  { LIST_ALL_ELEMENTS_OF_CELLARS } from "./types";
 
 /** fonction getAllBottles contient toute la logique de notre demande à la BD
  * Ici notre demande consiste à récupérer toutes les bouteilles ajoutées dans la cave
@@ -7,13 +6,14 @@ import isAuthenticated from "../../utils/isAuthenticated";
 */
 
 const data = {
-  'zonesCellar': [],
-  'idCellar': "",
-  'nameCellar' : "",
-  'descriptionCellar': "",
-  'bottlesCellar': [],
+  cellars: [],
+  zones: [],
+  bottles: [],
 }
-const id =`60ab7a0771b8be43209216f1`;
+
+
+
+const id = localStorage.getItem('userId');
 export const getAllElements = () => {
   return  (dispatch)=>{
     return (
@@ -21,36 +21,30 @@ export const getAllElements = () => {
         .then(response => response.json())
         .then(
           (result) => {
-            console.log(result);
-          // data.idCellar = result._id;
-          // data.descriptionCellar = result.description;
-          // data.nameCellar = result.name;
-          // fetch(`http://localhost:5000/api/cellar/${id}/zones/`)
-          // .then(response => response.json())
-          // .then(
-          //   (zones) => {
-          //     data.zonesCellar = [];
-          //     data.bottlesCellar = [];
-          //     for (const zone of  zones  ){
-          //       data.zonesCellar.push(zone);
-          //     }
-          //     for (const zone of  zones ) {
-          //       fetch(`http://localhost:5000/api/zone/${zone._id}/bottle`)
-          //       .then(response => response.json())
-          //       .then((bottles) => {
-          //         for (const bottle of bottles) {
-          //           data.bottlesCellar.push(bottle);
-          //         }
+            data.cellars= [];
+            data.zones= [];
+            for(const cellar of result)
+            {
+              const {_id, description, name, zones, ...rest } = cellar;
+              if(zones.length > 0){
+                data.cellars.push({id:_id,description:description,name: name});
+                let idCellar = _id;
+                for (const zone of zones)
+                {
+                  const {_id, color, name, columns, rows, bottles, ...rest } = zone;
+                  data.zones.push({id:_id,color:color,name: name, columns:columns, rows:rows, idCellar:idCellar  });
+                  for (const bottle of bottles){
+                    data.bottles.push(bottle );
+                  }
+                }
+              }
+            }
+            dispatch({
+              type: LIST_ALL_ELEMENTS_OF_CELLARS,
+              payload: data,
 
-          //       })
-          //     }
-          //     dispatch({
-          //       type: LIST_ALL_ELEMENTS_OF_CELLARS,
-          //       payload: data,
-          //       isLoaded:true
-          //   });
-          //   }
-          // )
+              isLoadedCellar:true
+            });
         }
       )
     )

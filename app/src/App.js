@@ -13,7 +13,7 @@ import { getCellarsOfUser } from './redux/GetCellarsOfUser/getCellarsOfUser.acti
 
 if ( isAuthenticated() ) {
   store.dispatch(getAllBottles());
-  //store.dispatch(getAllElements());
+  store.dispatch(getAllElements());
   store.dispatch(getCellarsOfUser());
 }
 

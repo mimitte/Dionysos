@@ -3,26 +3,20 @@ import { connect } from 'react-redux';
 import ShowCellar from './ShowCellar';
 import Modal from '../Modal/modal';
 import spinner from '../../utils/spinner';
-// const user = {
-//     email:"",
-//     idCellar: "609ea3b71fac1d1be0430703",
-//     name:""
-// }
 
-
- class WineCellar extends Component {
+class WineCellar extends Component {
     constructor(props) {
         super(props)
-       // let update = false;
         this.state = {
-            zones:this.props.zonesCellar,
-            id:this.props.idCellar,
-            name:this.props.nameCellar,
-            description:this.props.descriptionCellar,
-            bottlesCellar:this.props.bottlesCellar,
+            totalBottles: 0,
+            allCellarsWithZones:{},
+            bottles: {},
+            zones:{},
+            isLoadedCellar:false,
             move:false,
             openModal:false,
-            creatHandler:false,
+            addHandler:false,
+            bottlesMove :[],
             bottle :{
                 "__v": 0,
                 "​​_id":0,
@@ -34,33 +28,48 @@ import spinner from '../../utils/spinner';
                 },
                 "name": "",
                 "region": "",
-                "year": 0,
-                "zone": "",
+                "year": 0
             }
         }
     }
 
     static getDerivedStateFromProps(props,state){
-        if(props !== state)
-          {
-             return {
-                zones:props.zonesCellar,
-                id:props.idCellar,
-                name:props.nameCellar,
-                description:props.descriptionCellar,
-                bottlesCellar:props.bottlesCellar,
+
+        if(props.allCellarsWithZones !== state.allCellarsWithZones){
+            return {
+                allCellarsWithZones:props.allCellarsWithZones,
+                bottles:props.allCellarsWithZones.bottles,
+                zones:props.allCellarsWithZones.zones,
+                isLoadedCellar: props.isLoadedCellar,
+                addHandler:props.isLoadedCellar && true
            }
-          }
-          return null;
-      }
+        }
+        return null;
+    }
 
     componentDidMount = () => {
+        if(!this.state.isLoadedCellar){return null;}
+        this.addBottlesToCellars();
+    }
+
+    addBottlesToCellars = () => {
+        let bottlesDIV ="";
+        bottlesDIV = document.querySelectorAll('.draggable');
+        if(bottlesDIV.length>0){
+            for(const bottle of bottlesDIV){
+                bottle.remove();
+            }
+        }
         let clickOnDrags ="";
-        let etat = false;
-        const  bouteilles = this.props.bottlesCellar
-        let red = bouteilles.filter( redBottle => redBottle.color ==="red" );
-        let white = bouteilles.filter( whiteBottle => whiteBottle.color ==="white" );
-        let pink = bouteilles.filter( pinkBottle => pinkBottle.color ==="pink");
+        let red = "",white="",pink="",etat=false;
+        let totalBottles = 0;
+        totalBottles +=  this.state.bottles.length ;
+        this.setState({
+            totalBottles: totalBottles
+        })
+        red = this.state.bottles.filter( redBottle => redBottle.color ==="red" );
+        white = this.state.bottles.filter( whiteBottle => whiteBottle.color ==="white" );
+        pink = this.state.bottles.filter( pinkBottle => pinkBottle.color ==="pink");
         etat = this.dispatchBottle(red, "red");
         etat = this.dispatchBottle(white, "white");
         etat = this.dispatchBottle(pink, "pink");
@@ -69,18 +78,22 @@ import spinner from '../../utils/spinner';
             for (const clickOnDrag of clickOnDrags) {
                 clickOnDrag.addEventListener('click',this.showModal);
             }
+
         }
     }
 
     componentDidUpdate (props, state){
-
+        if(!this.state.isLoadedCellar){return null;}
+        if(this.state.addHandler === true){this.addBottlesToCellars(); this.setState({addHandler:false})}
     }
 
     showModal = (e) =>{
         e.preventDefault();
+        const  {allCellarsWithZones} = this.props;
+        const {bottles} = allCellarsWithZones;
         let bottle = {};
         let id = e.target.id.split("-")[1];
-        bottle = (this.state.bottlesCellar.filter(bot => bot._id === id)[0]);
+        bottle = (bottles.filter(bot => bot._id === id)[0]);
         this.setState({
             openModal:true,
             bottle:{...bottle}
@@ -93,19 +106,18 @@ import spinner from '../../utils/spinner';
         })
     }
     editBottle = (bottle) =>{
-        console.log("edit");
     }
     dispatchBottle = (elements, color) => {
-        console.log(elements);
         let etat = false;
         let title = "";
-        let loc  = elements.map((bottle) => {
+        let loc ="";
+        loc = elements.map((bottle) => {
             title = `${bottle.name}
                     ${bottle.year}`;
-            let rowBottle = bottle["location"].row;
-            let columnBottle = bottle["location"].column;
-            let element = document.querySelector("[datazone='" + color + "'] [datalinebottle='" + rowBottle + "'] [databottle='" + columnBottle + "']");
-            let drag = document.createElement("div");
+            const rowBottle = bottle["location"].row;
+            const columnBottle = bottle["location"].column;
+            const element = document.querySelector("[datazone='" + color + "'] [datalinebottle='" + rowBottle + "'] [databottle='" + columnBottle + "']");
+            const drag = document.createElement("div");
             drag.classList.add("draggable-" + color);
             drag.classList.add("draggable");
             drag.setAttribute("aria-label",`${title}`);
@@ -113,13 +125,16 @@ import spinner from '../../utils/spinner';
             drag.setAttribute("id","draggable-" + bottle._id);
             drag.setAttribute("datazone",color);
             element.append(drag);
-            drag.addEventListener('dragstart',this.dragStart)
+            drag.addEventListener('dragstart',this.dragStart);
+            drag.addEventListener('onmove',this.moveBottle);
             element.classList.remove("drop-zone");
             return null;
         });
 
         if(loc){
             let containers = document.querySelectorAll('.column-zone');
+            let zoneCellars = document.querySelector('.zoneCellars');
+            zoneCellars.addEventListener('onchange',this.moveBottle);
             for (const container of containers) {
                 container.addEventListener('dragover',this.dragOver);
                 container.addEventListener('dragenter',this.dragEnter);
@@ -131,10 +146,12 @@ import spinner from '../../utils/spinner';
         return etat;
     }
 
+    moveBottle = () =>{
+    }
 
-    dragOver =(event) =>{
-        event.preventDefault();
-        event.stopPropagation();
+    dragOver =(e) =>{
+        e.preventDefault();
+        e.stopPropagation();
     }
 
 
@@ -147,8 +164,8 @@ import spinner from '../../utils/spinner';
                 content.classList.toggle("drop-zone");
             }
         }
-        console.log(e.target)
     }
+
 
     dragLeave=(event) =>{
         event.preventDefault();
@@ -162,21 +179,48 @@ import spinner from '../../utils/spinner';
 
     dragDrop(e){
         e.preventDefault();
+        e.stopPropagation();
         if(e.target.classList.contains("drop-zone")){
             let zoneColor =  e.target.getAttribute("datazone");
             const id = e.dataTransfer.getData('text');
             let bottle = document.getElementById(id);
             if(bottle.getAttribute("datazone") === zoneColor){
                 e.target.append(document.getElementById(id));
+                const bottle = this.searchBottles(document.getElementById(id).id.split('-')[1]);
                 e.target.classList.toggle("drop-zone");
             }
         }
     }
 
 
+    searchBottles = (id) =>{
+       const bottle = this.state.bottles.filter(bot => bot._id === id)[0];
+       return bottle;
+    }
+    addCellar = (cellars, zones, bottles) => {
+       let html="";
+       let zonesByCellar = [];
+       for (const cellar of cellars){
+           for (const zone of zones){
+               if (zone.idCellar.trim() === cellar.id.trim()){
+                zonesByCellar.push(zone)
+               }
+            }
+        const moreKey = 10;
+        html = (
+        <>
+                <h2>Cave: {cellar.name}</h2>
+                <h3>Nombre de bouteilles total : {this.state.totalBottles}</h3>
+                <section id={cellar.id} className="zoneCellars">
+                                {zonesByCellar.map((elements) =><this.creatZoneCellars zoneElements={elements} index={elements.id}  key={elements.id+moreKey}/>)}
+                </section>
+        </>);
+        }
+       return (html);
+    }
+
 
     creatZoneCellars = ({zoneElements, index}) =>{
-        console.log(zoneElements);
         let color = zoneElements.color;
         let titleColor = color === "white" ? "Blanc" : color === "pink" ? "Rosé" : "Rouge"
         return(
@@ -184,7 +228,7 @@ import spinner from '../../utils/spinner';
                 <div className="wine-zone">
                     <h3>Emplacement vin {titleColor} </h3>
                     <div className="zone" datazone={color} >
-                        <ShowCellar zone={color} index={zoneElements._id +index} columns={zoneElements.columns} rows={zoneElements.rows} key={zoneElements._id +index}/>
+                        <ShowCellar zone={color} index={zoneElements.id + index} columns={zoneElements.columns} rows={zoneElements.rows} key={zoneElements._id +index}/>
                     </div>
                 </div>
             </>
@@ -192,19 +236,17 @@ import spinner from '../../utils/spinner';
     }
 
     render() {
-        if(this.props.isLoadedCellar){
-            let btnValidate = this.state.move === true ? [<button id="update-bottle">Validez le déplacement</button> ]: [<div></div>];
-            const {zonesCellar } = this.props;
-            
+        let allCellarsWithZones = {};
+        {
+            allCellarsWithZones= this.props.allCellarsWithZones
+        };
+        const {cellars,zones, bottles } = allCellarsWithZones;
+        if(this.state.isLoadedCellar){
             const moreKey = 10;
             return (
                 <>
-                    <h2>Cave: {this.state.name}</h2>
-                    <h3>Nombre de bouteilles total : {this.state.bottlesCellar.length > 0 ? this.props.bottlesCellar.length:''}</h3>
-                    <section id="zoneCellars">
-                            {zonesCellar.map((elements) =><this.creatZoneCellars zoneElements={elements} index={elements._id+moreKey}  key={elements._id+moreKey}/>)}
-                    </section>
-                    <Modal showModal={this.state.openModal} closeModal={this.closeModal}>
+                {this.addCellar(cellars, zones, bottles)}
+                     <Modal showModal={this.state.openModal} closeModal={this.closeModal}>
                         <div className="modal-title" id={this.state.bottle.name}>
                             <h2>{this.state.bottle.name}</h2>
                         </div>
@@ -214,17 +256,15 @@ import spinner from '../../utils/spinner';
                                 <p>{this.state.bottle.year}</p>
                         </div>
                         <div className="modal-footer">
-                        <button className="button-modal-cellar" onClick={()=> this.editBottle(this.state.bottle)}>Modfier</button><button className="button-modal-cellar">Fermer</button>
+                            <button className="button-modal-cellar" onClick={()=> this.editBottle(this.state.bottle)}>Modfier</button><button className="button-modal-cellar">Fermer</button>
                         </div>
                     </Modal>
-                    
-                    {btnValidate}
                 </>
             )
         } else {
             return (
                 <>
-                {spinner(this.state.isLoaded)}
+                {spinner(this.state.isLoadedCellar)}
                 </>
             )
         }
@@ -237,6 +277,6 @@ const mapStateToProps = (state)=>{
       ...state.bottlesCellarReducer
     }
 }
-export default  connect(mapStateToProps,)(WineCellar);
+export   default connect(mapStateToProps)(WineCellar);
 
 
