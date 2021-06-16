@@ -24,8 +24,15 @@ class CreateCellarsAndZones extends React.Component {
             step: step - 1
         })
     }
-
-    prevStepLast =()=>{
+    
+    prevStepthreeToOne =()=>{
+        const { step }=this.state;
+        this.setState({
+            step: step - 2
+        })
+    }
+    
+    prevStepLastToFirst =()=>{
         const { step }=this.state;
         this.setState({
             step: step - 3
@@ -35,16 +42,18 @@ class CreateCellarsAndZones extends React.Component {
     showStep =()=>{
         const {step} =this.state;
         const html1 =<CreateCellar
-                        nextStep={this.nextStep}
+                        nextStep={ this.nextStep }
                     />
         const html2 = <CreateRedZone
-                         nextStep={this.nextStep}
+                        nextStep={ this.nextStep }
+                        prevStep={ this.prevStep }
                         />
         const html3 = <CreatePinkZone
-                         nextStep={this.nextStep}                 
+                         nextStep={ this.nextStep } 
+                         prevStepthreeToOne ={ this.prevStepthreeToOne }                
                         />
          const html4 = <CreateWhiteZone
-                         prevStepLast={this.prevStepLast}
+                        prevStepLastToFirst={this.prevStepLastToFirst}
                         />
    
          if (step == 1) {

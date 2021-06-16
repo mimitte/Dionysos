@@ -1,6 +1,7 @@
 // importer le nom de l'action qui est dans type.js
 import { CREATE_CELLAR } from "../CreateCellarsAndZones/type";
 import { GET_CELLARS_OF_USER } from "../GetCellarsOfUser/type";
+import { UPDATE_CELLAR } from "../updateCellar/type";
 
 const InitCellarsOfUser = {
     cellarsOfUser:[],
@@ -25,6 +26,13 @@ export const getCellarsOfUserReducer =(state=InitCellarsOfUser, action)=> {
             return {
                 ...state,
                 cellarsOfUser:cellar,
+            }
+        case UPDATE_CELLAR:
+            const allCellars = state.cellarsOfUser.filter(cellar=>cellar._id !== action.payload._id)
+            allCellars.push(action.payload)
+            return {
+                ...state,
+                cellarsOfUser:allCellars
             }
 
         default:

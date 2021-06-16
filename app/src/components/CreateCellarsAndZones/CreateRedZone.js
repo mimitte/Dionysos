@@ -35,17 +35,17 @@ class CreateRedZone extends React.Component {
          // message alert pour confirmer que la cave a bien été créée, redirection création zone
         confirmAlert({
             
-            title:"Votre zone pour les vins Rouges a bien été créé.",
-            message:"Voulez-vous créer une zone pour les vins Rosés? ?" ,
+            title:"Votre zone pour les vins Rosés a bien été créé.",
+            message:"Voulez-vous créer une zone pour les vins Blancs ?" ,
             buttons: [
                 {
                 label: 'Oui',
                 onClick: () => this.props.nextStep()
                 },
-                // {
-                //     label: 'Non',
-                //     onClick: () => this.props.prevStep()
-                //     },
+                {
+                    label: 'Non',
+                    onClick: () => this.props.prevStep()
+                    },
             ]  
         })
         // Vider les input après la saisie
@@ -134,7 +134,6 @@ class CreateRedZone extends React.Component {
                         value={ name }
                         onChange={ this.handleChange('name') }
                         className="form-control"
-                        required
                     />
                 </div>
                 
@@ -168,7 +167,14 @@ class CreateRedZone extends React.Component {
                             className="form-control mt-2 mb-2"
                     >
                          Créer ma zone 
-                     </button> 
+                     </button>
+                    <button  
+                           id="prevStep"
+                           onClick= { this.props.prevStep } 
+                          className="form-control mt-2 mb-2 "
+                    >
+                        Annuler
+                    </button> 
                 </div> 
                 
               </form>
