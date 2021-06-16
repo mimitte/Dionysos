@@ -1,7 +1,6 @@
 /**import listBottles du reducer ==> 
  * car c'est lui qui emporte toutes les bouteilles ajoutées via notre api
  * et met à jour le store qui est au départ une liste vide d'objet state={} */ 
-import { createCellar } from "./reducer/createCellar.reducer";
 import { createZoneReducer } from "./reducer/createZone.reducer";
 import { getCellarsOfUserReducer } from "./reducer/getCellarsOfUser.reducer";
 import { bottlesCellarReducer } from "./reducer/bottlesCellar.reducer";
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
     bottlesCellarReducer:bottlesCellarReducer,
     createUser: signupReducer,
     auth: loginReducer,
-    createCellar,
     createZoneReducer,
     getCellarsOfUserReducer,
 
