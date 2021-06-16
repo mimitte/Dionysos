@@ -37,7 +37,7 @@ class CreateCellarsAndZones extends React.Component {
         })
     }
     
-    showStep =()=>{
+    showStep = () => {
     
         const { step,nbBottles,name,rows,cellar,isCheckedRedZone } = this.state;
         const cellarsOfUser = this.props.cellarsOfUser;
@@ -121,9 +121,10 @@ class CreateCellarsAndZones extends React.Component {
     }
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
     return {
       ...state.getCellarsOfUserReducer
     }
-  }
+}
+
 export default connect(mapStateToProps, (null, {createZoneAction}))(CreateCellarsAndZones);

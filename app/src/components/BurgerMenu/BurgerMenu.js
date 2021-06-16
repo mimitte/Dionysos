@@ -11,17 +11,18 @@ function signout() {
 function MenuHamberger(props) {
     return (
         <Navbar collapseOnSelect expand="md" bg="ligth" variant="light" className="sticky-navbar col-sm-12 col-md-12 col-lg-12">
-          <Navbar.Brand href="/">
-            DIONYSOS
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav" >
+            <Navbar.Brand href="/">
+                DIONYSOS
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav" >
             <Nav id='links'>
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/cave">Cave</NavLink>
-              <NavLink to="/new_bottle">Ajouter un vin</NavLink>
-              <NavLink to="/create_cellar_zones">Créer une cave</NavLink>
-              <Link to='/login' onClick={signout}>Déconnexion</Link>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/cave">Cave</NavLink>
+                <NavLink to="/new_bottle">Ajouter un vin</NavLink>
+                <NavLink to="/create_cellar_zones">Créer une cave</NavLink>
+                <NavLink to="/management">Getion</NavLink>
+                <Link to='/login' onClick={ signout }>Déconnexion</Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

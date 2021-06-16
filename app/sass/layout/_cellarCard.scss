@@ -1,0 +1,29 @@
+.cellarCard {
+  @extend .card;
+  width: 80%;
+  margin-top: 1rem;
+
+  div {
+    @extend .card-body;
+
+    h5 {
+      @extend .card-title;
+    }
+
+    h6 {
+      @extend .card-subtitle;
+      @extend .mb-2;
+      @extend .text-muted;
+    }
+
+    p {
+      @extend .card-text;
+    }
+  }
+}
+
+@media (min-width: 490px) {
+  .cellarCard {
+    width: 50rem;
+  }
+}
