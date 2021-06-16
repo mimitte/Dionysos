@@ -51,8 +51,23 @@ let ZoneController = {
         res.json({ "message": "Deleted all" });
     },
     delete: async (req, res) => {
-        await ZoneModel.remove({ _id: req.params.id });
-        res.json({ "message": "Zone supprimée" });
+      let zoneId = req.params.id;
+      let { userId, token } = req.body;
+      ZoneModel
+        .findOne({ _id: zoneId})
+        .exec((err, zone) => {
+          if (err) res.status(500).json({ err });
+          else if (!zone) res.status(404).json({ message: "Zone not found"});
+          else if (userId !== zone.get("user").toString()) res.status(401).json({message: "Unauthorized"});
+          else {
+            ZoneModel
+              .deleteOne({ _id: zoneId })
+              .exec((err, response) => {
+                if (err) res.status(500).json({ message: "Internal server error" });
+                res.json({ "message": "Zone supprimée" });
+              });
+          }
+        });
     }
 }
 

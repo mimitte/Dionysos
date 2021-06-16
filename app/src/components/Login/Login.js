@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { CREATE_USER_SUBMITTED, CREATE_USER_SUCCESS, CREATE_USER_ERROR } from "../../redux/signup/signupTypes";
+import { fowardMessages } from '../../utils/signupMessages';
 
 class Login extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
@@ -36,7 +40,10 @@ class Login extends Component {
         localStorage.setItem('token', `Bearer ${userData.token}`);
         this.props.history.push('/');
       })
-      .catch( (error) => console.log('Bad credentials ! You are a fraud !'));
+      .catch((error) => {
+        toast.error(fowardMessages(false, CREATE_USER_SUBMITTED));
+        e.target.reset();
+      });
   };
 
   render() {

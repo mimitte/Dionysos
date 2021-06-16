@@ -3,23 +3,30 @@ import { connect } from "react-redux"; // new import
 import PropTypes from "prop-types"; // new import
 import { Link } from "react-router-dom";
 import {
-  Container,
-  Button,
-  Row,
-  Col,
   Form,
   FormControl
 } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 import { signupNewUser } from "../../redux/signup/signup.action"; // new import
+import { fowardMessages } from '../../utils/signupMessages';
+import {
+  CREATE_USER_ERROR,
+  // eslint-disable-next-line no-unused-vars
+  CREATE_USER_SUBMITTED,
+  // eslint-disable-next-line no-unused-vars
+  CREATE_USER_SUCCESS
+} from "../../redux/signup/signupTypes";
 
 class Signup extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
    
   }
     formSubmit = e => {
       e.preventDefault();
+      console.log(e);
       let password1 = e.target[1].value;
       let confirmPassword = e.target[2].value;
       let userData = { email: e.target[0].value, password: password1 };
@@ -29,6 +36,7 @@ class Signup extends Component {
 
       } else {
         console.log('wrong password');
+        toast.error (fowardMessages(false, CREATE_USER_ERROR));
         e.target.reset();
       }
         // let userData = {email : e.target[0].value , password: password1 };
@@ -94,15 +102,15 @@ class Signup extends Component {
                         <Form.Group controlId="passwordId2">
                             <Form.Label>Ré-entrez le Mot de passe</Form.Label>
                             <Form.Control
-                            // isInvalid={this.props.createUser.passwordError}
+                            isInvalid={this.props.createUser.passwordError}
                             // className="signupcard-text"
                             type="password"
                             name="confirm-password"
                             placeholder="Mot de passe"
                             />
-                            {/* <Form.Control.Feedback type="invalid">
+                            <Form.Control.Feedback type="invalid">
                             {this.props.createUser.passwordError}
-                            </Form.Control.Feedback> */}
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <input className="dio-btn dio-btn-success" type="submit" value="Inscription" />
                     </Form>
@@ -111,7 +119,7 @@ class Signup extends Component {
                     </p> */}
               </div>
               <p className="dio-text">Vous avez déjà un compte ? <br/>
-                <Link to='/login'><button className="dio-btn dio-btn-success" >Connectez</button></Link></p>
+                <Link to='/login'><button className="dio-btn dio-btn-success" >Connexion</button></Link></p>
             </div>
           </div>
         }
