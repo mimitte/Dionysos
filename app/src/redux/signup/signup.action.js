@@ -40,7 +40,8 @@ export const signupNewUser = (userData) => {
         dispatch({
           type: CREATE_USER_ERROR,
           payload: error
-        })
+        });
+        toast.error("Error Notification !");
       }
 
 
