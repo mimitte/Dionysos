@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ShowCellar from './ShowCellar';
 import Modal from '../Modal/modal';
 import spinner from '../../utils/spinner';
+import { updateBottleToCellar } from '../../redux/updateBottleToCellar/updateBottleToCellar';
 
 class WineCellar extends Component {
     constructor(props) {
@@ -13,18 +14,18 @@ class WineCellar extends Component {
             bottles: {},
             zones:{},
             isLoadedCellar:false,
+            showBottles:false,
             move:false,
             openModal:false,
             addHandler:false,
             bottlesMove :[],
             bottle :{
                 "__v": 0,
-                "​​_id":0,
                 "​​color":'',
                 "country":'',
                 "location": {
-                "column": 0,
-                "row": 0
+                    "column": 0,
+                    "row": 0
                 },
                 "name": "",
                 "region": "",
@@ -49,30 +50,33 @@ class WineCellar extends Component {
 
     componentDidMount = () => {
         if(!this.state.isLoadedCellar){return null;}
-        this.addBottlesToCellars();
+        if(this.state.addHandler === true){this.addBottlesToCellars(); this.setState({addHandler:false})}
+
     }
 
     addBottlesToCellars = () => {
-        let bottlesDIV ="";
-        bottlesDIV = document.querySelectorAll('.draggable');
-        if(bottlesDIV.length>0){
+        const bottlesDIV = document.querySelectorAll('.draggable');
+        if(bottlesDIV.length > 0){
             for(const bottle of bottlesDIV){
-                bottle.remove();
+                bottle.parentElement.removeChild(bottle);
             }
         }
         let clickOnDrags ="";
         let red = "",white="",pink="",etat=false;
         let totalBottles = 0;
         totalBottles +=  this.state.bottles.length ;
+
         this.setState({
             totalBottles: totalBottles
         })
+
         red = this.state.bottles.filter( redBottle => redBottle.color ==="red" );
         white = this.state.bottles.filter( whiteBottle => whiteBottle.color ==="white" );
         pink = this.state.bottles.filter( pinkBottle => pinkBottle.color ==="pink");
         etat = this.dispatchBottle(red, "red");
         etat = this.dispatchBottle(white, "white");
         etat = this.dispatchBottle(pink, "pink");
+
         if(etat){
             clickOnDrags = document.querySelectorAll('.draggable');
             for (const clickOnDrag of clickOnDrags) {
@@ -84,7 +88,9 @@ class WineCellar extends Component {
 
     componentDidUpdate (props, state){
         if(!this.state.isLoadedCellar){return null;}
-        if(this.state.addHandler === true){this.addBottlesToCellars(); this.setState({addHandler:false})}
+        if(this.state.addHandler === true){
+            this.addBottlesToCellars();
+            this.setState({addHandler:false})}
     }
 
     showModal = (e) =>{
@@ -101,12 +107,16 @@ class WineCellar extends Component {
     }
 
     closeModal = () => {
+
         this.setState({
             openModal:false
-        })
+        });
+
     }
+
     editBottle = (bottle) =>{
     }
+
     dispatchBottle = (elements, color) => {
         let etat = false;
         let title = "";
@@ -155,7 +165,7 @@ class WineCellar extends Component {
     }
 
 
-    dragEnter(e){
+    dragEnter =(e) =>{
         e.preventDefault();
         let reInitZoneDrop = document.querySelectorAll('.contentBottle');
         for(let content of reInitZoneDrop)
@@ -177,7 +187,7 @@ class WineCellar extends Component {
         event.dataTransfer.setData("text",event.target.id);
     }
 
-    dragDrop(e){
+    dragDrop = (e) => {
         e.preventDefault();
         e.stopPropagation();
         if(e.target.classList.contains("drop-zone")){
@@ -186,16 +196,46 @@ class WineCellar extends Component {
             let bottle = document.getElementById(id);
             if(bottle.getAttribute("datazone") === zoneColor){
                 e.target.append(document.getElementById(id));
-               // const bottle = this.searchBottles(document.getElementById(id).id.split('-')[1]);
+                const row = e.target.parentElement.parentElement.attributes.datalinebottle.value;
+                const column = e.target.attributes.databottle.value;
+                const findBottleById = document.getElementById(id).id.split('-')[1];
+                const bottle = this.searchBottles(findBottleById);
+                this.updateBottle(bottle,row,column);
                 e.target.classList.toggle("drop-zone");
+                this.setState({
+                    move:true
+                });
             }
         }
     }
 
+    updateBottle = (bottle,row,column) => {
+        let bottlesMove = this.state.bottlesMove.filter(bot => bot._id !== bottle._id );
+        bottle.location={
+            column:parseInt(column),
+            row:parseInt(row)
+        };
+        bottlesMove.push(bottle);
+         this.setState({
+             bottle:{...bottle},
+             bottlesMove
+        });
+    }
 
-    searchBottles = (id) =>{
-       const bottle = this.state.bottles.filter(bot => bot._id === id)[0];
-       return bottle;
+    validateMoveBottleInCellar = () => {
+        this.props.updateBottleToCellar(this.state.bottlesMove);
+        this.setState({
+            move:false
+        });
+    }
+    resetMoveBottleInCellar = () => {
+       const bottlesMove = [];
+        window.location.reload(false);
+    }
+
+    searchBottles = (id) => {
+        const bottle = this.state.bottles.filter(bot => bot._id === id)[0];
+        return bottle;
     }
     addCellar = (cellars, zones, bottles) => {
        let html="";
@@ -209,9 +249,9 @@ class WineCellar extends Component {
         const moreKey = 10;
         html = (
         <>
-                <h2>Cave: {cellar.name}</h2>
-                <h3>Nombre de bouteilles total : {this.state.totalBottles}</h3>
-                <section id={cellar.id} className="zoneCellars">
+                <h2 className='cellartitre'> {cellar.name}</h2>
+                <h3 className='cellarelement'>Nombre de bouteilles total : {this.state.totalBottles}</h3>
+                <section id={cellar.id} className="zoneCellars cellarelement">
                                 {zonesByCellar.map((elements) =><this.creatZoneCellars zoneElements={elements} index={elements.id}  key={elements.id+moreKey}/>)}
                 </section>
         </>);
@@ -219,6 +259,20 @@ class WineCellar extends Component {
        return (html);
     }
 
+    buttonValidateMoveBottle = () => {
+        let html="";
+       return  html = (<>
+            <div id="upMoveBottle">
+                <button className="btn-success"  onClick={this.validateMoveBottleInCellar}>
+                    Validez les déplacements
+                </button>
+                <button  className="dio-btn-danger" onClick={this.resetMoveBottleInCellar}>
+                   Annuler les déplacements
+                </button>
+            </div>
+
+        </>);
+    }
 
     creatZoneCellars = ({zoneElements, index}) =>{
         let color = zoneElements.color;
@@ -245,7 +299,8 @@ class WineCellar extends Component {
             const moreKey = 10;
             return (
                 <>
-                {this.addCellar(cellars, zones, bottles)}
+                    {this.addCellar(cellars, zones, bottles)}
+                    {this.state.move  && this.buttonValidateMoveBottle()}
                      <Modal showModal={this.state.openModal} closeModal={this.closeModal}>
                         <div className="modal-title" id={this.state.bottle.name}>
                             <h2>{this.state.bottle.name}</h2>
@@ -256,7 +311,7 @@ class WineCellar extends Component {
                                 <p>{this.state.bottle.year}</p>
                         </div>
                         <div className="modal-footer">
-                            <button className="button-modal-cellar" onClick={()=> this.editBottle(this.state.bottle)}>Modfier</button><button className="button-modal-cellar">Fermer</button>
+                            <button className="button-modal-cellar btn-outline-success" onClick={()=> this.editBottle(this.state.bottle)}>Modifier</button><button className="button-modal-cellar dio-btn-danger">Fermer</button>
                         </div>
                     </Modal>
                 </>
@@ -277,6 +332,11 @@ const mapStateToProps = (state)=>{
       ...state.bottlesCellarReducer
     }
 }
-export   default connect(mapStateToProps)(WineCellar);
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        updateBottleToCellar:(objBottles)=>dispatch(updateBottleToCellar(objBottles))
+    }
+}
+export   default connect(mapStateToProps,mapDispatchToProps)(WineCellar);
 
 
