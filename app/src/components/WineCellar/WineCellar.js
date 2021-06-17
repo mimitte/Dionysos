@@ -249,7 +249,7 @@ class WineCellar extends Component {
         const moreKey = 10;
         html = (
         <>
-                <h2 className='cellartitre'>Cave: {cellar.name}</h2>
+                <h2 className='cellartitre'> {cellar.name}</h2>
                 <h3 className='cellarelement'>Nombre de bouteilles total : {this.state.totalBottles}</h3>
                 <section id={cellar.id} className="zoneCellars cellarelement">
                                 {zonesByCellar.map((elements) =><this.creatZoneCellars zoneElements={elements} index={elements.id}  key={elements.id+moreKey}/>)}
