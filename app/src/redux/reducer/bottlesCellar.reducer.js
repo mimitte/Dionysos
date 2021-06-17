@@ -3,6 +3,7 @@ import { LIST_BOTTLES } from "../ListBottlesCellar/types";
 import { DELETE_BOTTLE } from "../deleteBottleCellar/types";
 import {creatFilterList} from "../../utils/filterBottles";
 import { LIST_ALL_ELEMENTS_OF_CELLARS} from "../getAllElements/types";
+import { UPDATE_BOTTLE_TO_CELLAR } from "../updateBottleToCellar/types";
 let initListBottle = {
     bouteilles: [],
     error:false,
@@ -50,6 +51,11 @@ export const bottlesCellarReducer =(state=initListBottle, action)=> {
                 ...state,
                 allCellarsWithZones: allCellarsWithZones,
                 isLoadedCellar: action.isLoadedCellar,
+            };
+        case UPDATE_BOTTLE_TO_CELLAR :
+            return {
+                ...state,
+                // bouteilles: state.bouteilles.filter(bouteille => bouteille._id !== action.payload)
             };
         default:
             return state;
