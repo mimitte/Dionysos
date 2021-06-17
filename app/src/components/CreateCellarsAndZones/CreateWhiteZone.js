@@ -40,7 +40,7 @@ class CreateWhiteZone extends React.Component {
             buttons: [
                 {
                 label: 'Oui',
-                onClick: () => this.props.prevStepLast()
+                onClick: () => this.props.prevStepLastToFirst()
                 }
             ]
         })

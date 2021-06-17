@@ -35,8 +35,8 @@ class CreateRedZone extends React.Component {
          // message alert pour confirmer que la cave a bien été créée, redirection création zone
         confirmAlert({
             
-            title:"Votre zone pour les vins Rosés a bien été créé.",
-            message:"Voulez-vous créer une zone pour les vins Blancs ?" ,
+            title:"Votre zone pour les vins Rouges a bien été créé.",
+            message:"Voulez-vous créer une zone pour les Rosés ?" ,
             buttons: [
                 {
                 label: 'Oui',
