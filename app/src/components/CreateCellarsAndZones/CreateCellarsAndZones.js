@@ -57,7 +57,7 @@ class CreateCellarsAndZones extends React.Component {
                         />
    
          if (step == 1) {
-             return html4 ;
+             return html1 ;
          }
          else if(step == 2){
              return html2 ;
