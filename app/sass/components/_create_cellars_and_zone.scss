@@ -22,7 +22,7 @@
     background-color:#b1962a !important;
     border-color:#b1962a !important;
 }
-#btnNextStep,#btnSubmit,#btnSubmitRed,#btnNextStep2,#btnPrevStep2{
+#btnNextStep,#btnSubmit,#btnSubmitRed,#btnNextStep2,#btnPrevStep2,#prevStep{
     background-color: $vin-rouge-couleur;
     border-color: $vin-rouge-couleur !important;
     color: whitesmoke;
@@ -32,10 +32,10 @@
     color: whitesmoke;
 
 }
-#btnPrev{
-    background-color: $vin-rouge-couleur;
+button.btnPrevStep{
+    background-color: $vin-rouge-couleur!important;
     border-color: $vin-rouge-couleur !important;
-    color: whitesmoke;
+    color: whitesmoke!important;
 }
 
 

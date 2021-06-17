@@ -123,7 +123,7 @@ class Dashboard extends React.Component {
 
     return (
       <>
-        <h2>Bienvenue sur Dionysos !</h2>
+        <h2 className="text-center mt-2">Bienvenue sur Dionysos !</h2>
         {/* <div hidden id="spinner"></div> */}
         <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
         <DashboardMenu/>

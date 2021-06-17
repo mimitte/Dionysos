@@ -114,7 +114,6 @@ class CreatePinkZone extends React.Component {
                         name="isCheckedPinkZone"
                         onChange={this.handleChange('isCheckedPinkZone')}
                         id="checkPinkWine"
-                        // required
                     />
                     <label className="form-check-label" htmlFor="checkPinkWine">
                         <p className="pinkZone fw-bolder">
@@ -127,10 +126,8 @@ class CreatePinkZone extends React.Component {
                     <input 
                         type="text" 
                         name="name" 
-
                         onChange={ this.handleChange('name') }
                         className="form-control"  
-                        required
                     />
                 </div>
                 <br />
@@ -156,18 +153,19 @@ class CreatePinkZone extends React.Component {
                     
                     <br />
                 <div className="btnWithStep">
-                    {/* <button  
-                    onClick= {this.back } 
-                    id="btnPrevStep2"
-                     className="form-control mt-2 mb-2 ">
-                        « Précédent
-                    </button> */}
                     <button 
                             type="submit"
                             id="btnSubmitPink" 
                             className="form-control mt-2 mb-2"
                     >
                          Créer ma zone 
+                    </button>
+                    <button  
+                           onClick= { this.props.prevStepthreeToOne } 
+                           id="prevStep"
+                           className="form-control mt-2 mb-2 "
+                    >
+                        Annuler
                     </button>  
                 </div>
                 
