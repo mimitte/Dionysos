@@ -5,6 +5,8 @@ import {creatFilterList} from "../../utils/filterBottles";
 import { LIST_ALL_ELEMENTS_OF_CELLARS} from "../getAllElements/types";
 import { UPDATE_BOTTLE_TO_CELLAR } from "../updateBottleToCellar/types";
 import { CREATE_CELLAR } from "../CreateCellarsAndZones/type"
+import { ADD_BOTTLE } from "../addBottleCellar/type";
+
 let initListBottle = {
     bouteilles: [],
     error:false,
@@ -67,6 +69,18 @@ export const bottlesCellarReducer =(state=initListBottle, action)=> {
             return {
                 ...state,
                 allCellarsWithZones:allCellarsWithZonesTemp,
+            }
+        case ADD_BOTTLE:
+            const { newBottle , idZone } = action.payload;
+            bouteilles.push(newBottle);
+            // on met la bouteille parmi les bouteilles
+            const zonesTemp = {...state.allCellarsWithZones.zones};
+            const zoneFiltree = zonesTemp.filter(zone=>zone.id == idZone).push(newBottle);
+            allCellarsWithZones.zones.push(zoneFiltree);
+            return{
+                ...state,
+                allCellarsWithZones,
+                bouteilles
             }
         default:
             return state;

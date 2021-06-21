@@ -14,6 +14,7 @@ class NewBottle extends React.Component {
           name: "",
           year: 0,
           color: "",
+          note:"",
           // zone: "",
           user: localStorage.getItem('userId'),
           location: {
@@ -21,7 +22,7 @@ class NewBottle extends React.Component {
             row: 0,
           }
       },
-      cellar:"",
+      zone:"",
       isLoadedCellar:false
     }
     
@@ -39,7 +40,8 @@ class NewBottle extends React.Component {
     event.preventDefault();
     // console.log("saisie user", this.state);
     const formState = this.state.newBottle;
-    this.props.addBottle(formState);
+    console.log(this.state.zone);
+    this.props.addBottle(formState, this.state.zone);
     // vider le champ après la saisie
     this.setState = {
       newBottle:{
@@ -48,6 +50,7 @@ class NewBottle extends React.Component {
         name: "",
         year: 0,
         color: "",
+        note:"test",
         location: {
           column: 7,
           row: 0,
@@ -61,20 +64,23 @@ class NewBottle extends React.Component {
     // console.log("all elements",this.props);
     const { cellars } = allCellarsWithZones;
     // console.log(cellars); 
+    console.log(localStorage.getItem('userId'));
     if (this.state.isLoadedCellar) {
       return(
         <div className="new-bottle-container">
           <h2>Nouvelle bouteille</h2>
-  
+
           <form className="dio-form" onSubmit={ this.onSubmitHandler } >
             <div>
               <label htmlFor="country">
                   Pays :
               </label>
+              
               <input type="text" name="country" value={ this.state.country } required
                   onChange={ (event) => {
-                      this.setState({ country: event.target.value});
-  
+                      const newBottle = this.state.newBottle;
+                      newBottle.country = event.target.value;
+                      this.setState({ newBottle});
                   }} />
             </div>
             <div>
@@ -83,8 +89,9 @@ class NewBottle extends React.Component {
               </label>
               <input type="text" name="region" value={ this.state.region } required
                   onChange={ (event) => {
-                      this.setState({ region: event.target.value});
-  
+                    const newBottle = this.state.newBottle;
+                    newBottle.region = event.target.value;
+                    this.setState({newBottle});
                   }} />
             </div>
             <div>
@@ -92,10 +99,12 @@ class NewBottle extends React.Component {
                   Nom :
               </label>
               <input type="text" name="name" value={ this.state.name } required
-                  onChange={ (event) => {
-                      this.setState({ name: event.target.value});
-  
-                  }} />
+                onChange={ (event) => {
+                  const newBottle = this.state.newBottle;
+                  newBottle.name = event.target.value;
+                  this.setState({newBottle});
+                }}
+                   />
             </div>
             <div>
               <label htmlFor="year">
@@ -103,16 +112,18 @@ class NewBottle extends React.Component {
               </label>
               <input type="number" name="year" value={ this.state.year } required
                   onChange={ (event) => {
-                      this.setState({ year: event.target.value});
-  
+                    const newBottle = this.state.newBottle;
+                    newBottle.year= event.target.value;
+                    this.setState({newBottle});
                   }} />
             </div>
             <div>
               <label htmlFor="color">Couleur</label>
               <select name="color" id="color" value={ this.state.color } required
                   onChange={ (event) => {
-                      this.setState({ color: event.target.value});
-  
+                    const newBottle = this.state.newBottle;
+                    newBottle.color = event.target.value;
+                    this.setState({newBottle});
                   }} >
                   <option value=""></option>
                   <option value="rouge">Rouge</option>
@@ -121,24 +132,34 @@ class NewBottle extends React.Component {
               </select>
             </div>
             <div className="form-group mb-3">
-                      <label>Sélectionnez une cave</label>
-                      <select
-                          onChange={ this.onSubmitHandler } 
-                          value={this.state.cellar} 
-                          className="form-control"
+              <label for="cellar-select">Sélectionnez une cave</label>
+              <select
+                  id="cellar-select"
+                  value={this.state.zone} 
+                  onChange={ (event) => {
+                    this.setState({ zone: event.target.value})}}
+                  className="form-control"
+              >
+                    {
+                      cellars.reverse().map((cellar,index)=> 
+                      <optgroup 
+                          label={cellar.name} 
+                          key={index}
+                          name="cellar"
+                          // value={cellar._id}
                       >
-                           {
-                              cellars.reverse().map((cellar,index)=> 
-                              <option 
-                                  key={index}
-                                  name="cellar"
-                                  value={cellar._id}
-                              >
-                                      {cellar.name}
-                              </option>)
-                          } 
-                      </select>
-                   </div>
+                        {
+                          cellar.zones.reverse().map((zone,index)=>
+                          <option 
+                              key={ index }
+                              value={zone._id}>
+                              {zone.name}
+                          </option>  )
+                        }    
+                      </optgroup>)
+                  } 
+              </select>
+            </div>
             <input className="dio-btn dio-btn-success" type="submit" value="Créer" />
           </form>
         </div>

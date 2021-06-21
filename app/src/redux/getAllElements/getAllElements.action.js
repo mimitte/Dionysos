@@ -27,19 +27,21 @@ export const getAllElements = () => {
             {
               const {_id, description, name, zones, ...rest } = cellar;
               if(zones.length > 0){
-                data.cellars.push({id:_id,description:description,name: name});
+                data.cellars.push({id:_id,description:description,name: name, zones:zones});
                 let idCellar = _id;
                 for (const zone of zones)
                 {
+
                   const {_id, color, name, columns, rows, bottles, ...rest } = zone;
-                  data.zones.push({id:_id,color:color,name: name, columns:columns, rows:rows, idCellar:idCellar  });
+                  data.zones.push({id:_id,color:color,name: name, columns:columns, rows:rows, idCellar:idCellar,bottles:bottles  });
+                  let idZone = _id;
                   for (const bottle of bottles){
-                    data.bottles.push(bottle );
+                    const {_id, color, name, location, country, region, years } = bottle;
+                    data.bottles.push({_id:_id, color:color, name:name, location:location, country:country, region:region, years:years, idZone:idZone} );
                   }
                 }
               }
             }
-            console.log("DATA",data);
             dispatch({
               type: LIST_ALL_ELEMENTS_OF_CELLARS,
               payload: data,

@@ -15,7 +15,7 @@ export const createZoneAction =(zoneObj)=>{
             user: idUser 
         }
    }
-   console.log("body", body);
+//    console.log("body", body);
 
     // FETCH
     return(dispatch=>{
