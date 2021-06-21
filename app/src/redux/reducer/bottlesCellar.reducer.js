@@ -4,6 +4,7 @@ import { DELETE_BOTTLE } from "../deleteBottleCellar/types";
 import {creatFilterList} from "../../utils/filterBottles";
 import { LIST_ALL_ELEMENTS_OF_CELLARS} from "../getAllElements/types";
 import { UPDATE_BOTTLE_TO_CELLAR } from "../updateBottleToCellar/types";
+import { CREATE_CELLAR } from "../CreateCellarsAndZones/type"
 let initListBottle = {
     bouteilles: [],
     error:false,
@@ -47,6 +48,7 @@ export const bottlesCellarReducer =(state=initListBottle, action)=> {
             };
         case LIST_ALL_ELEMENTS_OF_CELLARS :
             const allCellarsWithZones = action.payload;
+            console.log("LIST_ALL_ELEMENTS_OF_CELLARS",allCellarsWithZones);
             return {
                 ...state,
                 allCellarsWithZones: allCellarsWithZones,
@@ -57,6 +59,15 @@ export const bottlesCellarReducer =(state=initListBottle, action)=> {
                 ...state,
                 // bouteilles: state.bouteilles.filter(bouteille => bouteille._id !== action.payload)
             };
+        case CREATE_CELLAR:
+            // console.log(state.allCellarsWithZones);
+            const allCellarsWithZonesTemp = { ...state.allCellarsWithZones };
+            // console.log("cellars ds bottlereducer",allCellarsWithZonesTemp);
+             allCellarsWithZonesTemp.cellars.push(action.payload);
+            return {
+                ...state,
+                allCellarsWithZones:allCellarsWithZonesTemp,
+            }
         default:
             return state;
     }
