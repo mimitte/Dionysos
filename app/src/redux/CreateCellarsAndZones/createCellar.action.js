@@ -13,6 +13,8 @@ export const createCellar =(cellarObj)=>{
         })
        .then(response=>response.json())
        .then(data=>{
+           // supprimer une propriété d'un objet
+        //    delete data.user;
             dispatch({
                 type:CREATE_CELLAR,
                 payload:data

@@ -39,6 +39,7 @@ export const getAllElements = () => {
                 }
               }
             }
+            console.log("DATA",data);
             dispatch({
               type: LIST_ALL_ELEMENTS_OF_CELLARS,
               payload: data,
