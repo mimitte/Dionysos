@@ -1,10 +1,7 @@
 import { ADD_BOTTLE } from './type';
 export const addBottle =(bottleObj,zone)=>{
-    console.log("bottleObj + idZone",bottleObj, zone);
-    let body = {
-        zone:zone,
-        bottle:bottleObj
-    }
+    // déclarer une propriété zone dans bottleObj
+    bottleObj.zone= zone;
     // FETCH
     return(dispatch=>{
 
@@ -12,7 +9,7 @@ export const addBottle =(bottleObj,zone)=>{
             method:"POST",
             // cela indique au server de l'api que le corps de la requête est en json
             headers:{"Content-Type": "application/json"} ,
-            body: JSON.stringify(body)
+            body: JSON.stringify(bottleObj)
         })
        .then(response=>response.json())
        .then(data=>{

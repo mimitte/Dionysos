@@ -18,6 +18,7 @@ let BottleController = {
     res.json(found);
   },
   create: async (req, res) => {
+    // console.log(req.body);
     delete req.body._id;
     let zoneId = req.body.zone;
     let location = req.body.location;
@@ -35,18 +36,23 @@ let BottleController = {
       ZoneModel
         .findOne({ _id: zoneId })
         .exec((err, zone) => {
-          if (err) res.status(500).json({ err });
+          if (err) zone.status(500).json({ err });
           let bottles = zone.bottles ? zone.bottles : [];
           bottles.push(newBottleId);
           ZoneModel
             .updateOne({ _id: zoneId }, { bottles: bottles })
             .exec((err, zone) => {
-              if (err) res.status(500).json({ err })
-              res.status(201).json(newBottle);
+              if (err){
+                return res.status(500).json({ err });
+              } 
+              // res.status(201).json(newBottle);
             });
         });
     }
-    res.status(201).json(newBottle);
+    if (zone) {
+      res.status(201).json(newBottle);
+    }
+    // res.status(201).json(newBottle);
   },
   edit: async (req, res) => {
     await BottleModel.updateOne({ _id: req.params.id }, { $set: { ...req.body } });

@@ -14,7 +14,7 @@ class NewBottle extends React.Component {
           name: "",
           year: 0,
           color: "",
-          note:"",
+          note:"test",
           // zone: "",
           user: localStorage.getItem('userId'),
           location: {
@@ -40,7 +40,7 @@ class NewBottle extends React.Component {
     event.preventDefault();
     // console.log("saisie user", this.state);
     const formState = this.state.newBottle;
-    console.log(this.state.zone);
+    // console.log(this.state.zone);
     this.props.addBottle(formState, this.state.zone);
     // vider le champ après la saisie
     this.setState = {
@@ -64,7 +64,7 @@ class NewBottle extends React.Component {
     // console.log("all elements",this.props);
     const { cellars } = allCellarsWithZones;
     // console.log(cellars); 
-    console.log(localStorage.getItem('userId'));
+  
     if (this.state.isLoadedCellar) {
       return(
         <div className="new-bottle-container">
@@ -132,7 +132,7 @@ class NewBottle extends React.Component {
               </select>
             </div>
             <div className="form-group mb-3">
-              <label for="cellar-select">Sélectionnez une cave</label>
+              <label htmlFor="cellar-select">Sélectionnez une cave</label>
               <select
                   id="cellar-select"
                   value={this.state.zone} 
