@@ -18,7 +18,6 @@ export const getAllBottles =()=>{
           .then(response => response.json())
           .then(
             (result) => {
-              console.log("ttes bottles",result);
               dispatch({
                 type: LIST_BOTTLES,
                 payload: result,
