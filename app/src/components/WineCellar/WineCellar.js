@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import ReactDOM from "react-dom";
 import { connect } from 'react-redux';
-import ShowCellar from './ShowCellar';
+import ShowZonesCellar from './ShowZonesCellar';
+import ShowBottlesInZonesCellars from './ShowBottlesInZonesCellars';
 import Modal from '../Modal/modal';
 import spinner from '../../utils/spinner';
 import { updateBottleToCellar } from '../../redux/updateBottleToCellar/updateBottleToCellar';
@@ -9,17 +11,18 @@ class WineCellar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            totalBottles: 0,
+            totalBottles: [],
             allCellarsWithZones:{},
             bottles: {},
-            zones:{},
-            isLoadedCellar:false,
-            showBottles:false,
-            move:false,
-            openModal:false,
-            addHandler:false,
-            bottlesMove :[],
-            bottle :{
+            zones: {},
+            cellars: {},
+            isLoadedCellar: false,
+            showBottles: false,
+            move: false,
+            openModal: false,
+            addHandler: false,
+            bottlesMove: [],
+            bottle: {
                 "__v": 0,
                 "​​color":'',
                 "country":'',
@@ -30,7 +33,8 @@ class WineCellar extends Component {
                 "name": "",
                 "region": "",
                 "year": 0
-            }
+            },
+            arrayTargetLocation: []
         }
     }
 
@@ -39,6 +43,7 @@ class WineCellar extends Component {
         if(props.allCellarsWithZones !== state.allCellarsWithZones){
             return {
                 allCellarsWithZones:props.allCellarsWithZones,
+                cellars:props.allCellarsWithZones.cellars,
                 bottles:props.allCellarsWithZones.bottles,
                 zones:props.allCellarsWithZones.zones,
                 isLoadedCellar: props.isLoadedCellar,
@@ -55,36 +60,59 @@ class WineCellar extends Component {
     }
 
     addBottlesToCellars = () => {
-        const bottlesDIV = document.querySelectorAll('.draggable');
-        if(bottlesDIV.length > 0){
-            for(const bottle of bottlesDIV){
-                bottle.parentElement.removeChild(bottle);
-            }
-        }
-        let clickOnDrags ="";
-        let red = "",white="",pink="",etat=false;
-        let totalBottles = 0;
-        totalBottles +=  this.state.bottles.length ;
+        const totalBottles = [];
+        for(const cellar of this.state.cellars){
+            let totalBottlesInCellar = 0;
+            totalBottles["total"] = 0;
+            totalBottles[cellar.id] = 0;
+            for (const zone of this.state.zones) {
+                if(zone.idCellar === cellar.id){
+                    totalBottlesInCellar += zone.bottles.length;
+                    if(zone.color === 'red'){
+                        this.dispatchBottle(zone.bottles, "red");
+                    }
+                    if(zone.color === 'white'){
+                        this.dispatchBottle(zone.bottles, "white");
+                    }
+                    if(zone.color === 'pink'){
+                        this.dispatchBottle(zone.bottles, "pink");
+                    }
 
+                }
+            }
+            totalBottles[cellar.id] += totalBottlesInCellar;
+            totalBottles["total"] += totalBottlesInCellar;
+        }
+        console.log(totalBottles);
         this.setState({
-            totalBottles: totalBottles
-        })
-
-        red = this.state.bottles.filter( redBottle => redBottle.color ==="red" );
-        white = this.state.bottles.filter( whiteBottle => whiteBottle.color ==="white" );
-        pink = this.state.bottles.filter( pinkBottle => pinkBottle.color ==="pink");
-        etat = this.dispatchBottle(red, "red");
-        etat = this.dispatchBottle(white, "white");
-        etat = this.dispatchBottle(pink, "pink");
-
-        if(etat){
-            clickOnDrags = document.querySelectorAll('.draggable');
-            for (const clickOnDrag of clickOnDrags) {
-                clickOnDrag.addEventListener('click',this.showModal);
-            }
-
-        }
+            totalBottles
+        });
     }
+
+    dispatchBottle = (bottles, color) => {
+        let arrayTargetLocation = this.state.arrayTargetLocation;
+        let bottleDispach =  bottles.map((bottle) => {
+            const divBottle = this.creatBottlesZonesCellars(bottle,color);
+            const rowBottle = bottle["location"].row;
+            const columnBottle = bottle["location"].column;
+            const element = document.querySelector("[datazone='" + color + "'] [datalinebottle='" + rowBottle + "'] [databottle='" + columnBottle + "']");
+            element.classList.remove("drop-zone");
+            arrayTargetLocation.push({"child":divBottle,"container":element});
+        });
+        this.setState({
+            arrayTargetLocation,
+            showBottles: true
+        });
+    }
+
+
+    creatBottlesZonesCellars = (bottle, color) => {
+        return (
+            <ShowBottlesInZonesCellars color={color} bottle={bottle}
+             key={bottle._id + bottle._id}   dragstart={this.dragStart} showModal={this.showModal}/>
+        )
+    }
+
 
     componentDidUpdate (props, state){
         if(!this.state.isLoadedCellar){return null;}
@@ -95,7 +123,7 @@ class WineCellar extends Component {
 
     showModal = (e) =>{
         e.preventDefault();
-        const  {allCellarsWithZones} = this.props;
+        const  {allCellarsWithZones} = this.state;
         const {bottles} = allCellarsWithZones;
         let bottle = {};
         let id = e.target.id.split("-")[1];
@@ -117,44 +145,6 @@ class WineCellar extends Component {
     editBottle = (bottle) =>{
     }
 
-    dispatchBottle = (elements, color) => {
-        let etat = false;
-        let title = "";
-        let loc ="";
-        loc = elements.map((bottle) => {
-            title = `${bottle.name}
-                    ${bottle.year}`;
-            const rowBottle = bottle["location"].row;
-            const columnBottle = bottle["location"].column;
-            const element = document.querySelector("[datazone='" + color + "'] [datalinebottle='" + rowBottle + "'] [databottle='" + columnBottle + "']");
-            const drag = document.createElement("div");
-            drag.classList.add("draggable-" + color);
-            drag.classList.add("draggable");
-            drag.setAttribute("aria-label",`${title}`);
-            drag.setAttribute("draggable","true");
-            drag.setAttribute("id","draggable-" + bottle._id);
-            drag.setAttribute("datazone",color);
-            element.append(drag);
-            drag.addEventListener('dragstart',this.dragStart);
-            drag.addEventListener('onmove',this.moveBottle);
-            element.classList.remove("drop-zone");
-            return null;
-        });
-
-        if(loc){
-            let containers = document.querySelectorAll('.column-zone');
-            let zoneCellars = document.querySelector('.zoneCellars');
-            zoneCellars.addEventListener('onchange',this.moveBottle);
-            for (const container of containers) {
-                container.addEventListener('dragover',this.dragOver);
-                container.addEventListener('dragenter',this.dragEnter);
-                container.addEventListener('dragleave',this.dragLeave);
-                container.addEventListener('drop',this.dragDrop);
-            }
-            etat = true;
-        }
-        return etat;
-    }
 
     moveBottle = () =>{
     }
@@ -167,13 +157,6 @@ class WineCellar extends Component {
 
     dragEnter =(e) =>{
         e.preventDefault();
-        let reInitZoneDrop = document.querySelectorAll('.contentBottle');
-        for(let content of reInitZoneDrop)
-        {
-            if(!content.classList.contains("drop-zone") && !content.hasChildNodes()){
-                content.classList.toggle("drop-zone");
-            }
-        }
     }
 
 
@@ -185,26 +168,45 @@ class WineCellar extends Component {
     dragStart=(event) =>{
         event.stopPropagation();
         event.dataTransfer.setData("text",event.target.id);
+        event.target.removeAttribute("aria-label");
     }
 
     dragDrop = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        let arrayTargetLocation = [];
         if(e.target.classList.contains("drop-zone")){
             let zoneColor =  e.target.getAttribute("datazone");
             const id = e.dataTransfer.getData('text');
             let bottle = document.getElementById(id);
-            if(bottle.getAttribute("datazone") === zoneColor){
-                e.target.append(document.getElementById(id));
+
+            if(bottle.getAttribute("datazone") === zoneColor && bottle != null){
+                //e.target.append(document.getElementById(id));
+
                 const row = e.target.parentElement.parentElement.attributes.datalinebottle.value;
                 const column = e.target.attributes.databottle.value;
                 const findBottleById = document.getElementById(id).id.split('-')[1];
-                const bottle = this.searchBottles(findBottleById);
-                this.updateBottle(bottle,row,column);
-                e.target.classList.toggle("drop-zone");
+                const newLocation = this.state.arrayTargetLocation.filter(element => element.child.props.bottle._id ===findBottleById )[0];
+                const arrayTargetLocation =  this.state.arrayTargetLocation.filter(element => element.child.props.bottle._id !==findBottleById );
+                const bottleFind = this.searchBottles(findBottleById);
+
+                this.updateBottle(bottleFind,row,column);
+                newLocation.container =  e.target;
+                arrayTargetLocation.push(newLocation);
+                e.target.classList.remove("drop-zone");
+
                 this.setState({
-                    move:true
+                    move:true,
+                    arrayTargetLocation
                 });
+            }
+        }
+
+        let reInitZoneDrop = document.querySelectorAll('.contentBottle');
+        for(let content of reInitZoneDrop)
+        {
+            if(!content.classList.contains("drop-zone") && !content.hasChildNodes()){
+                content.classList.toggle("drop-zone");
             }
         }
     }
@@ -237,7 +239,7 @@ class WineCellar extends Component {
         const bottle = this.state.bottles.filter(bot => bot._id === id)[0];
         return bottle;
     }
-    addCellar = (cellars, zones, bottles) => {
+    addCellar = (cellars, zones) => {
        let html="";
        let zonesByCellar = [];
        for (const cellar of cellars){
@@ -250,7 +252,7 @@ class WineCellar extends Component {
         html = (
         <>
                 <h2 className='cellartitre'> {cellar.name}</h2>
-                <h3 className='cellarelement'>Nombre de bouteilles total : {this.state.totalBottles}</h3>
+                <h3 className='cellarelement'>Nombre de bouteilles dans la cave : {this.state.totalBottles[cellar.id]}</h3>
                 <section id={cellar.id} className="zoneCellars cellarelement">
                                 {zonesByCellar.map((elements) =><this.creatZoneCellars zoneElements={elements} index={elements.id}  key={elements.id+moreKey}/>)}
                 </section>
@@ -270,7 +272,6 @@ class WineCellar extends Component {
                    Annuler les déplacements
                 </button>
             </div>
-
         </>);
     }
 
@@ -282,7 +283,10 @@ class WineCellar extends Component {
                 <div className="wine-zone">
                     <h3>Emplacement vin {titleColor} </h3>
                     <div className="zone" datazone={color} >
-                        <ShowCellar zone={color} index={zoneElements.id + index} columns={zoneElements.columns} rows={zoneElements.rows} key={zoneElements._id +index}/>
+                        <ShowZonesCellar zoneElements={zoneElements} zone={color} index={zoneElements.id + index}
+                        columns={zoneElements.columns} rows={zoneElements.rows}
+                        key={zoneElements._id +index} dragover={this.dragOver}
+                        dragenter={this.dragEnter} dragleave={this.dragLeave} drop={this.dragDrop} addBottlesToCellars={this.addBottlesToCellars}/>
                     </div>
                 </div>
             </>
@@ -292,14 +296,15 @@ class WineCellar extends Component {
     render() {
         let allCellarsWithZones = {};
         {
-            allCellarsWithZones= this.props.allCellarsWithZones
+            allCellarsWithZones= this.state.allCellarsWithZones
         };
-        const {cellars,zones, bottles } = allCellarsWithZones;
+        const {cellars,zones} = allCellarsWithZones;
         if(this.state.isLoadedCellar){
             const moreKey = 10;
             return (
                 <>
-                    {this.addCellar(cellars, zones, bottles)}
+                    {this.addCellar(cellars, zones)}
+                    {this.state.showBottles && this.state.arrayTargetLocation.map(div => ReactDOM.createPortal(div.child,div.container))}
                     {this.state.move  && this.buttonValidateMoveBottle()}
                      <Modal showModal={this.state.openModal} closeModal={this.closeModal}>
                         <div className="modal-title" id={this.state.bottle.name}>

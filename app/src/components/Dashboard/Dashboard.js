@@ -6,7 +6,7 @@ import filterColorbottles from '../../utils/filterColorBottles';
 import DashboardMenu from '../DashboardMenu/DashboardMenu';
 import spinner from '../../utils/spinner';
 am4core.useTheme(am4themes_animated);
-
+const userId = localStorage.getItem("userId");
 class Dashboard extends React.Component {
 
   constructor(props) {
@@ -19,9 +19,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount(){
-    //const spinner = document.getElementById("spinner");
-    //spinner.removeAttribute('hidden');
-    fetch("http://localhost:5000/api/bottle?")
+    fetch("http://localhost:5000/api/bottle/")
       .then(response => response.json())
         .then(
           (bouteilles) => {
@@ -31,9 +29,7 @@ class Dashboard extends React.Component {
           const colorRouge ="#ac1e44";
           const colorRose = "#ffe6ff";
           const colorBlanc = "#fff0b3";
-          // appel à la fonction filterColorbottles qui contient les méthodes pour filtrer les bouteilles par couleurs les bouteilles 
           const {red, white,pink} = filterColorbottles(bouteilles);
-          //spinner.setAttribute('hidden','');
           let data = [{
               "country": "Vin rouge",
               "disabled": true,
@@ -121,16 +117,20 @@ class Dashboard extends React.Component {
     }
   render() {
 
+    if(this.state.isLoaded){
+      return (
+        <>
+          <h2 className="text-center mt-2">Bienvenue sur Dionysos !</h2>
+          <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
+          <DashboardMenu/>
+        </>
+      );
+    }
     return (
       <>
-        <h2 className="text-center mt-2">Bienvenue sur Dionysos !</h2>
-        {/* <div hidden id="spinner"></div> */}
-        <div id="chartdiv" style={{ width: "100%", height: "500px" }}></div>
-        <DashboardMenu/>
-        {spinner(this.state.isLoaded)}
-        {/* <this.spinner/> */}
+      {spinner(this.state.isLoaded)}
       </>
-    );
+    )
   }
 }
 
