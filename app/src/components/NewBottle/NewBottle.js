@@ -23,7 +23,10 @@ class NewBottle extends React.Component {
           }
       },
       zone:"",
-      isLoadedCellar:false
+      zones:[],
+      rowsOfSelectedZone:null,
+      isLoadedCellar:false,
+      arrayLocation:[]
     }
     
   }
@@ -31,8 +34,11 @@ class NewBottle extends React.Component {
   // ça permet au spinner de s'afficher le temps de chargement des données
   static getDerivedStateFromProps =(props,state)=>{
 
-    if (props.isLoadedCellar !== state.isLoadedCellar) {
-      return { isLoadedCellar : props.isLoadedCellar}
+    if (props.isLoadedCellar !== state.isLoadedCellar ) {
+      return { 
+                isLoadedCellar : props.isLoadedCellar,
+                zones:props.allCellarsWithZones.zones
+              }
     }
     return null;
   }
@@ -59,12 +65,38 @@ class NewBottle extends React.Component {
     }
   }
 
+  getRowsZone = (zoneId) =>{
+    if (zoneId) {
+        console.log(zoneId);
+        const zone = this.state.zones.filter(zone=>zone.id == zoneId );
+        console.log("row de la zone selectionnée", zone[0].rows);
+        return zone[0].rows;
+    }
+    return null;
+        
+  }
+  createBottleLocation = ()=>{
+    let html = [];
+    if (this.state.rowsOfSelectedZone !== null) {
+      for(let i = 1; i<= this.state.rowsOfSelectedZone; i++){
+         for (let j = 0; j <=7; j++) {
+          html.push(<input className="form-check-input " type="radio" name="location"/>) 
+         } 
+        }
+      }
+      return ( <> {html} </>);
+  }
+    
+  
   render() {
     const { allCellarsWithZones } = this.props;
-    // console.log("all elements",this.props);
+    console.log("all elements",this.props);
     const { cellars } = allCellarsWithZones;
-    // console.log(cellars); 
-  
+    // console.log(cellars);
+    const zoneId = (this.state.zone);
+    // const rows = this.getRowsZone(zoneId);
+    // console.log("nombre de rows de la zone",rows);
+ 
     if (this.state.isLoadedCellar) {
       return(
         <div className="new-bottle-container">
@@ -132,12 +164,15 @@ class NewBottle extends React.Component {
               </select>
             </div>
             <div className="form-group mb-3">
-              <label htmlFor="cellar-select">Sélectionnez une cave</label>
+              <label htmlFor="cellar-select">Sélectionnez une cave et une zone</label>
               <select
                   id="cellar-select"
                   value={this.state.zone} 
                   onChange={ (event) => {
-                    this.setState({ zone: event.target.value})}}
+                    this.setState({ zone: event.target.value,
+                      rowsOfSelectedZone: this.getRowsZone(event.target.value)
+                     });
+                  }}
                   className="form-control"
               >
                     {
@@ -152,7 +187,8 @@ class NewBottle extends React.Component {
                           cellar.zones.reverse().map((zone,index)=>
                           <option 
                               key={ index }
-                              value={zone._id}>
+                              value={zone._id}
+                          >
                               {zone.name}
                           </option>  )
                         }    
@@ -160,6 +196,16 @@ class NewBottle extends React.Component {
                   } 
               </select>
             </div>
+            <h5>Sélectionner la localisation de votre bouteille (row /column) </h5>
+            <div className="form-check">
+              <div className="d-flex" style={{width:"100px"}}>
+                <label htmlFor="location">1</label>
+              { 
+                  this.createBottleLocation()
+               }
+              </div>
+              
+            </div>    
             <input className="dio-btn dio-btn-success" type="submit" value="Créer" />
           </form>
         </div>
@@ -175,9 +221,6 @@ class NewBottle extends React.Component {
     }
   }
 }
-
-// export default connect(null, { addBottle })(NewBottle);
-
 
 const mapStateToProps = (state)=>{
   return {

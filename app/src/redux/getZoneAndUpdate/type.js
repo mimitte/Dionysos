@@ -1,0 +1,1 @@
+export const ZONE_OF_BOTTLE = "ZONE_OF_BOTTLE";
